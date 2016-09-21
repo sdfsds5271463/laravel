@@ -1,0 +1,244 @@
+/*用的色系*/
+/*
+f2f0eb 表單淺棕灰
+777777 選單文字&h1標題灰
+333333 選單hover深灰
+999999 一般文字淺灰
+DDDDDD 虛線淺淺灰
+3399DD 內頁連結藍
+*/
+
+
+/*整體架構*/
+body{
+	font: 14px '微軟正黑體';
+	color:#999999;
+	background-image: linear-gradient(to bottom,rgba(0,0,0,.5) 290px,rgba(0,0,0,.0001) 312px);
+	background-repeat: no-repeat; /*選單陰影*/
+}
+a, a:hover, a:visited, a:active, a:link {
+	text-decoration: none;
+}
+a:hover {
+	color: #777777;
+}
+header>.container,.navbar,main{
+	margin: 0 auto;
+}
+#top-bar{ /*置頂箭頭*/
+	width:40px;
+	height:40px;
+	background:#f2f0eb;
+	position:fixed;
+	bottom:-65px;
+	right: 5px;
+	-webkit-box-shadow: 0px 0px 10px #333; /*陰影*/
+	-moz-box-shadow: 0px 0px 10px #333;
+	box-shadow: 0px 0px 10px #333;	
+	z-index: 999; 
+	border-radius: 5px;
+	border: solid 1px #DDDDDD;
+	text-align: center;
+}
+.ui-dialog{ /*原碼彈跳窗*/
+	margin: 50px 5%;
+}
+
+/*header&nav樣式*/
+header{
+	background-color: #d4c9b5;
+	background-image: linear-gradient(to top,rgba(0,0,0,.3) 0%,rgba(0,0,0,.0001) 100%);
+}
+header .col-sm-12{
+	height: 250px; /*LOGO*/
+	background: url('../images/top_background_a.png') 20% no-repeat;
+}
+.thanks{
+	color: #FFFFFF;
+	position:absolute;
+	bottom:5px;
+	right:15px;
+	font-size: 85%;
+	text-shadow: 1px 1px 5px #000000, 1px 1px 5px #000000;
+}
+.thanks a{
+	color: #FFFFFF;
+	font-weight: 900;
+}
+.thanks a:hover{
+	color: #DDDDDD;
+}
+.search{
+	margin: 8px 0 0 0;
+	float: right;
+	text-align: right;
+	color: #666666;
+	text-shadow:  1px 1px 0px #FFFFFF, 0px 1px 0px #FFFFFF, 1px 0px 0px #FFFFFF, -1px -1px 0px #FFFFFF,
+				 -1px 0px 0px #FFFFFF, 0px -1px 0px #FFFFFF, 1px -1px 0px #FFFFFF, -1px 1px 0px #FFFFFF;
+				 /*傳說中的團結力量大，去吧陰影外框！*/
+}
+.search a,nav a,.search a:visited,nav a:visited,.search a:link,nav a:link{
+	color:#666666;
+	text-decoration: none;
+}
+.search a:hover,nav a:hover,.search a:active,nav a:active,.search a:link,nav a:link{
+	color:#111111;
+	text-decoration: none;
+}
+.search_input,.search_button{
+	border-radius: 5px;
+	border: solid 1px #999999;
+	margin: 0 0 6px 0;
+}
+.smallWord{
+	font-size: 50%;
+}
+
+
+/*選單樣式*/
+nav{
+	border: solid 1px #DDDDDD;
+}
+nav,.navbar-default{
+	background: #f2f0eb;
+}
+.navbar-nav>li{
+	border-left: dashed 1px #DDDDDD; /*選單虛線*/
+}
+.navbar {
+	border: none;
+}
+
+
+/*main樣式*/
+main>.container>.row>.col-sm-3{
+	border-left: dashed 1px #DDDDDD; /*主副視窗虛線*/
+}
+main>.container>.row>.col-sm-9,main>.container>.row>.col-sm-3{
+	padding: 0px 15px 15px 15px;
+}
+main h1 {
+	font-size:200%;
+	color:#666666;
+	border-bottom:1px dashed #DDDDDD;
+	margin-top: 0px;
+	padding-top: 25px;
+}
+main .col-sm-9, main .col-sm-3{
+	word-break: break-all;
+
+}
+main h1 {
+	clear: both;
+	background:url('../images/h1_bg.png') top right 10% no-repeat;
+}
+main>.container>.row>.col-sm-3 h1 {
+	background-image: none;
+	text-align: right;
+	width: 100%;
+}
+main p{
+	text-indent:28px;
+}
+.menu{
+	text-align: right;
+}
+.menu p{
+	text-indent:28px;
+	text-align: left;
+}
+.menu a { /*側欄連結列表*/
+	display: block;
+	color:#3399DD;
+	background: url(../images/a.jpg) right no-repeat;
+	width: 100%;
+	padding: 0 10px;
+	line-height:18px;
+}
+.menu a:hover {
+	color:#666666;
+	background-image:url(../images/a_hover.jpg);
+}
+
+
+	/*聊天室樣式*/
+	#chatStateBar{ /*主板*/
+		height: 400px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		border: solid 1px #999999;
+		border-radius: 5px;
+		background-color: #FAFAFA;
+		padding: 8px;
+		margin-bottom: 6px;
+	}
+	.chatInputRow{ /*下方輸入列*/
+		padding: 0px;
+	}
+	#speaker, #chatContent{
+		width: calc(100% - 100px );
+	}
+	#speaker, #chatContent, #chatSubmit, #chatColor{
+		height: 24px;
+		border-radius: 5px;
+		border: solid 1px #999999;
+	}
+	#chatSubmit, #chatColor{
+		width: 44px;
+	}
+	#onlineSpeakerBoard{ /*右上顯示在線人員*/
+		text-align: right;
+		position: absolute;
+		right: 35px;
+		top: 70px;
+	}
+	#SpeakerAmountBoard{
+		background-color: #FFFFFF;
+		border-radius: 5px;
+		border: solid 1px #999999;
+		padding: 2px;
+	}
+	#SpeakerUsersBoard{
+		text-shadow:  1px 1px 0px #FFFFFF, 0px 1px 0px #FFFFFF, 1px 0px 0px #FFFFFF, -1px -1px 0px #FFFFFF,
+					 -1px 0px 0px #FFFFFF, 0px -1px 0px #FFFFFF, 1px -1px 0px #FFFFFF, -1px 1px 0px #FFFFFF;
+	}
+
+/*footer*/
+footer{
+	text-align: center;
+	font-size: 85%;
+	border-top:1px dashed #DDDDDD;
+}
+
+/*RWD調整樣式*/
+@media (min-width: 1170px) { /*電腦瀏覽 螢幕寬度大於1170px*/ 
+	header>.container,.navbar,main{
+		width: 1170px; /*寬度上限*/
+	}
+}
+@media (max-width: 768px) { /*手機瀏覽 螢幕寬度小於768px*/ 
+	body{
+		background-image: linear-gradient(to bottom,rgba(0,0,0,.5) 248px,rgba(0,0,0,.0001) 264px);
+		/*選單陰影縮小*/
+	}
+	.search_input{
+		width: 110px;
+	}
+	.navbar-nav>li{
+		border-left: none; /*選單取消選單線*/
+	}
+	header .col-sm-12{
+		height: 200px;
+	}
+	main>.container>.row>.col-sm-3{
+		border-left: none;  /*主副視窗虛線移動*/
+		border-top: dashed 2px #DDDDDD;
+	}
+	main>.container>.row>.col-sm-3 h1, .menu a, .menu{
+		text-align: left;
+		background-position: left ;
+	}
+	#chatStateBar{ /*主板*/
+		height: 250px;
+	}
+}
