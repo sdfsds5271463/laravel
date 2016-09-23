@@ -1,11 +1,19 @@
-	$(function(){
-        //全域參數
-        ableKeyIn = 1; //限制POST請求間格
-        tryAgain = ""; //POST失敗儲存content再嘗試
+//全域參數
+var stateTimeInterval = 1458; //顯示間格
+
+//全域變數
+var ableKeyIn = 1; //限制POST請求間格
+var tryAgain = ""; //POST失敗儲存content再嘗試
+
+
+    $(function(){
+        //將常用的物件存入全域參數
+        chatStateBar = $("#chatStateBar"); //顯是板的div
+        speakerInput = $("#speaker"); //輸入框的input
 
         //週期顯示聊天版設定
         stateAjaxChatRoom();
-		setInterval("timedCount()",1458);
+		setInterval("timedCount()",stateTimeInterval);
 
         //發送設定
         $("#chatSubmit").click(function(){
@@ -19,32 +27,34 @@
 
         //初始化之後將捲軸捲到底
         var chatBottomTimer = setInterval(function(){
-            if ($("#chatStateBar").text()){ 
-                var chatStateBarBottom = $("#chatStateBar")[0].scrollHeight - $("#chatStateBar").height();
-                $("#chatStateBar")[0].scrollTop += (chatStateBarBottom-$("#chatStateBar")[0].scrollTop)/10;
-                if ($("#chatStateBar")[0].scrollTop >= (chatStateBarBottom-20)){
+            var stateBar = chatStateBar;
+            if (chatStateBar.text()){ 
+                var chatStateBarBottom = chatStateBar[0].scrollHeight - chatStateBar.height();
+                chatStateBar[0].scrollTop += (chatStateBarBottom-chatStateBar[0].scrollTop)/10;
+                if (chatStateBar[0].scrollTop >= (chatStateBarBottom-20)){
                     clearInterval(chatBottomTimer);
                 }
             }
         },15);
 
         //取消未輸入暱稱的背景提示
-        $("#speaker").keydown(function(){
-            $("#speaker").css('background-color','#FFFFFF');
+        speakerInput.keydown(function(){
+            speakerInput.css('background-color','#FFFFFF');
         });
 
         //隱藏在線人員面板
+        var hideWord = $("#AmountBoardHideWord");
+        var usersBoard = $("#SpeakerUsersBoard");
         $("#SpeakerAmountBoard").click(function(){
-            if ($("#AmountBoardHideWord").text()=="顯示"){
-                $("#SpeakerUsersBoard").slideDown(300);
-                $("#AmountBoardHideWord").text("隱藏");
+            if (hideWord.text()=="顯示"){
+                usersBoard.slideDown(300);
+                hideWord.text("隱藏");
             }
             else{
-                $("#SpeakerUsersBoard").slideUp(300);
-                $("#AmountBoardHideWord").text("顯示");
+                usersBoard.slideUp(300);
+                hideWord.text("顯示");
             }
         });
-
 	});
 
     //週期顯示函數
@@ -93,12 +103,12 @@
                     if (lastStateTime){ //更新最新顯示時間
                         $("#chatStateTime").val(lastStateTime);
                     };
-                    $("#chatStateBar")[0].innerHTML += stateValue; //進行顯示
+                    chatStateBar[0].innerHTML += stateValue; //進行顯示
                     //處理卷軸滾動
-                    if (( $("#chatStateBar")[0].scrollTop + $("#chatStateBar").height() + 100 ) 
-                       >= $("#chatStateBar")[0].scrollHeight ) //人性化自動捲軸 (當位置貼底100時會自動捲動)
+                    if (( chatStateBar[0].scrollTop + chatStateBar.height() + 100 ) 
+                       >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底100時會自動捲動)
                     {
-                        $("#chatStateBar")[0].scrollTop = $("#chatStateBar")[0].scrollHeight;
+                        chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
                     }
 
                     if ( ! tryAgain){
@@ -116,23 +126,29 @@
             error:function()
             {
                 console.log("顯示請求失敗，將自動重新請求");
-                //ableKeyIn = 1;
-                //$("#chatSubmit").removeAttr('disabled');
             }
         });
     }
+    //替換敏感字元函數
+    function replaceSensitiveChar(repStr){
+        repStr = repStr.replace(/(^\s*)/g, "").replace(/(\s*$)/g, ""); //去除左右空白
+        repStr = repStr.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); //敏感字元替換 <>&
+        repStr = repStr.replace(/'/g, "&#39;").replace(/"/g, "&quot;"); //敏感字元替換 " '
+        return repStr;
+    }
+
 
     //輸入文字請求
     function inputAjaxChatRoom(){
         var _token = $("#_token").val();
         var action = 'inputAjaxChatRoom';
-        var speaker = $("#speaker").val();
-            speaker = speaker.replace(/(^\s*)/g, "").replace(/(\s*$)/g, ""); //去除左右空白
+        var speaker = speakerInput.val();
+            speaker = replaceSensitiveChar(speaker); 
         var chatColor = $("#chatColor").val();
 
         //必須輸入暱稱才能發送資料        
         if (speaker == ""){
-            $("#speaker").css('background-color','#FFCCCC');
+            speakerInput.css('background-color','#FFCCCC');
         }
         else {
 
@@ -142,10 +158,9 @@
             }
             else{
                 var chatContent = $("#chatContent").val();
-                chatContent = chatContent.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 $("#chatContent").val("");
+                chatContent = replaceSensitiveChar(chatContent);
             }
-            speaker = speaker.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); //敏感字元替換
             var formData = {"speaker":speaker, "chatContent":chatContent, "chatColor":chatColor,
                             "_token":_token,"action":action }; //JSON傳輸
 
@@ -159,10 +174,10 @@
                     ableKeyIn = 0;
                     $("#chatSubmit").attr('disabled','disabled');
                     //顯示(訊息傳輸中...)
-                    $("#chatStateBar")[0].innerHTML += '<div class="chatTmp"><b>'
+                    chatStateBar[0].innerHTML += '<div class="chatTmp"><b>'
                                                         +speaker+'：</b>'+chatContent+' (訊息傳輸中...)</div>';
                     //捲軸至底
-                    $("#chatStateBar")[0].scrollTop = $("#chatStateBar")[0].scrollHeight;
+                    chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
                 }
                 
                 //開始傳輸
