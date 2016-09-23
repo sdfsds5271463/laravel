@@ -76,8 +76,8 @@ $(function(){
 
 //讓IE6 7 8看懂Html5標籤
 var tag = ['section', 'article', 'nav', 'header', 'footer', 'aside', 'main'];
-for (var i = 0, j = tag.length; i < j; i++) {
-    document.createElement(tag[i]);
+for (key in tag) {
+    document.createElement(tag[key]);
 }
 
 //提醒過舊瀏覽器

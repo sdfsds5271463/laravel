@@ -2,7 +2,7 @@
         onlineUserIdRegister();
 		setInterval(function(){
             onlineUserIdRegister();
-        },3000); //3秒自動更新人數
+        },4000); //4秒自動更新人數
 	});
 
 
@@ -11,7 +11,7 @@
         var onlineUserId = $("#onlineUserId").val(); //註冊者id
         var action = 'onlineUserIdRegister';
         var chatSpeakerName = $("#speaker").val()+""; //註冊者聊天室名稱
-            if (chatSpeakerName == 'undefined'){ //是否在聊天室中
+            if (chatSpeakerName == "undefined"){ //是否在聊天室中
                 chatSpeakerName = ""; 
             }
             else{
@@ -48,15 +48,16 @@
                     $("#SpeakerUsersBoard")[0].innerHTML = "";
                     UserLogo = '<span class="glyphicon glyphicon-user"></span> ';
                     UsersBoard = data.OnlineChatUsers;
-                    UsersBoard.forEach(function(value, index) { //更新聊天室名單板
+                    for(key in UsersBoard){
+                        value = UsersBoard[key];
                         $("#SpeakerUsersBoard")[0].innerHTML += UserLogo+value.chatSpeakerName+"<br>";
-                    });
+                    };
                 }
 
             },
             error:function()
             {
-                console.log("ERROR");
+                console.log("在線名單請求失敗，將自動重新請求");
             }
         });
     }

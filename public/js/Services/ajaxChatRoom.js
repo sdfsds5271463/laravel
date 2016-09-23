@@ -5,7 +5,7 @@
 
         //週期顯示聊天版設定
         stateAjaxChatRoom();
-		setInterval("timedCount()",1234);
+		setInterval("timedCount()",1458);
 
         //發送設定
         $("#chatSubmit").click(function(){
@@ -67,18 +67,16 @@
             {
                 data = JSON.parse(data);
                 //console.log(data);
-
+                //console.log(data.chatData[0]);
                 //開始處理顯示的文字與樣式
                 var stateValue = "";
                 if(data.chatData){
                     chatData = data.chatData;
                     chatData.reverse(); //聊天陣列內容順時排序
-                    chatData.forEach(function(value, index) {
-                        //處理時間原件
-                        dateTime = new Date(value.time*1000);
-                        date = dateTime.getFullYear()*10000 + (dateTime.getMonth()+1)*100 + dateTime.getDate();
-                        time = dateTime.toString();
-                        time = time.substring(time.indexOf(':')-2,time.indexOf(':')+6); //完成時間樣式
+                    for (key in chatData){
+                        value = chatData[key]; 
+                        date = value.timeYmd;
+                        time = value.timeHis;
                         time = '　<span style="color:#CCCCCC;font-size:80%;">('+time+')</span>'
                         if ($("#stateDate").val() != date){
                             $("#stateDate").val(date); //將目前顯示日期儲存，若日期有更改則輸出日期列
@@ -91,7 +89,7 @@
                                      +'</div>'; //完成文字樣式
                         //處理其他參數
                         lastStateTime = value.time; //最後顯示時間
-                    });
+                    };
                     if (lastStateTime){ //更新最新顯示時間
                         $("#chatStateTime").val(lastStateTime);
                     };
@@ -103,21 +101,23 @@
                         $("#chatStateBar")[0].scrollTop = $("#chatStateBar")[0].scrollHeight;
                     }
 
-                    //顯示聊天文字完成，移除(訊息發送中...)
-                    $(".chatTmp").remove();
+                    if ( ! tryAgain){
+                        //顯示聊天文字完成，移除(訊息發送中...)
+                        $(".chatTmp").remove();
 
-                    //毫秒後解除輸入限制
-                    setTimeout(function(){
-                        ableKeyIn = 1;
-                        $("#chatSubmit").removeAttr('disabled');
-                    },200);
+                        //毫秒後解除輸入限制
+                        setTimeout(function(){
+                            ableKeyIn = 1;
+                            $("#chatSubmit").removeAttr('disabled');
+                        },200);
+                    }
                 };
             },
             error:function()
             {
-                console.log("ERROR");
-                ableKeyIn = 1;
-                $("#chatSubmit").removeAttr('disabled');
+                console.log("顯示請求失敗，將自動重新請求");
+                //ableKeyIn = 1;
+                //$("#chatSubmit").removeAttr('disabled');
             }
         });
     }
@@ -180,8 +180,8 @@
                         setTimeout(function(){
                             tryAgain = chatContent; 
                             inputAjaxChatRoom(); //傳輸失敗後毫秒後重新嘗試
-                        },200);
-                        console.log("ERROR");
+                        },600);
+                        console.log("資料發送失敗，將自動重新發送");
                     }
                 });// ajax
             }// chatContent != ""

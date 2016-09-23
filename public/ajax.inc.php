@@ -23,7 +23,14 @@
 				break;
 			case 'stateAjaxChatRoom': //顯示聊天室
 				if ($Timeflag->returnChatLastTime() > $post['chatStateTime']){
-					$post['chatData'] = $Ajaxchatroommodel->stateChat($post['chatStateTime'],$Ajaxchatroommodel->chatMaxAmount); //顯示聊天新資料
+					$chatdata = $Ajaxchatroommodel->stateChat($post['chatStateTime'],$Ajaxchatroommodel->chatMaxAmount); //顯示聊天新資料
+					foreach ($chatdata as $key=>$val){
+						$timeFlag = ($chatdata[$key]['time']);
+						date_default_timezone_set('Asia/Taipei'); //時區設定
+						$chatdata[$key]['timeHis'] = date('H:i:s',$timeFlag);
+						$chatdata[$key]['timeYmd'] = date('Ymd',$timeFlag);	//處理時間格式
+					}
+					$post['chatData'] = $chatdata; //透過post傳輸
 				}
 				break;
 			case 'inputAjaxChatRoom': //插入聊天室
@@ -38,6 +45,7 @@
 				break;
 		}
 
+		unset($post['_token']);
 		echo json_encode($post); //將參數交給各頁面js處理
 		exit();
 	}
