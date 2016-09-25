@@ -4,7 +4,8 @@ var stateTimeInterval = 1458; //顯示間格
 //全域變數
 var ableKeyIn = 1; //限制POST請求間格
 var tryAgain = ""; //POST失敗儲存content再嘗試
-
+var chatStateBar;  //短物件
+var speakerInput;
 
     $(function(){
         //將常用的物件存入全域參數

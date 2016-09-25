@@ -30,3 +30,5 @@
 	 		return view('ajaxChatRoom');
 		}
 	}
+
+
