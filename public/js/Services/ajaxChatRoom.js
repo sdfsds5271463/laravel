@@ -2,6 +2,7 @@
 var stateTimeInterval = 1458; //顯示間格
 
 //全域變數
+var stateing = 0;  //0可顯示 1請求已經送出
 var ableKeyIn = 1; //限制POST請求間格
 var tryAgain = ""; //POST失敗儲存content再嘗試
 var chatStateBar;  //短物件
@@ -64,86 +65,92 @@ var copyToDraw; //拷貝繼續創作按鈕
         stateAjaxChatRoom();
     }
     function stateAjaxChatRoom(){ 
-        var _token = $("#_token").val();
-        var chatStateTime = $("#chatStateTime").val(); //最後顯示時間 (只會抓取此時間之後的聊天內容)
-        var action = 'stateAjaxChatRoom';
 
-        var formData = {"chatStateTime":chatStateTime,"_token":_token,"action":action }; //JSON傳輸
+        if (stateing ==0){ //未送出請求
+            stateing = 1;
+            var _token = $("#_token").val();
+            var chatStateTime = $("#chatStateTime").val(); //最後顯示時間 (只會抓取此時間之後的聊天內容)
+            var action = 'stateAjaxChatRoom';
 
-        $.ajax(
-        {
-            type: 'post',
-            url:'',
-            data: formData,
-            success:function(data)
+            var formData = {"chatStateTime":chatStateTime,"_token":_token,"action":action }; //JSON傳輸
+
+            $.ajax(
             {
-                data = JSON.parse(data);
-                //console.log(data);
-                //console.log(data.chatData[0]);
-                //開始處理顯示的文字與樣式
-                var stateValue = "";
-                if(data.chatData&&(data.chatData!="")){
-                    //console.log(data.chatData);
-                    chatData = data.chatData;
-                    chatData.reverse(); //聊天陣列內容順時排序
-                    for (key in chatData){
-                        value = chatData[key]; 
-                        date = value.timeYmd;
-                        time = value.timeHis;
-                        time = '　<span style="color:#CCCCCC;font-size:80%;">('+time+')</span>'
-                        if ($("#stateDate").val() != date){
-                            $("#stateDate").val(date); //將目前顯示日期儲存，若日期有更改則輸出日期列
-                            stateValue+= '<center>'+date+'</center>';
-                        }
-                        //處理顯示字串
-                        stateValue+= '<div style="color:'+value.color+'">'
-                                     +'<b>'+value.speaker+'：</b>'
-                                     +value.content+time
-                                     +'</div>'; //完成文字樣式
-                        //處理其他參數
-                        lastStateTime = value.time; //最後顯示時間
-                    };
-                    if (lastStateTime){ //更新最新顯示時間
-                        $("#chatStateTime").val(lastStateTime);
-                    };
-                    chatStateBar[0].innerHTML += stateValue; //進行顯示
-
-                    //處理卷軸滾動
-                    var scrollFlag = 120;   //一般文字自動捲動判定 (貼底距離)
-                    if (stateValue.length > 300){
-                        scrollFlag = 120 + 40 + 400;  //圖片自動捲動判定
-                    }
-                    if (( chatStateBar[0].scrollTop + chatStateBar.height() + scrollFlag ) 
-                       >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底120時會自動捲動)
-                    {
-                        chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
-                    }
-
-                    if ( ! tryAgain){
-                        //顯示聊天文字完成，移除(訊息發送中...)
-                        $(".chatTmp").remove();
-
-                        //毫秒後解除輸入限制
-                        setTimeout(function(){
-                            ableKeyIn = 1;
-                            $("#chatSubmit").removeAttr('disabled');
-                        },200);
-                    }
-
-                    //拷貝繼續創作按鈕物件
-                    copyToDraw = document.querySelectorAll('.copyToDraw');
-                    for (var i=0;i<copyToDraw.length;i++){
-                        copyToDraw[i].onclick = function(e){
-                            copyToDrawFunc(e);  //這是繪圖版js的函數
+                type: 'post',
+                url:'',
+                data: formData,
+                success:function(data)
+                {
+                    data = JSON.parse(data);
+                    //console.log(data);
+                    //console.log(data.chatData[0]);
+                    //開始處理顯示的文字與樣式
+                    var stateValue = "";
+                    if(data.chatData&&(data.chatData!="")){
+                        //console.log(data.chatData);
+                        chatData = data.chatData;
+                        chatData.reverse(); //聊天陣列內容順時排序
+                        for (key in chatData){
+                            value = chatData[key]; 
+                            date = value.timeYmd;
+                            time = value.timeHis;
+                            time = '　<span style="color:#CCCCCC;font-size:80%;">('+time+')</span>'
+                            if ($("#stateDate").val() != date){
+                                $("#stateDate").val(date); //將目前顯示日期儲存，若日期有更改則輸出日期列
+                                stateValue+= '<center>'+date+'</center>';
+                            }
+                            //處理顯示字串
+                            stateValue+= '<div style="color:'+value.color+'">'
+                                         +'<b>'+value.speaker+'：</b>'
+                                         +value.content+time
+                                         +'</div>'; //完成文字樣式
+                            //處理其他參數
+                            lastStateTime = value.time; //最後顯示時間
                         };
-                    }
-                };
-            },
-            error:function()
-            {
-                console.log("顯示請求失敗，將自動重新請求");
-            }
-        });
+                        if (lastStateTime){ //更新最新顯示時間
+                            $("#chatStateTime").val(lastStateTime);
+                        };
+                        chatStateBar[0].innerHTML += stateValue; //進行顯示
+
+                        //處理卷軸滾動
+                        var scrollFlag = 120;   //一般文字自動捲動判定 (貼底距離)
+                        if (stateValue.length > 300){
+                            scrollFlag = 120 + 40 + 400;  //圖片自動捲動判定
+                        }
+                        if (( chatStateBar[0].scrollTop + chatStateBar.height() + scrollFlag ) 
+                           >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底120時會自動捲動)
+                        {
+                            chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
+                        }
+
+                        if ( ! tryAgain){
+                            //顯示聊天文字完成，移除(訊息發送中...)
+                            $(".chatTmp").remove();
+
+                            //毫秒後解除輸入限制
+                            setTimeout(function(){
+                                ableKeyIn = 1;
+                                $("#chatSubmit").removeAttr('disabled');
+                            },200);
+                        }
+
+                        //拷貝繼續創作按鈕物件
+                        copyToDraw = document.querySelectorAll('.copyToDraw');
+                        for (var i=0;i<copyToDraw.length;i++){
+                            copyToDraw[i].onclick = function(e){
+                                copyToDrawFunc(e);  //這是繪圖版js的函數
+                            };
+                        }
+                    };
+                    stateing = 0;
+                },
+                error:function()
+                {
+                    console.log("顯示請求失敗，將自動重新請求");
+                    stateing = 0;
+                }
+            });
+        }//stateing ==0
     }
     //替換敏感字元函數
     function replaceSensitiveChar(repStr){

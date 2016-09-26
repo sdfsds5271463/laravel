@@ -31,6 +31,7 @@
 			<canvas id="drawCanvas">
 				<div id="nocanvas">請以支援Canvas的瀏覽器瀏覽。</div>
 			</canvas>
+			<canvas id="compressCanvas" style="display:none"></canvas>
 		</div>
 		<div id="paintTools">
 			<center>工具</center>

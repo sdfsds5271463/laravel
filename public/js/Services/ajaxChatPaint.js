@@ -5,6 +5,8 @@
 	var ctx;
 	var ctxShowPencel;
 	var showPencel;
+	var compressCanvas;	//壓縮影像用物件
+	var compressCtx;
 
 	//控制參數
 	var mx,my; //滑鼠位置
@@ -15,6 +17,7 @@
 	var grd;
 	var lineWidth=5;
 	var alpha=1;
+	var compressScale = 1.5; //壓縮參數 (壓縮後大小為參數平方分之一倍)
 
 //ready函數
     $(function(){
@@ -25,6 +28,9 @@
     	var toolBlock = document.querySelectorAll('.toolBlock');
     	canvas = document.querySelectorAll('#drawCanvas')[0];
     	showPencel = document.querySelectorAll('#showPencel')[0];
+    		//壓縮影像專用物件
+			compressCanvas = document.querySelectorAll('#compressCanvas')[0];
+			compressCtx = compressCanvas.getContext("2d"); //compressScale壓縮參數
 
     	var paintButton = document.querySelectorAll('#postPaintButton')[0];
     	//產生2D畫布
@@ -165,6 +171,14 @@
 
 		//貼圖按鈕
 		paintButton.onclick = function(e){
+			//壓縮進行中
+			var cw = canvas.width;
+			var ch = canvas.height;
+			compressCanvas.width = cw/compressScale;
+			compressCanvas.height = ch/compressScale;
+			compressCtx.clearRect(0,0,999,999);
+			compressCtx.drawImage(canvas,0,0,cw,ch,0,0,cw/compressScale,ch/compressScale);
+
 			var imgContent;	//貼出內容
 			var limitSize;
 			if (canvas.width > canvas.height){ //限制大小屬性
@@ -174,27 +188,35 @@
 			imgContent = '<div class="copyToDraw">'; //二次創作用DIV
 			imgContent = imgContent+'<a href="#copyToDraw"> [點此將圖拷貝至下方畫版，可繼續創作。] </a>';
 			imgContent = imgContent+'<img class="img-responsive" ' + limitSize 
-						+ '="398px" src="'+canvas.toDataURL("image/png", 0.5)+'">';
+						+ '="398px" src="'+compressCanvas.toDataURL("image/png", 0.5)+'">';
 			imgContent = imgContent+'</div>';
-
 			tryAgain = imgContent; //以聊天室的tryAgain參數傳送資料
-			$("#chatSubmit").click();
 
-			//送出成功鎖住按鈕5秒
+			$("#chatSubmit").click();
+			//送出成功鎖住按鈕6秒
 			paintButton.disabled = "disabled";
-			paintButton.innerHTML = "已送出";
+			paintButton.innerHTML = "已請求";
 			setTimeout(function(){
 				paintButton.innerHTML = "送出繪圖";
 				paintButton.disabled = "";
-			},5000);
+			},6000);
 		};
     });
 	function copyToDrawFunc(e) { //二次創作被點擊
 		//e.target.parentElement.lastChild.currentSrc 拷貝畫版DATAURL
 		ctx.globalCompositeOperation = "source-over";
 		var imgData=new Image();
-		imgData.src=e.target.parentElement.lastChild.currentSrc; 
-		ctx.drawImage(imgData,0,0); //貼上dataURL
+		imgData.src=e.target.parentElement.lastChild.currentSrc; //原始影像(未解壓)
+		var cw = canvas.width;
+		var ch = canvas.height;
+		compressCanvas.width = cw;
+		compressCanvas.height = ch;
+		compressCtx.clearRect(0,0,999,999);
+		compressCtx.drawImage(imgData,0,0); //貼上未解壓dataURL
+		imgData=new Image();
+		imgData.src=compressCanvas.toDataURL(); //產生dataURL
+		console.log(imgData);
+		ctx.drawImage(imgData,0,0,cw*compressScale,ch*compressScale); //貼上解壓dataURL
 	}
 
 
