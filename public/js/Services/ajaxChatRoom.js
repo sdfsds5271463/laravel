@@ -43,6 +43,7 @@ var copyToDraw; //拷貝繼續創作按鈕
         //取消未輸入暱稱的背景提示
         speakerInput.keydown(function(){
             speakerInput.css('background-color','#FFFFFF');
+            paintButton.innerHTML = "送出繪圖"; //這是繪圖js的參數
         });
 
         //隱藏在線人員面板
@@ -115,7 +116,7 @@ var copyToDraw; //拷貝繼續創作按鈕
                         //處理卷軸滾動
                         var scrollFlag = 120;   //一般文字自動捲動判定 (貼底距離)
                         if (stateValue.length > 300){
-                            scrollFlag = 120 + 40 + 400;  //圖片自動捲動判定
+                            scrollFlag = 120 + 40 + stateImgMaxSize;  //圖片自動捲動判定 (stateImgMaxSize是繪圖js的參數)
                         }
                         if (( chatStateBar[0].scrollTop + chatStateBar.height() + scrollFlag ) 
                            >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底120時會自動捲動)

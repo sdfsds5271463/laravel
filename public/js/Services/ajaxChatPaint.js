@@ -7,6 +7,7 @@
 	var showPencel;
 	var compressCanvas;	//壓縮影像用物件
 	var compressCtx;
+	var paintButton; 
 
 	//控制參數
 	var mx,my; //滑鼠位置
@@ -17,7 +18,8 @@
 	var grd;
 	var lineWidth=5;
 	var alpha=1;
-	var compressScale = 1.5; //壓縮參數 (壓縮後大小為參數平方分之一倍)
+	var compressScale = 1.6; //壓縮參數 (壓縮後大小為參數平方分之一倍)
+	var stateImgMaxSize = 348; //顯示的圖片最大px (寬或高)
 
 //ready函數
     $(function(){
@@ -32,7 +34,7 @@
 			compressCanvas = document.querySelectorAll('#compressCanvas')[0];
 			compressCtx = compressCanvas.getContext("2d"); //compressScale壓縮參數
 
-    	var paintButton = document.querySelectorAll('#postPaintButton')[0];
+    	paintButton = document.querySelectorAll('#postPaintButton')[0];
     	//產生2D畫布
 		ctx = canvas.getContext("2d");
 		ctxShowPencel = showPencel.getContext("2d");
@@ -187,19 +189,37 @@
 			else  {limitSize = 'height';}
 			imgContent = '<div class="copyToDraw">'; //二次創作用DIV
 			imgContent = imgContent+'<a href="#copyToDraw"> [點此將圖拷貝至下方畫版，可繼續創作。] </a>';
-			imgContent = imgContent+'<img class="img-responsive" ' + limitSize 
-						+ '="398px" src="'+compressCanvas.toDataURL("image/png", 0.5)+'">';
+			imgContent = imgContent+'<img class="img-responsive" style="' + limitSize 
+						+ ':'+stateImgMaxSize+'px;" src="'+compressCanvas.toDataURL("image/png", 0.5)+'">';
 			imgContent = imgContent+'</div>';
 			tryAgain = imgContent; //以聊天室的tryAgain參數傳送資料
 
 			$("#chatSubmit").click();
-			//送出成功鎖住按鈕6秒
-			paintButton.disabled = "disabled";
-			paintButton.innerHTML = "已請求";
-			setTimeout(function(){
-				paintButton.innerHTML = "送出繪圖";
-				paintButton.disabled = "";
-			},6000);
+
+			var speaker = speakerInput.val(); //聊天室的參數
+
+        	if (speaker != ""){//必須輸入暱稱才能發送資料     
+				//送出成功鎖住按鈕秒
+				paintButton.disabled = "disabled";
+				paintButton.innerHTML = "Success!";
+				var waitSecond = 10;
+				lockPaintPost();
+				function lockPaintPost(){
+					if (waitSecond > 0){
+						setTimeout(function(){
+							paintButton.innerHTML = "wait:" + (-1+waitSecond--);
+							lockPaintPost();
+						},1000);
+					}
+					else{
+						paintButton.innerHTML = "送出繪圖";
+						paintButton.disabled = "";
+					}
+				}
+			}
+			else{
+				paintButton.innerHTML = "輸入暱稱";
+			}
 		};
     });
 	function copyToDrawFunc(e) { //二次創作被點擊
