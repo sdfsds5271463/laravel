@@ -1,6 +1,6 @@
 @extends('frame')
 @section('main')
-<h1>粉碎領域 <span class="smallWord">PHP程式學習空間</span></h1>
+<h1>站長murmur</h1>
 <p>小弟只是興趣使然的PHP一般使用者，正好最近在整理學習過的文件，就索性將學習過的一些技術做一些簡單的呈現，也順便把自己的學習紀錄做一些整理。
 文件資料是學習時隨手紀錄的，或是憑個人印象與概念百分百一字一字輸入而成的，因此難免有疏忽或是錯誤，請不吝提出指教謝謝。</p>
 <p>本網頁為AMP系統，使用Laravel 5.1.33(PHP Framework)建置，RWD的效果是透過BootStrap(Css&javaScript Framework)進行呈現，

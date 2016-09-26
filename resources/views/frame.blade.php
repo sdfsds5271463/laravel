@@ -71,7 +71,6 @@
 	                    <li><a href="ajaxChatRoom"><span class="glyphicon glyphicon-pencil"></span> AJAX塗鴉聊天室</a></li>
 	                    <li><a href="#"><span class="glyphicon glyphicon-certificate"></span> XML即時氣象</a></li>
 	                    <li><a href="#"><span class="glyphicon glyphicon-apple"></span> jQuery物理空間</a></li>
-	                    <li><a href="#"><span class="glyphicon glyphicon-edit"></span> FB留言板</a></li>
 	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度感測器
 	                        <span class="caret"></span></a><!--span的類別caret是下拉專屬圖示▼-->
 	                        <ul class="dropdown-menu">
@@ -81,6 +80,7 @@
 	                            <li><a href="#"><span class="glyphicon glyphicon-film"></span> 實驗訊號影片</a></li>
 	                        </ul>
 	                    </li>
+	                    <li><a href="index"><span class="glyphicon glyphicon-edit"></span> 站長murmur</a></li>
 	                </ul>
 	            </div>
 	        </div>

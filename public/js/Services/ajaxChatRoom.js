@@ -6,6 +6,7 @@ var ableKeyIn = 1; //限制POST請求間格
 var tryAgain = ""; //POST失敗儲存content再嘗試
 var chatStateBar;  //短物件
 var speakerInput;
+var copyToDraw; //拷貝繼續創作按鈕
 
     $(function(){
         //將常用的物件存入全域參數
@@ -81,7 +82,8 @@ var speakerInput;
                 //console.log(data.chatData[0]);
                 //開始處理顯示的文字與樣式
                 var stateValue = "";
-                if(data.chatData){
+                if(data.chatData&&(data.chatData!="")){
+                    //console.log(data.chatData);
                     chatData = data.chatData;
                     chatData.reverse(); //聊天陣列內容順時排序
                     for (key in chatData){
@@ -105,9 +107,14 @@ var speakerInput;
                         $("#chatStateTime").val(lastStateTime);
                     };
                     chatStateBar[0].innerHTML += stateValue; //進行顯示
+
                     //處理卷軸滾動
-                    if (( chatStateBar[0].scrollTop + chatStateBar.height() + 100 ) 
-                       >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底100時會自動捲動)
+                    var scrollFlag = 120;   //一般文字自動捲動判定 (貼底距離)
+                    if (stateValue.length > 300){
+                        scrollFlag = 120 + 40 + 400;  //圖片自動捲動判定
+                    }
+                    if (( chatStateBar[0].scrollTop + chatStateBar.height() + scrollFlag ) 
+                       >= chatStateBar[0].scrollHeight ) //人性化自動捲軸 (當位置貼底120時會自動捲動)
                     {
                         chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
                     }
@@ -121,6 +128,14 @@ var speakerInput;
                             ableKeyIn = 1;
                             $("#chatSubmit").removeAttr('disabled');
                         },200);
+                    }
+
+                    //拷貝繼續創作按鈕物件
+                    copyToDraw = document.querySelectorAll('.copyToDraw');
+                    for (var i=0;i<copyToDraw.length;i++){
+                        copyToDraw[i].onclick = function(e){
+                            copyToDrawFunc(e);  //這是繪圖版js的函數
+                        };
                     }
                 };
             },
@@ -189,6 +204,7 @@ var speakerInput;
                     data: formData,
                     success:function(data)
                     {
+                        chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
                         data = JSON.parse(data);
                     },
                     error:function()

@@ -36,7 +36,13 @@
 			<center>工具</center>
 			<div class="toolBlock" data-tool="pencel"><span class="glyphicon glyphicon-pencil"></span></div>
 			<div class="toolBlock" data-tool="eraser"><span class="glyphicon glyphicon-erase"></span></div>
-			<center>顏色</center>
+			<center>大小</center>
+			<div class="toolBlock" data-tool="sizeUp"><span class="glyphicon glyphicon-chevron-up"></span></div>
+			<div class="toolBlock" data-tool="sizeDown"><span class="glyphicon glyphicon-chevron-down"></span></div>
+			<center>透明</center>
+			<div class="toolBlock" data-tool="alphaUp"><span class="glyphicon glyphicon-chevron-up"></span></div>
+			<div class="toolBlock" data-tool="alphaDown"><span class="glyphicon glyphicon-chevron-down"></span></div>
+			<center id="colorToolsTitle">顏色</center>
 			<div class="toolBlock" data-tool="#000000"></div>
 			<div class="toolBlock" data-tool="#FFFFFF"></div>
 			<div class="toolBlock" data-tool="#FF0000"></div>
@@ -47,12 +53,7 @@
 			<div class="toolBlock" data-tool="#6A6AFF"></div>
 			<div class="toolBlock" data-tool="#9F35FF"></div>
 			<div class="toolBlock" data-tool="#8E8E8E"></div>
-			<center>大小</center>
-			<div class="toolBlock" data-tool="sizeUp"><span class="glyphicon glyphicon-chevron-up"></span></div>
-			<div class="toolBlock" data-tool="sizeDown"><span class="glyphicon glyphicon-chevron-down"></span></div>
-			<center>透明</center>
-			<div class="toolBlock" data-tool="alphaUp"><span class="glyphicon glyphicon-chevron-up"></span></div>
-			<div class="toolBlock" data-tool="alphaDown"><span class="glyphicon glyphicon-chevron-down"></span></div>
+			<button id="postPaintButton">送出繪圖</button>
 		</div>
 	</div>
 <p>

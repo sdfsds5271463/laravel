@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"  
+              content="width=device-width, initial-scale=1.0,
+                       maximum-scale=2.4, minimum-scale=0.6">
+              <!--以上是meta特殊屬性値"viewport"，專門設定與抓取裝置解析度縮放 (非W3C的公認設定)
+                  width=device-width 讓網頁讀取到裝置寬
+                  initial-scale 預設縮放比例(通常設1，如實呈現網站)
+                  maximum-scale minimum-scale 縮放比例極值限制 -->
+        <title>RWD概念</title>
+        <style>
+            section{ 
+                float:left;
+                width: 48%;
+                border: solid black 2px;
+            }
+            /*  RWD方法說明：使用css3語法 @media抓取當前裝置解析度，立即因應解析度調整網頁顯示
+                @media (解析度判斷) {css語法}
+                    解析度判斷方法：(max-width:A)解析度<A、(min-width:B)解析度>B、(width:C)解析度=C
+                                 print列印裝置解析、screen螢幕裝置解析、all所有裝置解析
+                                 複數的判斷方法用and或or連接。 */
+            @media (max-width: 600px) 
+            {  /*此範例就是當裝置解析度小於600px，就將寬度放大*/
+                section{width: 96%;}
+            }
+        </style>
+    </head>
+    <body>
+        <section id="S1">這兩段文字在寬度&lt;600px時就會疊一起</section>
+        <section id="S2">這兩段文字在寬度&lt;600px時就會疊一起</section>
+    </body>
+</html>

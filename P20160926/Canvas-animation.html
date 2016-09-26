@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+	<head>
+		<meta charset="utf-8" />
+		<title>Canvas動畫</title>
+
+	<script>
+	/*參數介紹 此介紹的物件如下：
+	canvas = document.getElementById("mycanvas");
+	ctx = canvas.getContext("2d"); //重要：定義canvas的2d繪製物件 */
+	function introduce (){
+	//儲存上傳方法
+		//DataURL格式可直接用img的src設定呼叫
+		canvas.toDataURL(); //回傳DataURL字串
+		canvas.toDataURL("image/jpeg", 0.5); //設定格式(jpeg png等等)、品質
+
+	//設定參數
+		//合成效果設定
+			ctx.globalCompositeOperation = "source-over";
+			/*  source-over 新覆蓋舊 (一般畫) 域預設
+				destination-over 舊覆蓋新 (畫背景)
+				source-in 僅顯示重疊的新 (遮罩新)
+				destination-in 僅顯示重疊的舊 (遮罩舊)
+				source-out 舊覆蓋新 舊變透明 (舊透明擋前面)
+				destination-out 新複蓋舊 新變透明 (擦子)
+				source-atop 新只畫在舊上 (上色)
+				destination-atop 新範圍內 舊前新後 (舊遮罩+背景)
+				lighter 重疊區加亮 (加亮)
+				xor 重疊區透明 (透畫)
+				copy 刪除舊 只留新 (新畫)*/
+		//陰影設定
+			ctx.shadowOffsetX=20; //位置
+			ctx.shadowOffsetY=20;
+			ctx.shadowBlur=20; //羽化
+			ctx.shadowColor="white";
+		//限制繪製區 (位置x,y,width,height)
+			ctx.rect(50,20,200,120);
+			ctx.clip();
+		//繪製操作 (新繪製的操作，但不更改舊圖)
+			ctx.scale(2,2); //x y放大比例
+			ctx.rotate(Math.PI/3); //操作繪製的角度
+			ctx.translate(70,70); //更改(0,0)的初始繪製點
+
+		//控制設定
+			ctx.save(); //儲存設定 (包含下面的)
+			ctx.restore(); //回復設定為上次儲存 (無儲存回復預設)
+
+	//繪製參數
+		//填滿內容
+			//一般色彩
+			var grd = "rgb(200, 0, 0)";
+			//漸層色彩 (方向x0,y0,x1,y1)
+			var grd=ctx.createLinearGradient(0,0,0,170);
+			grd.addColorStop(0,"black");
+			grd.addColorStop(1,"white");
+			//圓形渲染漸層 (方向x0,y0,r0,x1,y1,r1)
+			var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+			grd.addColorStop(0,"red");
+			grd.addColorStop(1,"white");
+			//圖片填滿 (必須要先有圖片在body)
+			//<img src="/i/lamp.gif" id="lamp" style="visibility:hidden;"/>
+			var grd=ctx.createPattern(img,"repeat");
+
+		//填滿形狀
+			//矩形 (位置x,y,width,height)
+				ctx.fillStyle=grd;
+				ctx.fillRect(0, 0, 200, 200);
+			//方框 (位置x,y,width,height)
+				ctx.lineWidth=5;
+				ctx.strokeStyle=grd;
+				ctx.strokeRect(20,20,150,100);
+
+			//圓形 (x,y,r,sAngle,eAngle,counterclockwise);
+				//中心x y，半徑，開始結束角度，counterclockwise false順時針 true逆時針
+				ctx.beginPath();
+				ctx.arc(100,75,50,0,2*Math.PI,true);
+				ctx.fillStyle=grd;
+				ctx.fill();
+
+			//圓框
+				ctx.beginPath();
+				ctx.lineWidth=5;
+				ctx.arc(100,75,50,0,2*Math.PI,true);
+				ctx.strokeStyle=grd;
+				ctx.stroke();
+
+			//線條
+				ctx.beginPath();
+				ctx.lineWidth=5;
+					ctx.lineCap="round"; //末端 (butt平預設、round加圓帽、square加方帽)
+					ctx.lineJoin="round"; //轉折處 (miter尖預設、round變圓角、bevel變方角)
+					ctx.miterLimit=5; //轉折交疊長度上限
+				ctx.moveTo(20,20); //起始點
+				ctx.lineTo(20,100); //直線繪製
+				ctx.arcTo(150,20,150,70,50); //弧線繪製(x1,y1,x2,y2,r)
+				ctx.quadraticCurveTo(20,100,200,20); //單控制點繪製
+				ctx.bezierCurveTo(20,100,200,100,200,20); //雙控制點繪製
+					//繪製的線會依序往控制點接近，以平滑的方式轉彎至最終點
+				ctx.closePath(); //直線繪製回moveTo的點
+				ctx.strokeStyle=grd;
+				ctx.stroke();
+		//文字
+			ctx.font="italic 900 40px Arial"; //style weight size family
+			ctx.fillText("textAlign=right",150,140);
+			ctx.textAlign="left"; //left(預設) center right
+			ctx.fillStyle=grd;
+			ctx.fillText("Hello World",10,50);
+
+		//複製&貼上 (x1y1 ~ x2y2)
+			imgData=ctx.getImageData(10,10,40,40);
+			ctx.putImageData(imgData,10,70);
+
+		//複製貼上可延伸
+			ctx.drawImage(canvas,sx,sy,swidth,sheight,x,y,width,height);
+
+		//貼上圖片
+			var img=new Image();
+			img.src="flower.png"; //可貼上dataURL
+			ctx.drawImage(img,0,0);
+
+		//清除
+			//矩形清除 (位置x,y,width,height)
+			ctx.clearRect(20,20,100,50);
+
+	} //參數介紹結束
+
+
+
+
+	//動畫設定區 (變數、定義、on事件、迴圈)
+		// 變數
+		var ctx;				// 2D context
+		var particleList = [];	// 放入建立好的顆粒的陣列
+		var mx = null;			// 滑鼠的X座標
+		var my = null;			// 滑鼠的Y座標
+		var canvas;				// 畫布
+
+		window.onload = function () {
+			canvas = document.getElementById("mycanvas");
+
+			// 確認canvas元素是否存在
+			if (!canvas || !canvas.getContext) {
+				alert("偵測不到canvas物件");
+				return false;
+			}
+
+			canvas.width = innerWidth;
+			canvas.height = innerHeight;
+			ctx = canvas.getContext("2d"); //重要：定義canvas的2d繪製物件
+
+		    canvas.onclick = addPoint;
+			loop();
+		};
+
+
+	//原型鏈物件
+		//創造定義 (初始參數)
+		var Particle = function () {
+			this.x = mx;
+			this.y = my; //位置
+			this.vx = Math.random() * 12 - 6;
+			this.vy = Math.random() * (-12) - 6; //位移
+		};
+		//屬性方法 (位移刪除、繪製)
+		Particle.prototype = {
+			update: function () {
+				this.vy += 0.4;
+				this.x += this.vx;
+				this.y += this.vy; //位置位移
+				if(this.y > innerHeight - 50){
+					this.vy *= -1;
+				}
+
+				if (this.x < 0 || this.x > innerWidth) {
+					this.isRemove = true;
+				} //超出範圍刪除
+			},
+			draw: function () {
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, 20, 0, Math.PI * 2, false);
+				ctx.fillStyle = "#FFFFFF";
+				ctx.fill(); //畫出圖形
+			}
+		};
+
+
+	//迴圈陣列繪製物件
+		var stateParticle = function () {
+			ctx.fillStyle = "#000000";
+			ctx.fillRect(0, 0, innerWidth, innerHeight); //先畫背景蓋過全部
+
+			for (key in particleList) {
+				particleList[key].update();
+				particleList[key].draw();
+				if (particleList[key].isRemove) {
+					delete particleList[key];
+				} //更新 繪製 刪除
+			}
+		};
+
+
+	//事件迴圈區
+		//事件創造物件存入陣列
+		function addPoint(event){
+			mx = event.offsetX;
+			my = event.offsetY;
+			var p = new Particle();
+			particleList.push(p);
+		}
+		//呼叫繪製迴圈
+		var loop = function () {
+			stateParticle();
+			setTimeout(loop, 1000 / 60);
+		};
+
+
+		</script>
+
+	</head>
+	<body>
+		<canvas id="mycanvas">
+			<div id="nocanvas">請以支援Canvas的瀏覽器瀏覽。</div>
+		</canvas>
+	</body>
+</html>
+
+

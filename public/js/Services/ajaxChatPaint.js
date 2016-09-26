@@ -20,10 +20,13 @@
     $(function(){
     //物件與參數
     	//抓取物件 (querySelectorAll比jQuery還好用真的)
-    	var canvas = document.querySelectorAll('#drawCanvas')[0];
+    	var body = document.querySelectorAll('body')[0];
     	var drawArea = document.querySelectorAll('#drawArea')[0];
     	var toolBlock = document.querySelectorAll('.toolBlock');
+    	canvas = document.querySelectorAll('#drawCanvas')[0];
     	showPencel = document.querySelectorAll('#showPencel')[0];
+
+    	var paintButton = document.querySelectorAll('#postPaintButton')[0];
     	//產生2D畫布
 		ctx = canvas.getContext("2d");
 		ctxShowPencel = showPencel.getContext("2d");
@@ -80,29 +83,47 @@
     	}
     	//隱藏筆跡框事件
     	canvas.onmouseover = function(e){
-    		$("#showPencelDiv").fadeOut(200);
+    		body.classList.add("noScroll");
+    		draw = 1;
     	};
 
 
     //主畫布繪畫
 		//繪畫預備參數
     	canvas.onmousemove = function(e){
+    		//取得滑鼠參數
     		mx = e.offsetX;
     		my = e.offsetY;
-    		ctx.lineTo(mx,my);
-    	};
+    		//隱藏筆跡預覽
+    		$("#showPencelDiv").fadeOut(200);
+    		//繪畫參數 (0=不畫，1=預備，2=開畫)
+    		if(!draw){draw = 1};
+    		(draw==2) && (ctx.lineTo(mx,my));
+    	};	
     	//開始繪畫
     	canvas.onmousedown = function(e){
+    		//取得滑鼠參數
+    		mx = e.offsetX;
+    		my = e.offsetY;
+    		//預備
+    		body.classList.add("noScroll"); //行動裝置隱藏拉軸
     		drawInit();
-    		draw = 1;
+    		//點
+			ctx.beginPath();
+			ctx.fillStyle=grd;
+			ctx.arc(mx,my,lineWidth/2,0,2*Math.PI,true);
+			ctx.fill();
+			//線
+    		draw = 2;
     		ctx.beginPath();
+    		ctx.moveTo(mx,my);
     	};
     	//停止繪畫
     	canvas.onmouseup = function(e){draw = 0;};
     	canvas.onmouseout = function(e){draw = 0;};
     	//繪畫迴圈
     	setInterval(function(){
-    		if (draw){
+    		if (draw==2){
 		    	ctx.stroke();
 				ctx.beginPath();
 				ctx.moveTo(mx,my);
@@ -112,15 +133,71 @@
     	setInterval(function(){
     		if((canvas.width != $("#drawCanvas").width())||
 			(canvas.height != $("#drawCanvas").height())){
-	    		imgData=ctx.getImageData(0,0,canvas.width,canvas.height); //複製畫布
-				canvas.height = $("#drawCanvas").height();
+	    		var imgData=ctx.getImageData(0,0,canvas.width,canvas.height); //複製畫布
+				canvas.height = $("#drawCanvas").height(); //調整大小
 				canvas.width = $("#drawCanvas").width();
 				ctx.putImageData(imgData,0,0);
 			}
+			if(!draw){
+    			body.classList.remove("noScroll"); //行動裝置釋放拉軸
+			}
+			//console.log(draw);
     	},200);
 
 
+    	//行動裝置滑鼠事件註冊
+		var mouseEventTypes = {
+			touchstart : "mousedown",
+			touchmove : "mousemove",
+			touchend : "mouseup"
+		};
+		for (originalType in mouseEventTypes) {
+			document.addEventListener(originalType, function(originalEvent) {
+				event = document.createEvent("MouseEvents");
+				touch = originalEvent.changedTouches[0];
+				event.initMouseEvent(mouseEventTypes[originalEvent.type], true, true,
+				window, 0, touch.screenX, touch.screenY, touch.clientX,
+				touch.clientY, touch.ctrlKey, touch.altKey, touch.shiftKey,
+				touch.metaKey, 0, null);
+				originalEvent.target.dispatchEvent(event);
+			});
+		}
+
+		//貼圖按鈕
+		paintButton.onclick = function(e){
+			var imgContent;	//貼出內容
+			var limitSize;
+			if (canvas.width > canvas.height){ //限制大小屬性
+				limitSize = 'width'; 
+			}
+			else  {limitSize = 'height';}
+			imgContent = '<div class="copyToDraw">'; //二次創作用DIV
+			imgContent = imgContent+'<a href="#copyToDraw"> [點此將圖拷貝至下方畫版，可繼續創作。] </a>';
+			imgContent = imgContent+'<img class="img-responsive" ' + limitSize 
+						+ '="398px" src="'+canvas.toDataURL("image/png", 0.5)+'">';
+			imgContent = imgContent+'</div>';
+
+			tryAgain = imgContent; //以聊天室的tryAgain參數傳送資料
+			$("#chatSubmit").click();
+
+			//送出成功鎖住按鈕5秒
+			paintButton.disabled = "disabled";
+			paintButton.innerHTML = "已送出";
+			setTimeout(function(){
+				paintButton.innerHTML = "送出繪圖";
+				paintButton.disabled = "";
+			},5000);
+		};
     });
+	function copyToDrawFunc(e) { //二次創作被點擊
+		//e.target.parentElement.lastChild.currentSrc 拷貝畫版DATAURL
+		ctx.globalCompositeOperation = "source-over";
+		var imgData=new Image();
+		imgData.src=e.target.parentElement.lastChild.currentSrc; 
+		ctx.drawImage(imgData,0,0); //貼上dataURL
+	}
+
+
 
 //其他函數
 	//主畫布筆跡設定

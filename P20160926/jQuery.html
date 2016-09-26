@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JQuery相關程式頁面</title>
+        <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+            <!--引用jQuery2.1.4，亦有.min無助解版-->
+        
+        <script>
+          //jQuery的Ready事件 (順序為DOM載入>Html全內容>jQReady>body onload)
+          //因此DOM的元素.onclick必須寫在元素之下，jQReady內的.click可寫在元素之上
+            $(function(){ //jQReady語法，此為簡寫，完整要在$後加(document).ready
+                //抓取元素方式： 
+                //$("標籤 #ID .CLASS") or $(this)   $為jQuery簡寫 this為{}所帶的原素
+                $('#button1').click(function(){ //抓取元素#button1 click事件
+                    if ($('#text1').val()!="") 
+                    {   
+                        //讀寫元素方式
+                        $('#button1').text('繼續輸入+XD'); //改變元素內容，text可換成html，同個語法
+                        $('#button1').width('300px').height('100px'); //改變大小，JQ語法可串接如此
+                        $('#button1').css('color','blue'); //改變css屬性，也可放入{}輸入json語法
+                                   //.css({'border':'solid','border-color':'#CCCCCC'});
+                        $('#text1').attr('type','text'); //改變元素屬性 (value讀不到html頁面手動更改的)
+                        $("#button1").removeAttr('disabled'); //可移除屬性
+                        $('#text1').val( $('#text1')[0].value+"XD" ); //改變元素屬性value，讀的到手動更改
+                            //以上方法把改變值刪除，就是讀取元素之值，可在最後加入.eq()指定陣列
+                            //若選取的元素是陣列，則預設讀取索引0，寫入則是全陣列都寫
+                            //若要使用JQ元素混合DOM語法，元素必須加入[]或.get()後方可
+                        
+                        //管理元素分枝的方式
+                        $('ol').append("<li></li>"); //插入新元素的方法(子元素 最後)
+                        $('li').eq($('li').length-1).text($('#text1').val()); //修改元素內容 .ed(陣列)
+                        /*元素方法：
+                         * append("<?></?>"); //插入子元素，插在最後
+                         * prepend("<?></?>"); //插入子元素，插在最前
+                         * after("<?></?>"); //插入兄弟元素，插在目標後
+                         * before("<?></?>"); //插入兄弟元素，插在目標後前
+                         * wrap("<?></?>"); //插入父元素
+                         * remove(); //砍去目標元素
+                         * length; //回傳子元素數量
+                         * children('子元素') //往下層子元素選擇
+                        */
+                        $('li:odd').css('color','red');
+                        /*選擇器(依據index)：
+                         * :odd奇數元素  :even偶數元素  :lt(?)小於?的元素  :gt(?)大於?的元素 */
+                        
+                        //each事件：匿名帶index函數執行each迴圈
+                        $('li').each(function(index,value){  //或是$.each($('li'),function(index,value){
+                            $('ol').children('li').eq(index).css('font-size',index+15);
+                            console.log(value); //index在JSON格式中可能會是文字，value在這邊就是li物件
+                            //以上等於 $(this).css('font-size',index+15);
+                        });
+                        
+                        //管理所屬class
+                        //addClass(?)加入?CLASS     removeClass(?)移除?CLASS    toggleClass(?)反向判定加入或離開
+                        
+                        //元素特效方法：
+                        $(this).fadeOut(100, function(){$(this).fadeIn(100);} ); //隱藏>>顯示
+                        /* .方法名(執行時間, 執行完成做的Function)  執行時間可以打'fast'||'slow'
+                         * 對顯示的元素：
+                         * .hide()直接隱藏_無參數   .fadeOut(?)漸漸隱藏   .slideUp(?)上拉隱藏
+                         * 對隱藏的元素：
+                         * .show()直接顯示_無參數   .fadeIn(?)漸漸顯示    .slideDown(?)下拉顯示
+                         * 其他： .toggle()隱藏顯示反向_無參數
+                         */
+                        $('#text1').animate({'width':'0'},200,function() //縮小>>放大
+                            {$('#text1').animate({'width':'200'},200)});
+                            //css位置大小更改動畫： .animate({css語法},執行時間,執行完成做的Function);
+
+                        //按鈕事件
+                        /*$("#chatContent").keydown(function(event){ 
+                            if (event.keyCode==13){}
+                        });*/
+
+                        //滾動捲軸至底
+                        //$("#tt")[0].scrollTop = $("#tt")[0].scrollHeight - $("#tt").height();
+                    }
+                });
+
+                //物件相關
+                    //具有constructor: 方法，等於php的__constructor
+                    //JSON物件 (類似鍵值變數)
+                    var dog = { //創造物件
+                         name: 'harry', age: 28,
+                         getName: function(){return this.name;}
+                    };
+                    dog.food = 'meat'; //新參數
+
+                    $.each(dog,function(key,value){ //JSON物件拆解
+                        //console.log(value); 
+                    });
+
+
+                    //原型鏈物件 (類似PHP的類別)
+                    var dog2 = function(name){ //
+                        this.name = name; //初始化區，這裡不能放變數
+                    };
+                    dog2.prototype = { //原型鏈定義參數 
+                        name: 'harry', age: 28, 
+                        getName: function(){return this.name;}
+                    };
+                    dog2.prototype.food = 'meat'; //新參數 (透過原型鏈)
+
+                    TestDog = new dog2("JoJo"); //創造物件
+                    //console.log(TestDog.name);
+
+            });
+        </script>
+    </head>
+    <body>
+        <input id="text1" value="第一行文字" type="hidden">
+        <button id="button1">開始輸入文字</button>
+        <ol>
+        </ol>
+    </body>
+    
+</html>

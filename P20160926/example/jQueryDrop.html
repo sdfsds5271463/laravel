@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery的拖曳物件</title>
+    <style>
+
+    .cart {
+        width: 500px;
+        height: 500px;
+        background: #f0ecc9;
+    }
+    .cart.active {
+        background: #FFCCFF;
+    }
+    .item {
+        width: fit-content;
+    }
+
+    </style>
+    </head>
+    <body>
+
+    <div class="container">
+        <h1>拖曳下列商品</h1>
+        <ul class="item-list">
+            <li class="item" data-price="24000">螢幕兩萬四
+            <li class="item" data-price="36000">電腦三萬六
+            <li class="item" data-price="3000">硬碟三千
+            <li class="item" data-price="1800">鍵盤一千八
+            <li class="item" data-price="1800">路由器一千八
+        </ul>
+
+        <div class="cart" id="cart">
+            <div class="total"></div>
+            <ul class="list"></ul>
+        </div>
+    </div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.10.3.custom.min.js"></script>
+    <script>
+        var total = 0;
+
+        //將元素指派為可拖曳
+        $('.item').draggable({
+            helper: 'clone',        //拖動產生分身
+            opacity: 0.5,           //拖動時的alpha
+            revert: 'invalid',      //拖動失敗會彈回去
+            revertDuration: 200
+        });
+
+        //將元素指派為拖曳目標
+        $('.cart').droppable({
+            activeClass: 'active',  //拖行時新類別
+            drop: function(event, ui) {
+                $('.list').append(ui.draggable.clone()); //取得釋放元素的克隆
+                total += ui.draggable.data('price');  //取得釋放元素的屬性
+                $('.total').html(total + '元');
+            }
+        });
+
+    </script>
+    </body>
+</html>

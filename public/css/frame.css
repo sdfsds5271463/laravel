@@ -173,13 +173,18 @@ main p{
 		padding: 8px;
 		margin-bottom: 6px;
 	}
+	#chatStateBar img{
+		border: solid 1px #999999;
+		border-radius: 5px;
+		background: #FFFFFF;
+	}
 	.chatInputRow{ /*下方輸入列*/
 		padding: 0px;
 	}
 	#speaker, #chatContent{
 		width: calc(100% - 100px );
 	}
-	#speaker, #chatContent, #chatSubmit, #chatColor{
+	#speaker, #chatContent, #chatSubmit, #chatColor, #postPaintButton{
 		height: 24px;
 		border-radius: 5px;
 		border: solid 1px #999999;
@@ -204,35 +209,43 @@ main p{
 					 -1px 0px 0px #FFFFFF, 0px -1px 0px #FFFFFF, 1px -1px 0px #FFFFFF, -1px 1px 0px #FFFFFF;
 	}
      /*繪圖板*/
-    main .col-sm-9 .col-sm-12{
-    	padding: 0px;
-    }
-    #drawArea,#paintTools{
-    	margin-top: 6px;
-    	height: 400px;
-    }
-    #showPencelDiv,#drawArea{
+    #showPencelDiv,#drawArea{ /*透明的dataURL*/
     	background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEAkACQAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA EAMCAwYAAAFsAAABdwAAAZj/2wCEABALCwsMCxAMDBAXDw0PFxsUEBAUGx8XFxcXFx8eFxoaGhoX Hh4jJSclIx4vLzMzLy9AQEBAQEBAQEBAQEBAQEABEQ8PERMRFRISFRQRFBEUGhQWFhQaJhoaHBoa JjAjHh4eHiMwKy4nJycuKzU1MDA1NUBAP0BAQEBAQEBAQEBAQP/CABEIABAAEAMBIgACEQEDEQH/ xABfAAEBAQAAAAAAAAAAAAAAAAAFAAYBAQAAAAAAAAAAAAAAAAAAAAAQAQEAAAAAAAAAAAAAAAAA AAAgEQEAAAAAAAAAAAAAAAAAAAAgEgEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAAADTNQp/ /9oACAECAAEFAH//2gAIAQMAAQUAf//aAAgBAQABBQCP/9oACAECAgY/AH//2gAIAQMCBj8Af//a AAgBAQEGPwAf/9k=");
     }
-    #drawArea{
+    main .col-sm-9 .col-sm-12{ /*整體參數*/
+    	padding: 0px;
+    }
+    #drawArea{ /*位置與寬度*/
     	border-radius: 5px;
     	width: 400px;
     	width: calc(100% - 84px );
     	float: left;
     	border: solid 1px #999999;
     }
+    #drawCanvas{
+    	/*cursor:url('../images/Transparent.cur'),pointer;*/
+    	cursor:crosshair;
+    	width: 100%;
+    	height: 100%;
+    }
+    #drawArea,#paintTools{
+    	margin-top: 6px;
+    	height: 400px;
+    }
     #paintTools{
+    	margin-bottom: 6px;
     	width: 82px;
     	float: right;
     }
-    .toolBlock{
+    .toolBlock{ /*工具小塊*/
     	cursor:pointer;
-    	padding: 5px 0 0 6px;
+    	text-align: center;
+    	padding: 5px;
     	float: left;
     	background: #FCFCFC;
     	width: 33px;
     	height: 33px;
-    	margin: 4px;
+    	margin: 2px 4px;
     	border: solid #999999;
     	border-radius: 5px;
     }
@@ -243,25 +256,22 @@ main p{
     .toolBlock:active{
     	background: #f2f0eb;
     	border-color: #555555;
-    }    
-    #drawCanvas{
-    	/*cursor:url('../images/Transparent.cur'),pointer;*/
-    	cursor:crosshair;
-    	width: 100%;
-    	height: 100%;
     }
-    #showPencelDiv{
+    #postPaintButton{
+    	margin: 2px 4px;
+    	width: 74px;
+    	float: right;
+    }
+    #showPencelDiv{ /*筆跡預覽*/
     	position: absolute;
     	width: fit-content;
     	right: 84px;
     	border: solid #777777 3px;
     	border-radius: 5px;
     	padding: 0px;
-
     }
     #showPencel{
     	margin-bottom: -4px;
-
     }
 
 /*footer*/
@@ -303,4 +313,32 @@ footer{
 	#chatStateBar{ /*聊天室主板*/
 		height: 250px;
 	}
+	.noScroll{ /*聊天室繪畫工具重新排版*/
+		overflow: hidden;
+	}
+    #drawArea{ /*繪畫區*/
+    	width: 100%;
+    	height: 300px;
+    }
+    #showPencelDiv{
+    	right: 0px;
+    }
+    #paintTools{ /*工具區*/
+    	height: auto;
+    	width: 100%;
+    }
+    #paintTools center{
+    	float: left;
+    	display: inline;
+    	width: 13px;
+    }
+    #paintTools #colorToolsTitle{
+    	clear: both;
+    	display: block;
+    	width: 100%;
+    }
+    #postPaintButton{
+    	height: 33px;
+    }
+
 }

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+    <head>
+        <title>Box2dWeb Demo</title>
+        <script src="Box2dWeb-2.1.a.3.min.js"></script>
+        <script>
+            //取得屬性transform名稱 (瀏覽器不同有不同名稱) 
+                var style = document.createElement('div').style,
+                    prefix = ['transform','webkitTransform','mozTransform','msTransform'];
+                for (key in prefix) {
+                    if (prefix[key] in style) {
+                        transformProp = prefix[key];
+                    }
+                }
+
+            //匯入為捷徑用
+                var b2Vec2          = Box2D.Common.Math.b2Vec2,
+                    b2BodyDef       = Box2D.Dynamics.b2BodyDef,
+                    b2Body          = Box2D.Dynamics.b2Body,
+                    b2FixtureDef    = Box2D.Dynamics.b2FixtureDef,
+                    b2World         = Box2D.Dynamics.b2World,
+                    b2PolygonShape  = Box2D.Collision.Shapes.b2PolygonShape, //凸多邊形
+                    b2CircleShape   = Box2D.Collision.Shapes.b2CircleShape; //圓形
+
+            //世界參數
+                var meterPerPixel = 30;
+                var allowSleep = true;  //靜止物件睡眠
+                var gravity = new b2Vec2(0, 9.8);   //重力
+                var world = new b2World(gravity, allowSleep);   //世界產生
+                var rigidBodies = []; //剛體陣列
+
+            function RigidBody(world, data) {   //Rigidbody（剛體）處理函數
+                //1.參數設置
+                    //預設值
+                    defaults = {
+                        //相關物件
+                            target: document.querySelectorAll('body')[0],   //世界物件
+                            el: document.createElement('canvas'),  //處理物件
+                        //物理係數
+                            density: 1.0,   //密度
+                            friction: 0.5,  //摩擦係數
+                            restitution: 0.2,   //彈性係數
+                            linearDamping: 0.01,    //線性運動衰減
+                            angularDamping: 0.01,   //角速度衰減
+                        //形狀種類
+                            shapeType: 'box',   //'box'矩 'circle'圓 'polygon'多邊
+                            type: 2,     //2動態物件 1靜態物件
+                        //位置大小
+                            x:0,
+                            y:0,
+                            width: 50,
+                            height: 50,
+                            radius: 20, //圓形專屬 (圓不用設定寬高)
+                            polygonPiont: [0,0,1,0,1,1,0,1], //多邊專屬
+                        //顏色與線條
+                            color: 'none',   //可設定'none'，多邊沒有顏色
+                            borderWidth: 1,
+                            borderColor: '#666666',  
+                    }
+
+                    //設定
+                    for (key in defaults) {
+                        (!data[key] && (data[key]!=0)) && (data[key] = defaults[key]);
+                    }
+                    if (data.shapeType == 'circle') {
+                        data.width = data.height = data.radius * 2;
+                    }
+
+                    //記錄
+                    this.width  = data.width;
+                    this.height = data.height;
+                    this.halfWidth  = data.width * 0.5;
+                    this.halfHeight = data.height * 0.5;
+                    this.target = data.target;
+
+                //2.套用剛體Box2D資訊物件
+                    // 產生剛體的「性質」資訊
+                    var fixDef  = new b2FixtureDef();   //性質物件產生
+                    fixDef.density = data.density;
+                    fixDef.friction = data.friction;
+                    fixDef.restitution = data.restitution;
+                    //產生形狀碰撞區域
+                    if (data.shapeType == 'polygon') {
+                        data.x -= (data.width/2);
+                        data.y -= (data.height/2);
+                        fixDef.shape = new b2PolygonShape();
+                            scaleH = data.height/meterPerPixel;
+                            scaleW = data.width/meterPerPixel;
+                            P = data.polygonPiont;
+                            shape = [];
+                            for (i=0;i<P.length;i+=2){
+                                shape.push(new b2Vec2(scaleW*P[i] , scaleH*P[i+1]));
+                            }
+                            fixDef.shape.SetAsArray(shape);
+                    }
+                    if (data.shapeType == 'box') {
+                        fixDef.shape = new b2PolygonShape();
+                        fixDef.shape.SetAsBox(this.halfWidth/meterPerPixel, this.halfHeight/meterPerPixel);
+                    }
+                    if (data.shapeType == 'circle') {
+                        fixDef.shape = new b2CircleShape();
+                        fixDef.shape.SetRadius(data.radius/meterPerPixel);
+                    }
+                    // 產生剛體的「狀態」資訊
+                    var bodyDef = new b2BodyDef();   //狀態物件產生
+                    bodyDef.type = data.type;
+                    bodyDef.position.x = data.x/meterPerPixel;
+                    bodyDef.position.y = data.y/meterPerPixel;
+                    bodyDef.linearDamping = data.linearDamping;
+                    bodyDef.angularDamping = data.angularDamping;
+                    this.el = data.el;
+
+                //3.將剛體的引數設定為DOM的引數
+                    //DOM物件style設置
+                    var style = this.el.style;
+                    style.position = 'absolute';
+                    style.display = 'block'
+                    style.left = 0;
+                    style.top = 0;
+                    //多邊形畫線
+                    if (data.shapeType == 'polygon') {
+                        style.left = scaleW*meterPerPixel/2 + 'px'; //定位
+                        style.top = scaleH*meterPerPixel/2 + 'px';
+                        scaleW*=meterPerPixel;
+                        scaleH*=meterPerPixel;
+                        this.el.width  = scaleW;
+                        this.el.height = scaleH;
+                        ctx = this.el.getContext("2d"); //定義canvas的2d繪製物件
+                        ctx.beginPath();
+                        ctx.lineWidth= data.borderWidth*2;
+                            ctx.lineCap="round"; //線樣式
+                            ctx.lineJoin="round"; 
+                            ctx.miterLimit=0;
+                        ctx.moveTo(scaleW*P[0] , scaleH*P[1]); //起始點
+                        for (i=2;i<P.length;i+=2){
+                            ctx.lineTo(scaleW*P[i] , scaleH*P[i+1]); //畫線
+                        }
+                        ctx.closePath(); //直線繪製回moveTo的點
+                        ctx.strokeStyle=data.borderColor;
+                        ctx.stroke();
+                    }
+                    //圓方形畫線+上色
+                    if(data.shapeType != 'polygon'){
+                        (data.color != 'none') && (style.background = data.color);
+                        style.border = data.borderColor+' solid '+data.borderWidth+'px';
+                    }
+                    if (data.shapeType == 'box') {
+                        style.width  = this.width  + 'px';
+                        style.height = this.height + 'px';
+                    }
+                    else if (data.shapeType == 'circle') {
+                        style.height = this.el.style.width = (data.radius * 2) + 'px';
+                        style.borderRadius = '50%';
+                    }
+                    //新增DOM物件至世界區
+                    this.target && this.target.appendChild(this.el);
+
+                //4.產生Box2D世界
+                    this.body = world.CreateBody(bodyDef);
+                    this.body.CreateFixture(fixDef);
+            }
+            RigidBody.prototype = {
+                //世界時間進行
+                applyToDOM: function () {
+                    //取得世界資訊
+                    var position = this.body.GetPosition();
+                    //修正世界資訊
+                    var x = position.x * meterPerPixel - this.halfWidth;
+                    var y = position.y * meterPerPixel - this.halfHeight;
+                    var r = this.body.GetAngle() * 180 / Math.PI;
+                    (Math.abs(x) <= 0.00001) && (x = 0);
+                    (Math.abs(y) <= 0.00001) && (y = 0);
+                    (Math.abs(r) <= 0.00001) && (r = 0);
+                    //將世界資訊套用至DOM物件
+                    this.el.style[transformProp] = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg)';
+                }
+            };
+
+            window.onload = function(){
+                init();
+                update();
+                function update(){
+                    requestAnimationFrame(update); //使物理運算世界的時間前進
+                    world.Step(0.016,1,1); //重複間格(s)、每間格運算速度次數、每間格運算位置次數
+                    for (key in rigidBodies) {
+                        rigidBodies[key].applyToDOM();  //所有物件更新DOM狀態
+                    }
+                    world.ClearForces();
+                }
+            }
+            function init() {
+
+                //產生地面
+                var ground = new RigidBody(world, {
+                    type: 1,
+                    width: (innerWidth-100),
+                    height: 20,
+                    x: (innerWidth)/2,
+                    y: (innerHeight-100),
+                    color: 'black',
+                    borderWidth: 0,
+                });
+                rigidBodies.push(ground);
+
+                //產生左壁
+                var leftWall = new RigidBody(world, {
+                    type: 1,
+                    width: 20,
+                    height: (innerHeight-100),
+                    x: 100,
+                    y: (innerHeight-100)/2,
+                    color: 'black',
+                    borderWidth: 0,
+                });
+                rigidBodies.push(leftWall);
+
+                //產生右壁
+                var rightWall = new RigidBody(world, {
+                    type: 1,
+                    width: 20,
+                    height: (innerHeight-100),
+                    x: (innerWidth-100),
+                    y: (innerHeight-100)/2,
+                    color: 'black',
+                    borderWidth: 0,
+                });
+                rigidBodies.push(rightWall);
+
+                //產生多邊形
+                var shape = new RigidBody(world, {
+                    type: 1,
+                    width: innerWidth/3,
+                    height: innerHeight/3,
+                    shapeType: 'polygon',
+                    polygonPiont: [0,0, 1,1, 0,1],
+                    x: (innerHeight/3+100),
+                    y: (innerHeight/1.5),
+                    borderWidth: 4,
+                });
+                rigidBodies.push(shape);
+
+                //將以存在物件套入圓形
+                var tagItems = document.querySelectorAll('li');
+                for (var i=0; i<tagItems.length; i++){
+
+                    var bit = new RigidBody(world, {
+                        el: tagItems[i],
+                        shapeType: 'circle',
+                        color: 'rgb(' + parseInt(Math.random()*255) + ',' 
+                                      + parseInt(Math.random()*255) + ','
+                                      + parseInt(Math.random()*255) + ')',
+                        width: 10,
+                        height: 450,
+                        radius: 50,
+                        x: Math.random()*innerWidth/2 +100,
+                        y: Math.random()*200 -100,
+                    });
+                    bit.body.SetAngularVelocity(Math.random() * 10); //初始角速度
+                    rigidBodies.push(bit);
+                }
+
+            }
+
+        </script>
+    </head>
+    <body>
+            <main>
+                <ul>
+                    <li><li><li><li><li><li><li><li><li><li>
+                </ul>
+            </main>
+    </body>
+</html>

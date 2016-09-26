@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+    <head> <!--一般css的style設定都放至於head-->
+        <meta charset='UTF-8'>
+        <title>CSS樣式頁面</title>
+        <!--css的使用有三種方式：1.元素屬性style設定 2.style元素內容定義內部css 3.引用外部css-->
+        <link rel="stylesheet" href="null.css"> <!--html的外部css引用法-->
+        <style>
+            @import url("null.css"); /*css語言的外部css引用法，此法可串連多個css*/
+            /*在學習之前，必須要先知道的單位：
+                1.色碼#ffffff or rgb(255,255,255) or black、blue or rgba(255,255,255,0.5)加入alpha
+                2.px像素 cm公分 mm公厘 in英吋 em百分比 %百分比 (1em = 100%) fit-content最適大小
+                3.calc(計算式) 可以計算樣式，比方說可以設定calc(100% - 50px)
+                4.!important屬性可以加在任何屬性後面，例如3px !important分號，就會成為優先考量*/
+            
+            /*在元素style的內容中，使用的就是css語言，使用方法為：
+                1目標 {2樣式:値;}
+                    1.1目標規則：
+                        標籤選擇器 輸入標籤；  類別選擇器 輸入.class値；  id選擇器 輸入#id値
+                        萬用選擇符號*  它可以代表任何選擇器，但是前面不能加#或是.
+                        組合選擇器 假設A與B是上面的三種選擇器，則
+                            A B 選擇A的後代B (A的子子孫孫是B全選)
+                            A>B 選擇A的兒子B (A的兒子是B才選，孫子B就不選了)
+                            A+B 選擇A正下面的一個平輩B (正下面才選，只選一個)
+                            A~B 選擇A所有下面的平輩B (下面的全部都選)
+                        虛擬類別：在任何一個選擇器後面加入冒號:，給予虛擬型態
+                            :hover 當滑鼠滑至上方
+                            :link 連結顏色
+                            :visited 查閱過的連結
+                            :active 變換中的連結
+                            :first-child 第一個元素
+                            :last-child 最後一個元素
+                        效力強弱：越下層的越強；元素內用stlye設定的最強；id選擇>類別選擇>標籤選擇 
+                        多個目標同設定時，用逗點,格開目標即可
+            
+                2.樣式
+                    2.1文字樣式
+                        font: style weight *size *family; (簡寫設定法，打星號為必要樣式不能換位且壓軸)
+                            font-style: 風格italic(斜體)、oblique(仿斜體); (仿斜體是將正體直接傾斜)
+                            font-weight: 粗細100~900 百位為單位，預設是400，也可輸入數字以外如下
+                                normal(400)、blod(700)、lighter(相對-300)、bolder(相對+300)
+                            font-size: 大小px cm mm in em %
+                            font-family: 字型1 字型2 字型3 (如果別人電腦沒有字型會順位下去)
+                            不在簡寫的樣式：
+                            color: 文字顏色
+                            text-align: 對齊left、right、center、justify(分散對齊)
+                            text-indent: 首段縮排 
+                            text-decoration: underline底線、overline頂線、line-through刪截線、none無線
+                            text-shadow: *right *top 暈開 *color; 文字陰影(僅簡寫星號必要不能換位，結尾可用,後做複和陰影)
+                    2.2背景樣式
+                        background: color image repeat position; (簡寫設定法，無必要樣式皆可換位)
+                            background-color: 背景色碼#ffffff 或rgb(255,255,255)
+                            background-image: url('背景圖URL位址')
+                                              linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%); 漸層
+                            background-repeat: 背景圖重複repeat(預設貼滿)、repeat-x、repeat-y、no-repeat
+                            background-position: 距離左邊界 距離上邊界;
+                                背景位置的單位可以用px或是百分比，50% 50%就是置中，亦可輸入文字如下
+                                center置中、left貼左、right貼右、top貼上、bottom貼下(貼下會考慮body高)
+                    2.3框線樣式
+                        border: style width color; (簡寫設定法，無必要樣式皆可換位)
+                            border-style: 樣式none(預設不顯示)、dotted(點)、solid(實線)、double(空心線)、dashed(虛線)
+                            border-width: 粗細(預設3px)
+                            border-color: 顏色
+                            不在簡寫的樣式：
+                            border-radius: 圓角(預設0px)
+                            (以上樣式，非簡寫時可以最多給予4參數(上 右 下 左)，參數未達4個時，未設之邊會考背對面)
+                            (或是把中間的-變成方向： -top-、-right-、-bottom-、-left-)
+                            以下是表格專用框線樣式：
+                            border-collapse: separate雙層框線(預設)、collapse單層框線
+                            border-spacing: 雙層框線間距(預設2px，單層框線時無視此樣式)
+                    2.4清單樣式 (若有修改序號type値，則ul與ol會完全一樣)
+                        list-style: type position image; (簡寫設定法，無必要樣式皆可換位)
+                            list-style-type: 無序項disc(●)、circle(○)、square(■)、none(無)
+                                            有序項decimal(1,2預設)、decimal-leading-zero(01,02)、cjk-heavenly-stem(甲,乙)
+                                            trad-chinese-formal(壹,貳)、trad-chinese-informal(一,二)
+                            list-style-position: 位置outside(外 預設)、inside(裡 必能將過長序號顯示完整)
+                            list-style-image: 圖片url('位址') (此設定會取代type之符號)
+                    2.5BOX模型樣式
+                        margin: 外徑 (背景不會顯示在外徑，最多可給予4參數 上 右 下 左，未設之邊會考背對面)
+                        padding: 內徑 (以上兩個參數可設auto自適應，同上最多可給予4參數)
+                        float: 飄移 left貼左、right貼右、top貼上、bottom貼下 (此樣式會讓元素無視block)
+                        clear: 清除飄移none(預設)、left、right、both (若clear的方向出現飄移元素，則下移本區塊)
+                        overflow: 溢位auto(自適應預設)、scroll(永遠顯示拉軸)、no-display(僅不顯示無內容區域)、
+                                hidden(有設定寬或高時隱藏 或者自動放大區至無溢位)  ，另有overflow-x overflow-y
+                        位置調整的樣式：
+                        position: 定位方式 static預設、relative相對於預設、absolute絕對(定位於上層的非static元素)
+                            fixed固定視窗(定位於document邊界，不會隨瀏覽軸拉動而移動)
+                        top: right: bottom: left: 定位，値為距離定位點的距離
+                        z-index: Z軸高度，越大的會蓋過越小的
+                        word-break: break-all直接換行 keep-all句子以外換行 normal不換行
+                        display: block 或 inline
+                    2.6轉場效果樣式 (效果搭配:hover使用，此樣式放於實體選擇器中，選擇的樣式必須要有:hover之樣式改變)
+                        transition: *duration delay property timing-function; (簡寫設定，星號為必要樣式不能換位)
+                        transition-duration: 效果時間(單位必須加 為s或ms)
+                        transition-delay: 開始前延遲(單位必須加 為s或ms)
+                        transition-property: 套用樣式，輸入樣式名稱
+                        transition-timing-function: 轉移速度 ease先很快後慢(預設)、ease-out先快後慢
+                            ease-in先慢後快、linear等速變化
+                    2.7關鍵影格動畫樣式 (必須先定義，再從選擇器中透過樣式animation套用)
+                        定義方法：
+                        @keyframes 自訂名稱{
+                            from {樣式:値;} 要套用的樣式必須上下都設定値
+                            to   {樣式:値;} 樣式可以是所有具單位値，例如位置、大小、顏色
+                        }
+                        套用方法：
+                        animation: *自訂名稱 *duration timing-function infinite;(星號為必要樣式不能換位)
+                            duration、timing-function與2.6之轉場效果樣式一樣
+                            infinite為循環播放，不輸入則是播放一次    
+                    2.8滑鼠樣式
+                        cursor元素能讓滑在元素上的滑鼠變樣
+                            cursor:url('Transparent.cur'),pointer;  //變成cur圖片設定
+                            cursor:crosshair;   //(手指)依據圖形參數變換
+                                //auto預設、crosshair十字、pointer手指
+                                //放大鍵頭e-resize(左右)、n-resize(上下)、ne-resize(/斜)、nw-resize(\斜)
+                                //帶小符號help(帶問號)、progress(帶沙漏)
+                                //事件件頭move(移動視窗)、text(文字輸入)、wait(沙漏)
+
+            */
+            
+            /*以下是常用版面區塊區域元素*/
+            header, nav, main, footer{ 
+                width: 1000px; 
+                margin: 0 auto; /*讓外徑自適應，就會左右至中*/
+            }
+            header {background-color: #ffeeee;} 
+            nav {background-color: #eeffee;}
+            main {
+                background-color: #ccccff;
+                overflow: hidden; /*用overflow: hidden;拉大article div*/
+            }
+            aside {
+                background-color: #eeeeee;
+                float: left;
+                width: 300px;
+            }
+            section,article {
+                background-color: #cccccc;
+                float: right;
+                width: 700px;
+            }
+            footer {background-color: #aaaaaa;}
+        </style>
+    </head>
+    <body>
+        <!--常用版面元素介紹與示範：
+            div區塊區域元素、span同軸區域元素 (其差別為div預設不能與其他元素並排、span可)
+            效果同div異標籤區域元素：header(頭)、nav(脖)、article(身)、section(體內)、aside(側身)、footer(腳)-->
+        <header>header<br>1<br>1<br>1</header>
+        <nav>nav<br>2<br>2<br>2</nav>
+        <main>
+            <aside>aside<br>3-2<br>3-2<br>3-2</aside>
+            article 3
+            <section>section<br>3-3<br>3-3<br>3-3</section>
+            <article>article</article>
+        </main>
+        <footer>footer<br>4<br>4<br>4</footer>
+    </body>
+</html>

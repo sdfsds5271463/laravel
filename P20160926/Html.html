@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="zh-tw"> <!--lang可協助瀏覽器與搜尋引擎抓取語系-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="refresh" content="999999; url=http://www.dreamdu.com/"> <!--N秒後轉址-->
+        
+        <title>HTML格式</title>
+    </head>
+    <body>
+        超文件格式範例說明： <p id='p1'>Start</p>
+            <!--上範例超格式：<p></p>表示元素、p表示標籤、id表示屬性、Start表示內容(有的元素無內容)-->
+
+        每個html都必須包含6元素：!DOCTYPE html(文件種類)、html(文件主體)、head(文件表頭)、body(文件內容)<br>
+        html含括了head與body元素，其中head元素內還有兩個重要元素須設定：meta(編碼與資訊)、title(網頁抬頭)<br>
+        <hr>
+        <!--排版類型元素介紹：
+            p段落、br換行(無內容)、hr水平線(無內容)、code顯示等字距自體、pre顯示原始排列(顯示空白與ln) -->
+        <p >特殊字元符號表示：</p>
+            &lt;小於、&gt;大於、&nbsp;空白、&amp;＆、＂&quot;、’&#39;、＆#之後可輸入ascii碼導出符號。
+        <p >強調文字元素介紹：</p>
+            <h1>h1~6標題</h1>、<i>i斜體(同em)</i>、<b>b粗體(同strong)</b>、<u>u底線</u>、<mark>mark螢光底</mark> 
+        <!--常用版面元素介紹：
+            div區塊區域元素、span同軸區域元素 (其差別為div預設不能與其他元素並排、span可，一個是block元素一個是inline元素)
+                (概念：block元素總是在新行上開始，有自己的寬與高；inline元素可在一行文字中，無自己的寬與高)
+            效果同div異標籤區域元素：header(頭)、nav(脖)、main(身)、article(身文)、section(身段)、aside(側身)、footer(腳)-->
+        <!--媒體元素介紹：
+            全部都包含路徑屬性src="URL"、除了聲音元素之外都包含大小屬性height、width="大小"
+            圖片元素：img(無內容)
+                alt="描述" //圖片描述
+            聲音元素：audio
+                autoplay //自動播放
+                controls //顯示操控板
+                loop //循環播放
+            影片元素：video
+                autoplay //自動播放
+                controls //顯示操控板
+                loop //循環播放
+            萬用媒體播放元素：embed(無內容，一律自動播放一次+操控板，無法更改此設定。可播放swf) -->
+        <p >超連結元素介紹：</p>
+            <base href='../'> <!--更改工作目錄元素base-->
+            <a href="." target="_blank">連結內容</a> 
+                <!--屬性href路徑URL，設定#是自連、設定#id是髦點到id元素位置-->
+                <!--屬性target開啟目標，_blank新視窗、_self自我視窗、_top最上層視窗、_parent父層視窗-->
+                <!--屬性download下載後檔案的新名子-->
+        <!--清單元素介紹-->
+            <!--清單元素有兩個：ol與ul(無序號及相關屬性)，創造清單後裡面必須放至項目元素li。 ol序號屬性如下：-->
+            <ol start='100' type='1' reversed> <!--start起始序號、type序號種類(1 a A i I)、reversed倒序-->
+                <li>清單1 <!--/li可以省略-->
+                <li>清單2
+                <li value='106'>清單3</li><!--li屬性value 將序號改為此-->
+                <li>清單4
+            </ol>
+        <!--表格元素介紹-->
+            <table border='1' > <!--表格主體-->
+                <caption>表格標題</caption>
+                <tbody> <!--表格標籤元素，用來設定css的，有thead、tbody、tfoot三種-->
+                    <tr><!--tr 表格橫排(cols)元素-->
+                        <td>內容1</td><td>內容2</td><!--td 表格欄位元素-->
+                        <td rowspan="2">內容3</td><!--rowspan、colspan 直排、橫排跨欄屬性-->
+                    </tr>
+                    <tr>
+                        <th colspan="2">內容4</th><!--th 粗體的td-->
+                    </tr>
+                </tbody>
+            </table>
+        <!--表單元素介紹-->
+            <!--全部的表單元素都有屬性name、id(用來做識別)，表單子元素都有屬性value(値)-->
+            <!--輸入框的元素有屬性size(大小)、maxlength(最大字元數)、placeholder(預設提示字元)
+                               autocomplete="off"(關閉瀏覽器自動填入記憶功能)-->
+            <!--只要是要輸入資料的元素都有屬性required(必要)、autofocus(預設焦點)、readonly(唯讀)-->
+            <form action='#' method='get'><!--action動作的目標(URL)、method動作方法(post、get)-->
+                <!--GET與POST區別：GET透過URL網址傳輸，POST內容放置於HEADER同網頁一併傳送，使用者看不到較安全-->
+                <!--input元素-->
+                    <input type='text'>     <!--標準文字框-->
+                    <input type='hidden'>   <!--隱藏的文字框-->
+                    <input type='password'> <!--密碼的文字框，文字會變***-->
+                    <input type='button'>   <!--按鈕，同元素button-->
+                    <input type='submit'>   <!--按鈕，功能為提交表單-->
+                    <input type='reset'>    <!--按鈕，功能為重設表單-->
+                    <input type='radio'>    <!--圓型單選框，用同name做系列  專屬性：checked已選取-->
+                    <input type='checkbox'> <!--方形複選框，用同name做系列  專屬性：checked已選取-->
+                    <input type='range'>    <!--衡拉軸  專屬性：min、max極值，step每格間値。預設0~100step1-->
+                    <input type='color'>    <!--顏色文字框(EX #0000ff)，自備選擇器-->
+                    <input type='file'>     <!--檔案上傳框-->
+                    <!--以下日期選擇器欄位-->
+                    <input type='date'>     <!--日期文字框(EX 2016/09/07)，以下時間系列皆自備選擇器-->
+                    <input type='time'>     <!--時間文字框(EX 下午02:01)-->
+                    <input type='datetime-local'> <!--日期+時間文字框(EX 2016/09/07下午02:01)-->
+                    <input type='month'>    <!--月份文字框(EX 2016年9月)-->
+                    <input type='week'>     <!--週次文字框(EX 2016年，第38週)-->
+                    <!--以下限定格式框 (送出表單時會檢查格式)-->
+                    <input type='email'>    <!--限定格式email框-->
+                    <input type='tel'>      <!--限定格式tel框-->
+                    <input type='number'>   <!--限定格式number框-->
+                    <input type='url'>      <!--限定格式url框-->
+                <!--select元素-->
+                    <select> <!--下拉式選單，size屬性為直排顯示數(預設1)，multiple屬性為複選-->
+                        <optgroup label="清單分類"> <!--optgroup為清單分類元素 顯示屬性label，/結尾可省略-->
+                            <option>123<option>456<option>789 <!--option為清單元素，/結尾可省略-->
+                    </select>
+                <!--textarea多欄輸入元素，屬性rows(直行數)、cols(橫向位元)-->
+                    <textarea rows='5' cols='25'>預設內容</textarea> 
+                <!--其他搭配用元素-->
+                    <fieldset> <!--fieldset框框元素，內容使用元素legend做標題-->
+                        <legend>標題</legend>內容
+                    </fieldset>
+                    <label>內容</label><!--label元素：綁定文字與form元素，常用在radio或是checkbox-->
+                    <button>按鈕</button><!--button元素：按鈕，類似input的button type，放表單裡預設為submit-->
+            </form>
+        <!--iframe崁入元素：將別的網頁崁進來-->
+        <iframe src="." width="600px" height="300px"
+                sandbox="allow-top-navigatio allow-forms allow-popups allow-scripts">
+                <!--屬性src為崁入的URL，width、height為顯示大小-->
+                <!--屬性sandbox為限制崁入的網站功能，若不導入sandbox則全部允許、若單設定sandbox不帶屬性內容則全部限制
+                    sandbox的內容設定，就是「全部限制，但是允許什麼」，屬性內容如下(複數內容用空白隔開)
+                    allow-top-navigatio //允許tatget=_top
+                    allow-forms //允許form submit
+                    allow-popups //允許tatget=_blank
+                    allow-scripts //允許script   -->
+                
+        </iframe>
+    </body>
+</html>
