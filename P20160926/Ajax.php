@@ -5,7 +5,7 @@
         foreach($_POST as $key => $value) { 
             $post[$key] = $value;
         }
-        echo json_encode($post);  //Array to Json字串 回傳
+        echo json_encode($post);  //Array to Json字串 回傳 (亦有decode可用)
         exit(); //防止ajax輸出html資料
     }
 

@@ -4,7 +4,7 @@
 	use Illuminate\Http\Request;
 	use App\Models\Onlineuser;	
 
-	use App\Models\Timeflag;
+	//use App\Models\Timeflag; 舊版，使用檔案變數管理取代之
 	use App\Models\Ajaxchatroommodel;
 
 	class ajaxChatRoom extends BaseController 
@@ -12,9 +12,10 @@
 		public function index(
 			\App\Services\onlineUsersAmount $onlineUsersAmount,
 			\App\Services\stateCode $stateCode,
+			\App\Services\manageVarFile $mngFile,
 			Request $request
 		){
-			$Timeflag = new Timeflag;
+			//$Timeflag = new Timeflag;
 			//$Timeflag->updataChatLastTime();
 			//$Timeflag->returnChatLastTime();
 	 		

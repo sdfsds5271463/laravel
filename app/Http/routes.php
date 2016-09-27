@@ -21,6 +21,9 @@ EOT;
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
 Route::match(['get','post'],'index','index@index');
 
+
+//測式頁面
+Route::match(['get','post'],'test','test@index');
 Route::get('frame', function () {
     return view('frame');
 });

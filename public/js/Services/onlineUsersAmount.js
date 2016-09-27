@@ -2,7 +2,7 @@
         onlineUserIdRegister();
 		setInterval(function(){
             onlineUserIdRegister();
-        },4000); //4秒自動更新人數
+        },10000); //秒自動更新人數
 	});
 
 

@@ -22,7 +22,9 @@
  				$post['Code'] = $Code;
 				break;
 			case 'stateAjaxChatRoom': //顯示聊天室
-				if ($Timeflag->returnChatLastTime() > $post['chatStateTime']){
+				//$chatTimeFlag = $Timeflag->returnChatLastTime();
+				$chatTimeFlag = $mngFile->getVar("chatTimeFlag"); //新版 使用檔案做為時間旗標
+				if ($chatTimeFlag > $post['chatStateTime']){
 					$chatdata = $Ajaxchatroommodel->stateChat($post['chatStateTime'],$Ajaxchatroommodel->chatMaxAmount); //顯示聊天新資料
 					foreach ($chatdata as $key=>$val){
 						$timeFlag = ($chatdata[$key]['time']);
@@ -35,7 +37,8 @@
 				break;
 			case 'inputAjaxChatRoom': //插入聊天室
 				$Ajaxchatroommodel->insertChat($post['chatContent'],$post['speaker'],$post['chatColor']);
-				$Timeflag->updataChatLastTime();
+				//$Timeflag->updataChatLastTime();
+				$mngFile->putVar("chatTimeFlag",time()); //新版 使用檔案做為時間旗標
 				setcookie('cookie_speaker',$post['speaker'] ,time()+60*60*24);
 				setcookie('cookie_chatColor',$post['chatColor'] ,time()+60*60*24);
 				break;

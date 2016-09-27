@@ -40,7 +40,7 @@
 			        			<input type="submit" value="搜尋" class="search_button" />
 		        			</form><!-- Search Google -->
 		        			<a href="#"><span class="glyphicon glyphicon-map-marker"></span>網站地圖</a><br>
-		        			在線 <span class="OnlineAmount"> </span> 人
+		        			在線 <span class="OnlineAmount">0</span> 人
 		        		</div>
 		        		<div class="thanks">感謝<a href="http://www.pixiv.net/member.php?id=4041740" target="_blank">強者朋友</a>供圖
 		        		</div>

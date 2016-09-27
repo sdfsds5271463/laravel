@@ -56,6 +56,17 @@
 			<div class="toolBlock" data-tool="#8E8E8E"></div>
 			<button id="postPaintButton">送出繪圖</button>
 		</div>
+		<div id="paintAdvanceFunc">
+		進階功能：	<a href="#func" data-func="clearAll">[全頻清除 ctrl+del]</a>
+					<a href="#func" data-func="selectColor">[自訂顏色 ctrl+q]</a>
+					<a href="#func" data-func="restore">[復原 ctrl+z]</a>
+					<a href="#func" data-func="rrestore">[取消複原 ctrl+y]</a>
+					<a href="#func" data-func="cut">[剪下 ctrl+x]</a>
+					<a href="#func" data-func="copy">[複製 ctrl+c]</a>
+					<a href="#func" data-func="paste">[貼上 ctrl+v]</a><br>
+		快捷鍵：工具切換[tab]、筆刷大小[1(大)2(小)]、透明度[3(高)4(低)]
+					<input type="color" id="selectPaintColor" style="visibility:hidden; width=5px;">
+		</div>
 	</div>
 <p>
 </p>

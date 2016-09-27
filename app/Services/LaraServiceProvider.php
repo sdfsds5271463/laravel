@@ -18,12 +18,16 @@
 			$this->app->bind(stateCode::class,function(){
 				return new stateCode(); 
 			});	
+			$this->app->bind(manageVarFile::class,function(){
+				return new manageVarFile(); 
+			});	
 		}
 		public function provides() //緩載時要提供所有的註冊名
 		{
 			return [
 				onlineUsersAmount::class,
-				stateCode::class
+				stateCode::class,
+				manageVarFile::class
 			];
 		}
 
