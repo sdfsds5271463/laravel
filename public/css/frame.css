@@ -278,6 +278,23 @@ main p{
     	width: fit-content;
     }
 
+
+    /*box2d世界樣式*/
+    .topSelector{
+    	text-align: center;
+    	z-index: 99;
+    	padding: 14px 0px;
+    	border-color: #DDDDDD;
+    	border-width: 1px 3px;
+    	border-style: solid dashed;
+    }
+    .topSelector a{
+    	color: #777777;
+    }
+    .topSelector a:hover{
+    	color: #333333;
+    }
+
 /*footer*/
 footer{
 	text-align: center;

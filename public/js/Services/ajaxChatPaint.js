@@ -13,7 +13,7 @@
 	//控制參數
 	var mx,my; //滑鼠位置
 	var draw=0; //繪畫旗標
-	var selectEnableWait=0; //框選功能
+	var selectEnableWait=0; //鎖住框選功能時間參數
 
 	//繪圖參數
 	var hsl="#000000";
@@ -474,6 +474,7 @@
 				copySave = imgData;
 			break;
 			case "paste":
+				ctx.globalCompositeOperation = "source-over";
 				ctx.drawImage(copySave,0,0); //貼上未解壓dataURL
 				saveInRecover();
 			break;
