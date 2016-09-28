@@ -70,7 +70,7 @@
 	                <ul class="navbar-nav nav">
 	                    <li><a href="ajaxChatRoom"><span class="glyphicon glyphicon-pencil"></span> AJAX塗鴉聊天室</a></li>
 	                    <li><a href="#"><span class="glyphicon glyphicon-certificate"></span> XML即時氣象</a></li>
-	                    <li><a href="box2d"><span class="glyphicon glyphicon-apple"></span> jQuery物理空間</a></li>
+	                    <li><a href="box2d"><span class="glyphicon glyphicon-apple"></span> Box2D物理空間</a></li>
 	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度感測器
 	                        <span class="caret"></span></a><!--span的類別caret是下拉專屬圖示▼-->
 	                        <ul class="dropdown-menu">

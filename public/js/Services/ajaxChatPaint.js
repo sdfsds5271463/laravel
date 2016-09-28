@@ -351,6 +351,7 @@
 		imgData.src=compressCanvas.toDataURL(); //產生dataURL
 		//console.log(imgData);
 		ctx.drawImage(imgData,0,0,cw*compressScale,ch*compressScale); //貼上解壓dataURL
+		saveInRecover();
 	}
 
 

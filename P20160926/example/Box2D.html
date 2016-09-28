@@ -29,136 +29,142 @@
                 var world = new b2World(gravity, allowSleep);   //世界產生
                 var rigidBodies = []; //剛體陣列
 
-            function RigidBody(world, data) {   //Rigidbody（剛體）處理函數
-                //1.參數設置
-                    //預設值
-                    defaults = {
-                        //相關物件
-                            target: document.querySelectorAll('body')[0],   //世界物件
-                            el: document.createElement('canvas'),  //處理物件
-                        //物理係數
-                            density: 1.0,   //密度
-                            friction: 0.5,  //摩擦係數
-                            restitution: 0.2,   //彈性係數
-                            linearDamping: 0.01,    //線性運動衰減
-                            angularDamping: 0.01,   //角速度衰減
-                        //形狀種類
-                            shapeType: 'box',   //'box'矩 'circle'圓 'polygon'多邊
-                            type: 2,     //2動態物件 1靜態物件
-                        //位置大小
-                            x:0,
-                            y:0,
-                            width: 50,
-                            height: 50,
-                            radius: 20, //圓形專屬 (圓不用設定寬高)
-                            polygonPiont: [0,0,1,0,1,1,0,1], //多邊專屬
-                        //顏色與線條
-                            color: 'none',   //可設定'none'，多邊沒有顏色
-                            borderWidth: 1,
-                            borderColor: '#666666',  
-                    }
-
-                    //設定
-                    for (key in defaults) {
-                        (!data[key] && (data[key]!=0)) && (data[key] = defaults[key]);
-                    }
-                    if (data.shapeType == 'circle') {
-                        data.width = data.height = data.radius * 2;
-                    }
-
-                    //記錄
-                    this.width  = data.width;
-                    this.height = data.height;
-                    this.halfWidth  = data.width * 0.5;
-                    this.halfHeight = data.height * 0.5;
-                    this.target = data.target;
-
-                //2.套用剛體Box2D資訊物件
-                    // 產生剛體的「性質」資訊
-                    var fixDef  = new b2FixtureDef();   //性質物件產生
-                    fixDef.density = data.density;
-                    fixDef.friction = data.friction;
-                    fixDef.restitution = data.restitution;
-                    //產生形狀碰撞區域
-                    if (data.shapeType == 'polygon') {
-                        data.x -= (data.width/2);
-                        data.y -= (data.height/2);
-                        fixDef.shape = new b2PolygonShape();
-                            scaleH = data.height/meterPerPixel;
-                            scaleW = data.width/meterPerPixel;
-                            P = data.polygonPiont;
-                            shape = [];
-                            for (i=0;i<P.length;i+=2){
-                                shape.push(new b2Vec2(scaleW*P[i] , scaleH*P[i+1]));
-                            }
-                            fixDef.shape.SetAsArray(shape);
-                    }
-                    if (data.shapeType == 'box') {
-                        fixDef.shape = new b2PolygonShape();
-                        fixDef.shape.SetAsBox(this.halfWidth/meterPerPixel, this.halfHeight/meterPerPixel);
-                    }
-                    if (data.shapeType == 'circle') {
-                        fixDef.shape = new b2CircleShape();
-                        fixDef.shape.SetRadius(data.radius/meterPerPixel);
-                    }
-                    // 產生剛體的「狀態」資訊
-                    var bodyDef = new b2BodyDef();   //狀態物件產生
-                    bodyDef.type = data.type;
-                    bodyDef.position.x = data.x/meterPerPixel;
-                    bodyDef.position.y = data.y/meterPerPixel;
-                    bodyDef.linearDamping = data.linearDamping;
-                    bodyDef.angularDamping = data.angularDamping;
-                    this.el = data.el;
-
-                //3.將剛體的引數設定為DOM的引數
-                    //DOM物件style設置
-                    var style = this.el.style;
-                    style.position = 'absolute';
-                    style.display = 'block'
-                    style.left = 0;
-                    style.top = 0;
-                    //多邊形畫線
-                    if (data.shapeType == 'polygon') {
-                        style.left = scaleW*meterPerPixel/2 + 'px'; //定位
-                        style.top = scaleH*meterPerPixel/2 + 'px';
-                        scaleW*=meterPerPixel;
-                        scaleH*=meterPerPixel;
-                        this.el.width  = scaleW;
-                        this.el.height = scaleH;
-                        ctx = this.el.getContext("2d"); //定義canvas的2d繪製物件
-                        ctx.beginPath();
-                        ctx.lineWidth= data.borderWidth*2;
-                            ctx.lineCap="round"; //線樣式
-                            ctx.lineJoin="round"; 
-                            ctx.miterLimit=0;
-                        ctx.moveTo(scaleW*P[0] , scaleH*P[1]); //起始點
-                        for (i=2;i<P.length;i+=2){
-                            ctx.lineTo(scaleW*P[i] , scaleH*P[i+1]); //畫線
-                        }
-                        ctx.closePath(); //直線繪製回moveTo的點
-                        ctx.strokeStyle=data.borderColor;
-                        ctx.stroke();
-                    }
-                    //圓方形畫線+上色
-                    if(data.shapeType != 'polygon'){
-                        (data.color != 'none') && (style.background = data.color);
-                        style.border = data.borderColor+' solid '+data.borderWidth+'px';
-                    }
-                    if (data.shapeType == 'box') {
-                        style.width  = this.width  + 'px';
-                        style.height = this.height + 'px';
-                    }
-                    else if (data.shapeType == 'circle') {
-                        style.height = this.el.style.width = (data.radius * 2) + 'px';
-                        style.borderRadius = '50%';
-                    }
-                    //新增DOM物件至世界區
-                    this.target && this.target.appendChild(this.el);
-
-                //4.產生Box2D世界
-                    this.body = world.CreateBody(bodyDef);
-                    this.body.CreateFixture(fixDef);
+    function RigidBody(world, data) {   //Rigidbody（剛體）處理函數
+        //1.參數設置
+            //預設值
+            defaults = {
+                //相關物件
+                    target: document.querySelectorAll('body')[0],   //世界物件
+                    el: document.createElement('canvas'),  //處理物件
+                //物理係數
+                    density: 1.0,   //密度
+                    friction: 0.5,  //摩擦係數
+                    restitution: 0.2,   //彈性係數
+                    linearDamping: 0.01,    //線性運動衰減
+                    angularDamping: 0.01,   //角速度衰減
+                //形狀種類
+                    shapeType: 'box',   //'box'矩 'circle'圓 'polygon'多邊
+                    type: 2,     //2動態物件 1靜態物件
+                //位置大小
+                    x:0,
+                    y:0,
+                    width: 50,
+                    height: 50,
+                    radius: 20, //圓形專屬 (圓不用設定寬高)
+                    polygonPiont: [0,0,1,0,1,1,0,1], //多邊專屬
+                //顏色與線條
+                    color: 'none',   //可設定'none'，多邊沒有顏色
+                    borderWidth: 1,
+                    borderColor: '#666666',  
             }
+
+            //設定
+            for (key in defaults) {
+                (!data[key] && (data[key]!=0)) && (data[key] = defaults[key]);
+            }
+            if (data.shapeType == 'circle') {
+                data.width = data.height = data.radius * 2;
+            }
+
+            //記錄
+            this.width  = data.width;
+            this.height = data.height;
+            this.halfWidth  = data.width * 0.5;
+            this.halfHeight = data.height * 0.5;
+            this.target = data.target;
+
+        //2.套用剛體Box2D資訊物件
+            // 產生剛體的「性質」資訊
+            var fixDef  = new b2FixtureDef();   //性質物件產生
+            fixDef.density = data.density;
+            fixDef.friction = data.friction;
+            fixDef.restitution = data.restitution;
+            //產生形狀碰撞區域
+            if (data.shapeType == 'polygon') {
+                data.x -= (data.width/2);
+                data.y -= (data.height/2);
+                fixDef.shape = new b2PolygonShape();
+                    var scaleH = data.height/meterPerPixel;
+                    var scaleW = data.width/meterPerPixel;
+                    var P = data.polygonPiont;
+                    var shape = [];
+                    for (i=0;i<P.length;i+=2){
+                        shape.push(new b2Vec2(scaleW*P[i] , scaleH*P[i+1]));
+                    }
+                    fixDef.shape.SetAsArray(shape);
+                    for (i=0;i<fixDef.shape.m_vertices.length;i+=1){
+                        fixDef.shape.m_vertices[i].x -= scaleW/2;
+                        fixDef.shape.m_vertices[i].y -= scaleH/2;
+                    }
+            }
+            if (data.shapeType == 'box') {
+                fixDef.shape = new b2PolygonShape();
+                fixDef.shape.SetAsBox(this.halfWidth/meterPerPixel, this.halfHeight/meterPerPixel);
+            }
+            if (data.shapeType == 'circle') {
+                fixDef.shape = new b2CircleShape();
+                fixDef.shape.SetRadius(data.radius/meterPerPixel);
+            }
+            // 產生剛體的「狀態」資訊
+            var bodyDef = new b2BodyDef();   //狀態物件產生
+            bodyDef.type = data.type;
+            bodyDef.position.x = data.x/meterPerPixel;
+            bodyDef.position.y = data.y/meterPerPixel;
+            bodyDef.linearDamping = data.linearDamping;
+            bodyDef.angularDamping = data.angularDamping;
+            this.el = data.el;
+
+        //3.將剛體的引數設定為DOM的引數
+            //DOM物件style設置
+            var style = this.el.style;
+            style.position = 'absolute';
+            style.display = 'block'
+            style.left = 0;
+            style.top = 0;
+            //多邊形畫線
+            if (data.shapeType == 'polygon') {
+                scaleW*=meterPerPixel;
+                scaleH*=meterPerPixel;
+                this.el.width  = scaleW;
+                this.el.height = scaleH;
+                var polygonCtx = this.el.getContext("2d"); //定義canvas的2d繪製物件
+                polygonCtx.beginPath();
+                polygonCtx.lineWidth= data.borderWidth*2;
+                    polygonCtx.lineCap="round"; //線樣式
+                    polygonCtx.lineJoin="round"; 
+                    polygonCtx.miterLimit=0;
+                polygonCtx.moveTo(scaleW*P[0] , scaleH*P[1]); //起始點
+                for (i=2;i<P.length;i+=2){
+                    polygonCtx.lineTo(scaleW*P[i] , scaleH*P[i+1]); //畫線
+                }
+                polygonCtx.closePath(); //直線繪製回moveTo的點
+                polygonCtx.strokeStyle=data.borderColor;
+                polygonCtx.stroke();
+            }
+            //圓方形畫線+上色
+            if(data.shapeType != 'polygon'){
+                (data.color != 'none') && (style.background = data.color);
+                if(data.borderWidth > 0){
+                    style.border = data.borderColor+' solid '+data.borderWidth+'px';
+                }
+            }
+            if (data.shapeType == 'box') {
+                style.width  = this.width  + 'px';
+                style.height = this.height + 'px';
+            }
+            else if (data.shapeType == 'circle') {
+                style.height = this.el.style.width = (data.radius * 2) + 'px';
+                style.borderRadius = '50%';
+            }
+            //新增DOM物件至世界區
+            this.target && this.target.appendChild(this.el);
+
+        //4.產生Box2D世界
+            this.body = world.CreateBody(bodyDef);
+            this.body.CreateFixture(fixDef);
+
+
+    }
             RigidBody.prototype = {
                 //世界時間進行
                 applyToDOM: function () {
