@@ -201,9 +201,9 @@
             //取得世界資訊
             var position = this.body.GetPosition();
             //修正世界資訊
-            var x = parseInt(position.x * meterPerPixel - this.halfWidth);
-            var y = parseInt(position.y * meterPerPixel - this.halfHeight);
-            var r = parseInt(this.body.GetAngle() * 180 / Math.PI);
+            var x = Math.round(position.x * meterPerPixel - this.halfWidth ,1);
+            var y = Math.round(position.y * meterPerPixel - this.halfHeight ,1);
+            var r = Math.round(this.body.GetAngle() * 180 / Math.PI ,1);
             //將世界資訊套用至DOM物件
             this.el.style[transformProp] = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg)';
         }
@@ -324,6 +324,8 @@
     //產生剛體功能
         boxCreatCanvas.onclick = function(e){
             var niceP = false;
+            var closerLine = false; //判斷封閉圖形
+            var closerRange = 12;
 
             //繪製剛體點位
             polygonPiontSet.push(e.offsetX);
@@ -335,6 +337,15 @@
             }
 
             if (ppsl >= 6){ //第四點開始判斷繪製角度(凸邊形)
+
+                if( //封閉圖型判斷
+                (e.offsetX<(polygonPiontSet[0]+closerRange))&&
+                (e.offsetX>(polygonPiontSet[0]-closerRange))&&
+                (e.offsetY<(polygonPiontSet[1]+closerRange))&&
+                (e.offsetY>(polygonPiontSet[1]-closerRange))
+                ){
+                    closerLine = true;
+                }
                 var pArg = polygonPiontSet.slice(ppsl-6);
                 pArg = agrCompute(pArg); //當下點的角度
                 var pArg2 = polygonPiontSet.slice(ppsl-4);
@@ -354,21 +365,27 @@
                 } 
             }
             
-            if (niceP){ //符合
-                drawCross(e.offsetX,e.offsetY,10,"green");
-                //連線
-                ctx.beginPath();
-                var drawPx = polygonPiontSet[polygonPiontSet.length-4];
-                var drawPy = polygonPiontSet[polygonPiontSet.length-3];
-                ctx.moveTo(e.offsetX,e.offsetY); //起始點
-                ctx.lineTo(drawPx,drawPy); //直線繪製
-                ctx.strokeStyle='black';
-                ctx.stroke();
+            if (closerLine == false){
+                if (niceP){ //符合
+                    drawCross(e.offsetX,e.offsetY,10,"green");
+                    //連線
+                    ctx.beginPath();
+                    var drawPx = polygonPiontSet[polygonPiontSet.length-4];
+                    var drawPy = polygonPiontSet[polygonPiontSet.length-3];
+                    ctx.moveTo(e.offsetX,e.offsetY); //起始點
+                    ctx.lineTo(drawPx,drawPy); //直線繪製
+                    ctx.strokeStyle='black';
+                    ctx.stroke();
 
+                }
+                else{ //不正確的點 (非凸邊形)
+                    drawCross(e.offsetX,e.offsetY,3,"red");
+                    polygonPiontSet = polygonPiontSet.slice(0,-2);
+                }
             }
-            else{ //不正確的點 (非凸邊形)
-                drawCross(e.offsetX,e.offsetY,3,"red");
+            else{ //封閉圖型
                 polygonPiontSet = polygonPiontSet.slice(0,-2);
+                $("#boxCreatButton").click();
             }
         };
 

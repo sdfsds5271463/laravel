@@ -20,6 +20,7 @@ EOT;
 
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
 Route::match(['get','post'],'box2d','box2d@index');
+Route::match(['get','post'],'axis3Video','axis3@video');
 Route::match(['get','post'],'index','index@index');
 
 

@@ -131,7 +131,7 @@ main .col-sm-9, main .col-sm-3{
 }
 main h1 {
 	clear: both;
-	background:url('../images/h1_bg.png') top right 10% no-repeat;
+	background:url('../images/h1_bg.png') bottom right 10% no-repeat;
 }
 main>.container>.row>.col-sm-3 h1 {
 	background-image: none;
@@ -277,10 +277,8 @@ main p{
     .copyToDraw{
     	width: fit-content;
     }
-
-
     /*box2d世界樣式*/
-    .topSelector{
+    .topSelector{ /*上方選單樣式*/
     	text-align: center;
     	z-index: 99;
     	padding: 14px 0px;
@@ -294,11 +292,11 @@ main p{
     .topSelector a:hover{
     	color: #333333;
     }
-    #box2dArea{
+    #box2dArea{ /*世界區域*/
     	position: absolute;
     	left: 0px;
     }
-    #boxCreatCanvas{
+    #boxCreatCanvas{ /*功能按鈕*/
     	margin-left: 9px;
     	border: solid 1px #999999;
     	border-radius: 5px;
@@ -307,7 +305,30 @@ main p{
     	border: solid 1px #999999;
     	border-radius: 5px;
     }
-
+    /*三軸影片樣式*/
+    #Video1,#videoImg{
+    	border: solid 1px #666666;
+    	border-radius: 5px;
+    }
+    #videoSpeed{
+    	width: 200px;
+    	display:inline;
+    	margin: 6px 1px;
+    	position: relative;
+    	top: 7px;
+    }
+    .videoBuootn{
+    	margin: 6px 1px;
+    	border: solid 1px #999999;
+    	border-radius: 5px;
+    	padding: 3px;
+    }
+    #videoLine{
+    	position: absolute;
+    	height: 100%;
+    	width: 1px;
+    	background: #FF0000;
+    }
 
 
 /*footer*/

@@ -13,7 +13,7 @@
 
         <p class="boxP">這個頁面是透過Box2D物理引擎所</p>
         <p class="boxP">生的空間效果，有興趣者可以拜訪</p>
-        <p class="boxP">引擎關網：<a href="http://box2d.org/" target="_blank">http://box2d.org/</a>，</p>
+        <p class="boxP">引擎官網：<a href="http://box2d.org/" target="_blank">http://box2d.org/</a>，</p>
         <p class="boxP">透過Javascript可控制物理效果，套</p>
         <p class="boxP">用一般原件或呈現於Canvas。</p>
     </div>

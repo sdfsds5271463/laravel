@@ -77,7 +77,7 @@
 	                            <li><a href="#"><span class="glyphicon glyphicon-record"></span> 行動裝置線上監控</a></li>
 	                            <li><a href="#"><span class="glyphicon glyphicon-search"></span> 資料查詢</a></li>
 	                            <li class="divider"></li><!-- 分隔線 -->
-	                            <li><a href="#"><span class="glyphicon glyphicon-film"></span> 實驗訊號影片</a></li>
+	                            <li><a href="axis3Video"><span class="glyphicon glyphicon-film"></span> 步態Html5影片播放</a></li>
 	                        </ul>
 	                    </li>
 	                    <li><a href="index"><span class="glyphicon glyphicon-edit"></span> 站長murmur</a></li>
