@@ -1,5 +1,5 @@
 //全域參數
-var stateTimeInterval = 777; //顯示間格
+var stateTimeInterval = 1111; //顯示間格
 
 //全域變數
 var stateing = 0;  //0可顯示 1請求已經送出
@@ -66,9 +66,6 @@ var copyToDraw; //拷貝繼續創作按鈕
         stateAjaxChatRoom();
     }
     function stateAjaxChatRoom(){ 
-
-
-
 
         if (stateing ==0){ //未送出請求
             stateing = 1;

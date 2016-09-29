@@ -4,7 +4,7 @@
 
 	class Ajaxchatroommodel extends Model
 	{
-		public $chatMaxAmount = 200;
+		public $chatMaxAmount = 100;
 
 		public $timestamps = false;
 		protected $fillable = ['time','content','speaker','color'];

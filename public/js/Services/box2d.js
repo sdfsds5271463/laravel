@@ -9,6 +9,7 @@
     var worldWidth;
     var worldHeight;
     var selectEnableWait = 0; //鎖住框選功能時間參數
+    var selectLocked = 0;
 
     //拖行功能參數
     var dragID = -1; //拖行者ID
@@ -64,9 +65,9 @@
                     target: worldDiv,   //世界物件
                     el: document.createElement('canvas'),  //處理物件
                 //物理係數
-                    density: 1.0,   //密度
-                    friction: 0.5,  //摩擦係數
-                    restitution: 0.2,   //彈性係數
+                    density: 1,   //密度
+                    friction: 0.1,  //摩擦係數
+                    restitution: 0.3,   //彈性係數
                     linearDamping: 0.01,    //線性運動衰減
                     angularDamping: 0.01,   //角速度衰減
                 //形狀種類
@@ -200,9 +201,9 @@
             //取得世界資訊
             var position = this.body.GetPosition();
             //修正世界資訊
-            var x = position.x * meterPerPixel - this.halfWidth;
-            var y = position.y * meterPerPixel - this.halfHeight;
-            var r = this.body.GetAngle() * 180 / Math.PI;
+            var x = parseInt(position.x * meterPerPixel - this.halfWidth);
+            var y = parseInt(position.y * meterPerPixel - this.halfHeight);
+            var r = parseInt(this.body.GetAngle() * 180 / Math.PI);
             //將世界資訊套用至DOM物件
             this.el.style[transformProp] = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg)';
         }
@@ -280,10 +281,10 @@
                 //更新物體參數
                 rigidBodies[dragID].body.m_linearVelocity.x = mvX;
                 rigidBodies[dragID].body.m_linearVelocity.y = mvY;
-                //rigidBodies[dragID].body.m_angularVelocity += (mvX - mvY)/meterPerPixel*2;
+                rigidBodies[dragID].body.m_angularVelocity += (mvX - mvY)/meterPerPixel*2;
                 rigidBodies[dragID].body.m_angularVelocity *= 0.99;
             }
-        },25);
+        },35);
 
         //刪除飛出去的剛體
         setInterval(function(){
@@ -307,10 +308,16 @@
         setInterval(function(){
             if (selectEnableWait > 0){
                 selectEnableWait -= 200;
-                body.onselectstart = body.ondragstart = body.oncontextmenu = function(){return false;}; //取消框選功能
+                if (selectLocked == 0){
+                    body.onselectstart = body.ondragstart = body.oncontextmenu = function(){return false;}; //取消框選功能
+                    selectLocked = 1;
+                }
             }
             else{
-                body.onselectstart = body.ondragstart = body.oncontextmenu = "";
+                if(selectLocked == 1){
+                    body.onselectstart = body.ondragstart = body.oncontextmenu = "";
+                    selectLocked = 0;
+                }
             }
         },200);
 
@@ -414,7 +421,7 @@
         update();
         function update(){
             requestAnimationFrame(update); //使物理運算世界的時間前進
-            world.Step(0.016,1,1); //重複間格(s)、每間格運算速度次數、每間格運算位置次數
+            world.Step(0.016,0.1,0.1); //重複間格(s)、每間格運算速度次數、每間格運算位置次數
             for (key in rigidBodies) {
                 rigidBodies[key].applyToDOM();  //所有物件更新DOM狀態
             }
@@ -450,6 +457,7 @@
         //產生地面
         var ground = new RigidBody(world, {
             type: 1,
+            restitution: 0,
             width: worldWidth,
             height: 6,
             x: worldWidth/2,
@@ -462,6 +470,7 @@
         //產生左壁
         var leftWall = new RigidBody(world, {
             type: 1,
+            restitution: 0,
             width: 6,
             height: worldHeight,
             x: 3,
@@ -474,6 +483,7 @@
         //產生右壁
         var rightWall = new RigidBody(world, {
             type: 1,
+            restitution: 0,
             width: 6,
             height: worldHeight,
             x: worldWidth-3,
@@ -509,7 +519,7 @@
 
             if ((x+solidW) > worldWidth){ //超過寬度時
                 x = worldWidth - solidW;
-                overFlowY += (solidH+margin);
+                overFlowY -= (solidH*2-margin);
                 y += overFlowY;
             }
 
@@ -561,7 +571,7 @@
                 height: 40,
                 borderWidth: 0,
                 x: dx +49,
-                y: dy +70 + i*100,
+                y: dy +73 + i*100,
             });
             rigidBodies.push(bit);
         }
@@ -572,7 +582,7 @@
             height: 20,
             borderWidth: 0,
             x: dx + 100,
-            y: dy - 20,
+            y: dy - 15,
         });
         rigidBodies.push(bit);
         var tagItems = document.querySelectorAll('#boxCreatCaption2')[0];
@@ -610,7 +620,7 @@
                 height: 20,
                 borderWidth: 0,
                 x: dx + 95,
-                y: dy - 20 + i*50,
+                y: dy - 16 + i*50,
             });
             rigidBodies.push(bit);
         }
@@ -641,6 +651,7 @@
                               + parseInt(Math.random()*155+100) + ','
                               + parseInt(Math.random()*155+100) + ')',
                 borderWidth: 1,
+                restitution: 0.9,
             });
             rigidBodies.push(ball2);
         }

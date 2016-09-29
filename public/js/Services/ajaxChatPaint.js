@@ -178,8 +178,9 @@
     			body.classList.remove("noScroll"); 
 			}
 			//繪畫秒後灰複框選功能
-			if(selectEnableWait <= 0){
+			if(selectEnableWait == 0){
 				body.onselectstart = body.ondragstart = body.oncontextmenu = "";
+				selectEnableWait-=200;
 			}
 			else{
 				selectEnableWait-=200;
