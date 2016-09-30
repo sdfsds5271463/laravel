@@ -42,6 +42,33 @@
 				setcookie('cookie_speaker',$post['speaker'] ,time()+60*60*24);
 				setcookie('cookie_chatColor',$post['chatColor'] ,time()+60*60*24);
 				break;
+			case 'accToJsonDownload': //產生加速度json檔
+				//json檔案資訊
+				$jsonData = $post;
+				$filename = 'accJson'.$post['onlineUserId'].'.json';
+				$dir = 'public/files/';
+				unset($jsonData['_token']); //剃除不必要的資訊
+				unset($jsonData['action']);
+				unset($jsonData['onlineUserId']);
+				$mngFile->putVar($filename,$jsonData); //產生檔案
+				//刪除舊檔
+				$scanDel = scandir($dir,0);
+				foreach ($scanDel as $val){
+					preg_match("/^accJson(.*)\.json/",$val ,$matches); //判斷舊檔
+					if($matches){
+						if ($matches[1] <= ($post['onlineUserId']-3)){ //最多保留3個檔案
+							unlink($dir.$matches[0]);
+						}
+					}
+				}
+				//刪除不必要的回傳資訊
+				unset($post['accX']);
+				unset($post['accY']);
+				unset($post['accZ']);
+				unset($post['rss']);
+				//提供下載路徑
+				$post['jsonUrl'] = $dir.$filename;
+				break;
 
 			default:
 				# code...
@@ -49,6 +76,7 @@
 		}
 
 		unset($post['_token']);
+		unset($post['action']);
 		echo json_encode($post); //將參數交給各頁面js處理
 		exit();
 	}

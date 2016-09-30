@@ -100,7 +100,6 @@ $(function(){
 		else {
 		    isMobile = false;
 		}
-		console.log(isMobile);
 
 });//$(function()
 

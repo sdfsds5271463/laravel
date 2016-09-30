@@ -21,6 +21,7 @@
 		public function record(
 			\App\Services\onlineUsersAmount $onlineUsersAmount,
 			\App\Services\stateCode $stateCode,
+			\App\Services\manageVarFile $mngFile,
 			Request $request
 		){
 			require_once('public/ajax.inc.php');

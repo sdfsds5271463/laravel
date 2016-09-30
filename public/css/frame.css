@@ -43,6 +43,10 @@ header>.container,.navbar,main{
 .ui-dialog{ /*原碼彈跳窗*/
 	margin: 50px 5%;
 }
+.normalButton{
+	border: solid 1px #999999;
+	border-radius: 5px;
+}
 
 /*header&nav樣式*/
 header{
@@ -305,6 +309,15 @@ main p{
     	border: solid 1px #999999;
     	border-radius: 5px;
     }
+    /*三軸ACC即時記錄樣式*/
+	#accDraw{
+		border:solid #999999 1px;
+		background:url(../images/accDrawBg.png);
+	}
+	#accDrawWord{
+		position:absolute;
+		top:0px;
+	}
     /*三軸影片樣式*/
     #Video1,#videoImg{
     	border: solid 1px #666666;
