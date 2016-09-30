@@ -11,12 +11,12 @@
 |
 */
 
-//Route::match(['get','post'],'/','index@index'); //首頁
-Route::match(['get','post'],'/', function () {	//把聊天室當首頁好了...
+Route::match(['get','post'],'/','index@index'); //首頁
+/*Route::match(['get','post'],'/', function () {	//把聊天室當首頁好了...
 echo <<<EOT
 <meta http-equiv="refresh" content="0; url=ajaxChatRoom">
 EOT;
-});
+});*/
 
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
 Route::match(['get','post'],'box2d','box2d@index');

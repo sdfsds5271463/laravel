@@ -104,7 +104,9 @@
     	}
     	//隱藏筆跡框事件
     	canvas.onmouseover = function(e){
-    		body.classList.add("noScroll");
+    		if(isMobile){//行動裝置隱藏拉軸
+    			body.classList.add("noScroll");
+    		}
     		draw = 1;
     	};
 
@@ -130,7 +132,9 @@
     		mx = e.offsetX;
     		my = e.offsetY;
     		//預備
-    		body.classList.add("noScroll"); //行動裝置隱藏拉軸
+    		if(isMobile){//行動裝置隱藏拉軸
+    			body.classList.add("noScroll");
+    		}
     		drawInit();
     		//點
 			ctx.beginPath();

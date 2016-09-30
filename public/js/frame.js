@@ -1,3 +1,8 @@
+//行動裝置參數
+	//裝置參數
+	var isMobile;
+
+
 $(function(){
 	//TOP按鈕效果
 	$(window).load(function(){ 
@@ -70,24 +75,32 @@ $(function(){
         $('#dialog').dialog('close');    //專門開啟交談視窗呼叫法
     });
 
-
-	//行動裝置滑鼠事件註冊
-	var mouseEventTypes = {
-		touchstart : "mousedown",
-		touchmove : "mousemove",
-		touchend : "mouseup"
-	};
-	for (originalType in mouseEventTypes) {
-		document.addEventListener(originalType, function(originalEvent) {
-			event = document.createEvent("MouseEvents");
-			touch = originalEvent.changedTouches[0];
-			event.initMouseEvent(mouseEventTypes[originalEvent.type], true, true,
-			window, 0, touch.screenX, touch.screenY, touch.clientX,
-			touch.clientY, touch.ctrlKey, touch.altKey, touch.shiftKey,
-			touch.metaKey, 0, null);
-			originalEvent.target.dispatchEvent(event);
-		});
-	}
+    //行動裝置專區
+		//行動裝置滑鼠事件註冊
+		var mouseEventTypes = {
+			touchstart : "mousedown",
+			touchmove : "mousemove",
+			touchend : "mouseup"
+		};
+		for (originalType in mouseEventTypes) {
+			document.addEventListener(originalType, function(originalEvent) {
+				event = document.createEvent("MouseEvents");
+				touch = originalEvent.changedTouches[0];
+				event.initMouseEvent(mouseEventTypes[originalEvent.type], true, true,
+				window, 0, touch.screenX, touch.screenY, touch.clientX,
+				touch.clientY, touch.ctrlKey, touch.altKey, touch.shiftKey,
+				touch.metaKey, 0, null);
+				originalEvent.target.dispatchEvent(event);
+			});
+		}
+		//行動裝置判斷
+		if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		    isMobile = true;
+		}
+		else {
+		    isMobile = false;
+		}
+		console.log(isMobile);
 
 });//$(function()
 

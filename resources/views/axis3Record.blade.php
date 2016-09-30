@@ -16,39 +16,11 @@
 					y = e.accelerationIncludingGravity.y;
 					z = e.accelerationIncludingGravity.z;
 
-					// ----------顯示感測值----------
-					// 用toFixed(2)表示只顯示到小數點後第 2 位
-					$('#x').text(x.toFixed(2));
-					$('#y').text(y.toFixed(2));
-					$('#z').text(z.toFixed(2));
-
-					// ----------計算總加速度----------
 					// x,y,z 平方相加後開根號
 					acc = Math.sqrt(x*x+y*y+z*z);
 					$('#acc').text(acc.toFixed(2));
 
-					// -------判斷是安打或全壘打-------
-					// 若總加速度值大於 '最大值'
-					if(acc>accMax) {
-						accMax = acc;  // 記錄最大值
-						if(acc>20)  {
-							if(acc>24){
-								$('#msg').text('全壘打! ' + acc.toFixed(2) );
-							}
-							else {
-								$('#msg').text('安打! ' + acc.toFixed(2));
-							}
-
-							// 若已啟動計時器, 則清除之
-							if(timer) clearTimeout(timer);
-
-							// 設定 3 秒後重新顯示 '請揮棒!'
-							timer = setTimeout(function(){
-								$('#msg').text('請揮棒!');
-								accMax=0;  // 重設最大值
-							}, 3000);
-						}  // end of if(acc>20)
-					}
+					
 				} // end of else
 			});
 		}

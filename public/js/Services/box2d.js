@@ -67,7 +67,7 @@
                 //物理係數
                     density: 1,   //密度
                     friction: 0.5,  //摩擦係數
-                    restitution: 0.3,   //彈性係數
+                    restitution: 0.2,   //彈性係數
                     linearDamping: 0.01,    //線性運動衰減
                     angularDamping: 0.01,   //角速度衰減
                 //形狀種類
@@ -201,9 +201,9 @@
             //取得世界資訊
             var position = this.body.GetPosition();
             //修正世界資訊
-            var x = Math.round(position.x * meterPerPixel - this.halfWidth ,0);
-            var y = Math.round(position.y * meterPerPixel - this.halfHeight ,0);
-            var r = Math.round(this.body.GetAngle() * 180 / Math.PI ,0);
+            var x = Math.round((position.x * meterPerPixel - this.halfWidth) ,0);  //pixUnit為每幾像素一個移動單位
+            var y = Math.round((position.y * meterPerPixel - this.halfHeight) ,0);
+            var r = Math.round((this.body.GetAngle() * 180 / Math.PI) ,0);
             //將世界資訊套用至DOM物件
             this.el.style[transformProp] = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg)';
         }
@@ -443,6 +443,7 @@
                 rigidBodies[key].applyToDOM();  //所有物件更新DOM狀態
             }
             world.ClearForces();
+
         }
     }//onload
 
@@ -645,34 +646,35 @@
 
         //第三格顯示框
         newContentSpace();
-        for (var i=0;i<=8;i++){//圓球平台
-            var ball = new RigidBody(world, {
-                type: 1,
-                shapeType: 'circle',
-                radius: 6,
-                x: dx + 100 * (i%3),
-                y: dy + 100 * (i-(i%3))/3,
-                color: '#CCCCCC',
-                borderWidth: 0,
-            });
-            rigidBodies.push(ball);
+        if(rows<4){//第四排就不畫了
+            for (var i=0;i<=8;i++){//圓球平台
+                var ball = new RigidBody(world, {
+                    type: 1,
+                    shapeType: 'circle',
+                    radius: 6,
+                    x: dx + 100 * (i%3),
+                    y: dy + 100 * (i-(i%3))/3,
+                    color: '#CCCCCC',
+                    borderWidth: 0,
+                });
+                rigidBodies.push(ball);
+            }
+            for (var i=0;i<=8;i++){
+                var ball2 = new RigidBody(world, { //隨機球體
+                    shapeType: 'circle',
+                    width: Math.random()*20,
+                    radius: Math.random()*30 + 10,
+                    x: dx + 100 * (i%3) ,
+                    y: dy + 100 * (i-(i%3))/3-50,
+                    color: 'rgb(' + parseInt(Math.random()*155+100) + ',' 
+                                  + parseInt(Math.random()*155+100) + ','
+                                  + parseInt(Math.random()*155+100) + ')',
+                    borderWidth: 1,
+                    restitution: 0.9,
+                });
+                rigidBodies.push(ball2);
+            }
         }
-        for (var i=0;i<=8;i++){
-            var ball2 = new RigidBody(world, { //隨機球體
-                shapeType: 'circle',
-                width: Math.random()*20,
-                radius: Math.random()*30 + 10,
-                x: dx + 100 * (i%3) ,
-                y: dy + 100 * (i-(i%3))/3-50,
-                color: 'rgb(' + parseInt(Math.random()*155+100) + ',' 
-                              + parseInt(Math.random()*155+100) + ','
-                              + parseInt(Math.random()*155+100) + ')',
-                borderWidth: 1,
-                restitution: 0.9,
-            });
-            rigidBodies.push(ball2);
-        }
-
 
     }
 

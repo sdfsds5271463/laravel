@@ -15,7 +15,7 @@
 
 //旗標
     var videoDrop = false;
-    var pause = false;
+    var pause = 0; //0播放中 1暫停中 2播放中被拖曳
 
     $(function(){
         //物件定義
@@ -40,15 +40,9 @@
                     getVideo();
                 }                                 
                 if (video.paused) { 
-                    pause = false;
                     video.play();
-                    playButton.firstChild.classList.remove("glyphicon-play");
-                    playButton.firstChild.classList.add("glyphicon-pause");
                 } else { 
-                    pause = true;
                     video.pause();
-                    playButton.firstChild.classList.remove("glyphicon-pause");
-                    playButton.firstChild.classList.add("glyphicon-play");
                 }
             }
             //讀取
@@ -136,20 +130,34 @@
             if(videoDrop){
                 var setTime = video.duration * imgPgogress;
                 video.currentTime = setTime; //調整進度
-                if (video.play) { 
-                    if (!pause){
-                        video.pause(); //拖曳時暫停影片
-                    }
+                if (pause == 0){
+                    pause += 2;
+                    video.pause(); //拖曳時暫停影片
                 }
             }
             else{
                 imgPgogress = video.currentTime/video.duration; //紅線進度資訊
-                if (video.pause) { 
-                    if (!pause){
+                if (pause>=2) { 
+                    pause -= 2;
+                    if (pause ==0){
                         video.play();
                     }
                 }
             }
+            //暫停狀態 0播放中 1暫停中 2播放中被拖曳
+            if (pause<2){
+                if (! video.paused) { 
+                    pause = 0;
+                    playButton.firstChild.classList.remove("glyphicon-play");
+                    playButton.firstChild.classList.add("glyphicon-pause");
+                }
+                if (video.paused) { 
+                    pause = 1;
+                    playButton.firstChild.classList.remove("glyphicon-pause");
+                    playButton.firstChild.classList.add("glyphicon-play");
+                }
+            }
+
 
             //紅線進度更新
             var videoW = $(videoImg).width(); //影片長度
