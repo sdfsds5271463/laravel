@@ -66,7 +66,7 @@
                     el: document.createElement('canvas'),  //處理物件
                 //物理係數
                     density: 1,   //密度
-                    friction: 0.1,  //摩擦係數
+                    friction: 0.5,  //摩擦係數
                     restitution: 0.3,   //彈性係數
                     linearDamping: 0.01,    //線性運動衰減
                     angularDamping: 0.01,   //角速度衰減
@@ -201,9 +201,9 @@
             //取得世界資訊
             var position = this.body.GetPosition();
             //修正世界資訊
-            var x = Math.round(position.x * meterPerPixel - this.halfWidth ,1);
-            var y = Math.round(position.y * meterPerPixel - this.halfHeight ,1);
-            var r = Math.round(this.body.GetAngle() * 180 / Math.PI ,1);
+            var x = Math.round(position.x * meterPerPixel - this.halfWidth ,0);
+            var y = Math.round(position.y * meterPerPixel - this.halfHeight ,0);
+            var r = Math.round(this.body.GetAngle() * 180 / Math.PI ,0);
             //將世界資訊套用至DOM物件
             this.el.style[transformProp] = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg)';
         }
