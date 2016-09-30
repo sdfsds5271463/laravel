@@ -37,7 +37,7 @@
 			        		<form method="get" name="searchform" action="http://www.google.com/search" target="_blank">
 			        			<input type="hidden" name="sitesearch" value="allen.lionfree.net" />
 			        			<input type="text" name="as_q" size="20" class="search_input" placeholder=" GoogleSearch" required />
-			        			<input type="submit" value="搜尋" class="search_button" />
+			        			<input type="submit" value="搜尋" class="search_button normalButton"/>
 		        			</form><!-- Search Google -->
 		        			<a href="#"><span class="glyphicon glyphicon-map-marker"></span>網站地圖</a><br>
 		        			在線 <span class="OnlineAmount">0</span> 人
@@ -74,7 +74,7 @@
 	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度感測器
 	                        <span class="caret"></span></a><!--span的類別caret是下拉專屬圖示▼-->
 	                        <ul class="dropdown-menu">
-	                            <li><a href="axis3Record"><span class="glyphicon glyphicon-record"></span> 行動裝置線上監控</a></li>
+	                            <li><a href="axis3Record"><span class="glyphicon glyphicon-record"></span> 三軸加速度監控器</a></li>
 	                            <li><a href="#"><span class="glyphicon glyphicon-search"></span> 資料查詢</a></li>
 	                            <li class="divider"></li><!-- 分隔線 -->
 	                            <li><a href="axis3Video"><span class="glyphicon glyphicon-film"></span> 步態Html5影片播放</a></li>

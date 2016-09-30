@@ -23,7 +23,7 @@
 		</div>
 	<div class='col-sm-8 chatInputRow'>內容：
 		<input type="text" id="chatContent" maxlength="60" >
-		<input type="button" id="chatSubmit" value="送出"></div>
+		<input type="button" id="chatSubmit" value="送出" class="normalButton"></div>
 
 	<div class='col-sm-12'>
 		<div id="drawArea">
@@ -54,7 +54,7 @@
 			<div class="toolBlock" data-tool="#6A6AFF"></div>
 			<div class="toolBlock" data-tool="#9F35FF"></div>
 			<div class="toolBlock" data-tool="#8E8E8E"></div>
-			<button id="postPaintButton">送出繪圖</button>
+			<button id="postPaintButton" class="normalButton">送出繪圖</button>
 		</div>
 		<div id="paintAdvanceFunc">
 		進階功能：	<a href="#func" data-func="clearAll">[全頻清除 ctrl+del]</a>

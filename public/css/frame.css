@@ -46,6 +46,8 @@ header>.container,.navbar,main{
 .normalButton{
 	border: solid 1px #999999;
 	border-radius: 5px;
+	padding: 2px;
+	background: #dddddd;
 }
 
 /*header&nav樣式*/

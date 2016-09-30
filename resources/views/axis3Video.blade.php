@@ -9,11 +9,11 @@
     <video id="Video1" class="img-responsive" width="100%" loop autoplay>您的瀏覽器不支援Html5影片播放器。</video>
 
     <center>
-		<button id="repeat"   class="videoBuootn"><span class="glyphicon glyphicon-repeat"></span></button>
-	    <button id="play"	  class="videoBuootn"><span class="glyphicon glyphicon-pause"></span></button>
-	    <button id="mute"	  class="videoBuootn"><span class="glyphicon glyphicon-volume-off"></span></button>
-		<button id="backward" class="videoBuootn"><span class="glyphicon glyphicon-triangle-left"></span>-10ms</button>
-	    <button id="foward"   class="videoBuootn">+10ms<span class="glyphicon glyphicon-triangle-right"></span></button>
+		<button id="repeat"   class="videoBuootn normalButton"><span class="glyphicon glyphicon-repeat"></span></button>
+	    <button id="play"	  class="videoBuootn normalButton"><span class="glyphicon glyphicon-pause"></span></button>
+	    <button id="mute"	  class="videoBuootn normalButton"><span class="glyphicon glyphicon-volume-off"></span></button>
+		<button id="backward" class="videoBuootn normalButton"><span class="glyphicon glyphicon-triangle-left"></span>-10ms</button>
+	    <button id="foward"   class="videoBuootn normalButton">+10ms<span class="glyphicon glyphicon-triangle-right"></span></button>
 	    <label>SpeedSet:+<input id="videoSpeed" type="range">-</label>
 	</center>
 
