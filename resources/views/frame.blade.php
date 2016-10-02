@@ -35,7 +35,7 @@
 		        		<div class="search">
 		        			<!-- Search Google -->
 			        		<form method="get" name="searchform" action="http://www.google.com/search" target="_blank">
-			        			<input type="hidden" name="sitesearch" value="allen.lionfree.net" />
+			        			<input type="hidden" name="sitesearch" value="{{$_SERVER['HTTP_HOST']}}" />
 			        			<input type="text" name="as_q" size="20" class="search_input" placeholder=" GoogleSearch" required />
 			        			<input type="submit" value="搜尋" class="search_button normalButton"/>
 		        			</form><!-- Search Google -->
@@ -71,7 +71,7 @@
 	                    <li><a href="ajaxChatRoom"><span class="glyphicon glyphicon-pencil"></span> AJAX塗鴉聊天室</a></li>
 	                    <li><a href="#"><span class="glyphicon glyphicon-certificate"></span> XML即時氣象</a></li>
 	                    <li><a href="box2d"><span class="glyphicon glyphicon-apple"></span> Box2D物理空間</a></li>
-	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度感測器
+	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度線上監控
 	                        <span class="caret"></span></a><!--span的類別caret是下拉專屬圖示▼-->
 	                        <ul class="dropdown-menu">
 	                            <li><a href="axis3Record"><span class="glyphicon glyphicon-record"></span> 三軸加速度監控器</a></li>
@@ -171,7 +171,6 @@
         	<pre><code><span id="dialogCodeMain"></span></code></pre>
             <a id="closedialog" href="#close"><span class="glyphicon glyphicon-remove"></span>關閉這個視窗 (快捷鍵Esc)</a>
         </div>
-
     </body>
 
 

@@ -19,6 +19,8 @@
     var my;
     var mvX = 0; //移動速度
     var mvY = 0;
+    var canDrag = 0; //初始拖行旗標
+    var canDragFlag = 100; //幾個迴圈後啟動拖行
 
     //創造功能參數
     var polygonPiontSet = []; //圖形打點陣列
@@ -257,7 +259,7 @@
         };
         //更新剛體位置
         setInterval(function(){
-            if ((dragID>=0) && (rigidBodies[dragID].body.m_type==2)){ //拖行啟動
+            if ((dragID>=0) && (rigidBodies[dragID].body.m_type==2) && (canDrag>=canDragFlag)){ //拖行啟動
                 //鎖住選取功能
                 selectEnableWait = 1000;
                 //取得物體寬高
@@ -438,6 +440,9 @@
         update();
         function update(){
             requestAnimationFrame(update); //使物理運算世界的時間前進
+            if (canDrag<=canDragFlag){ //初始保護延遲暫時停止拖行功能旗標
+                canDrag++;
+            }
             world.Step(0.016,0.1,0.1); //重複間格(s)、每間格運算速度次數、每間格運算位置次數
             for (key in rigidBodies) {
                 rigidBodies[key].applyToDOM();  //所有物件更新DOM狀態

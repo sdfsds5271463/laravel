@@ -207,6 +207,7 @@
     /*2.6 參數相關*/
         //2.6.1 取得數值
             $_SERVER['PHP_SELF']; //取得自己的網址 (不含網域)
+            $_SERVER['HTTP_HOST']; //取得網域
             $_SERVER["SCRIPT_FILENAME"]; //取得該執行檔完整路徑(反斜線) 似__FILE__(正斜線)
             //$_POST['name']; //取得method為post的值 (可為陣列)
             //$_GET['name']; //取得method為get的值，get值會自帶在網址列 (可為陣列)
