@@ -516,7 +516,7 @@
             var solidH = 50; //方塊高
             var margin = 4; //預留外徑
 
-            var listSel = [4,7]; //list摺疊選單的位置
+            var listSel = [5,8]; //list摺疊選單的位置
 
             var x = logoW + (solidW+margin)*i; //預設 x
             var y = -(solidH/2); //預設 y

@@ -19,6 +19,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--此項僅為了讓IE以最新版設定-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
+
+        <meta property="fb:admins" content="100000562184706"/>
+        <meta property="fb:app_id" content="180360789072178">     
+
 		<meta charset="utf-8" keywords="粉碎領域,AJAX,PHP,工程師,部落格,個人網頁">
 		<title>粉碎領域 PHP程式學習空間</title>
 		<link rel="Shortcut Icon" type="image/x-icon" href="public/images/logo.ico" />
@@ -32,6 +36,7 @@
         	<div class="container">
 	        	<div class="row">
 		            <div class="col-sm-12">
+		            <div class="fb-like" data-share="true" data-width="290" data-show-faces="true"></div>
 		        		<div class="search">
 		        			<!-- Search Google -->
 			        		<form method="get" name="searchform" action="http://www.google.com/search" target="_blank">
@@ -44,6 +49,7 @@
 		        		</div>
 		        		<div class="thanks">感謝<a href="http://www.pixiv.net/member.php?id=4041740" target="_blank">強者朋友</a>供圖
 		        		</div>
+
 		        	</div>
 		        </div>
 		    </div>
@@ -92,6 +98,13 @@
 	            <div class="row">
 	                <div class="col-sm-9">
 	                    @yield('main')
+	                    <br><h2>FB留言板</h2>
+				        <div 	class="fb-comments" 
+				        		data-href="{{$_SERVER['HTTP_HOST']}}{{$_SERVER['PHP_SELF']}}" 
+				        		data-numposts="5"
+				        		data-width="100%"
+				        ></div>
+				        <div id="fb-root"></div>
 	                </div>
 	                <div class="col-sm-3">
 	                	<div class="menu">

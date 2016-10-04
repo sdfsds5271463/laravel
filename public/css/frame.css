@@ -217,8 +217,8 @@ main p{
 	#onlineSpeakerBoard{ /*右上顯示在線人員*/
 		text-align: right;
 		position: absolute;
-		right: 35px;
-		top: 70px;
+		right: 20px;
+		top: 3px;
 	}
 	#SpeakerAmountBoard{
 		background-color: #FFFFFF;

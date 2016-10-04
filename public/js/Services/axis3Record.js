@@ -13,6 +13,8 @@
 	var saveRss=[];
 	var saveMaxAmount = 200;
 
+	//其他
+	var errMsg = '<div class="alert alert-danger" role="alert">※目前裝置不支援三軸加速度感測器※</div>'
 
 	$(function(){
 	//物件定義
@@ -83,7 +85,7 @@
 				ctx.strokeStyle="black";
 
 				if(e.accelerationIncludingGravity.x == null) {
-					$('#msg').text('※目前裝置不支援三軸加速度感測器※');
+					$('#msg')[0].innerHTML = errMsg;
 				}
 				else {
 					//讀取三軸加速度器
@@ -121,7 +123,7 @@
 			});
 		}
 		else  {  //不支援註冊事件
-			$('#msg').text('※目前裝置不支援三軸加速度感測器※');
+			$('#msg')[0].innerHTML = errMsg;
 		}
 
 	//按鈕事件

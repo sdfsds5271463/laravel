@@ -146,6 +146,7 @@
         //更新動態背景
         function updateBgImg(){
             var bgX = 0; //背景位置
+            var firstErr = -3; //初始化失敗用旗標
             setInterval(function(){
                 //取得參數
                 if ((zoomSave!= mymap.zoom)||(!movBg)){ //尺度修改需要重新取得參數
@@ -174,8 +175,14 @@
                                 $(mark[n]).css('opacity','1');
                             }
                         }
-                        catch(err)
-                        {console.log('有超出範圍的物件被map給釋放了');}
+                        catch(err){
+                            //console.log('有超出範圍的物件被map給釋放了，ID為' + n);
+                            if(firstErr < 0){
+                                zoomSave = -1;
+                                firstErr += 1;
+                                //console.log('初始讀取失敗，重新讀取');
+                            }
+                        }
                     }
                     movBg = document.querySelectorAll(".sweatherPng");
                     $(".sweatherPng").mousedown(showWeatherDiv); //更新按下事件
