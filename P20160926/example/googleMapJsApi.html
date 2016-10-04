@@ -1,0 +1,60 @@
+<!doctype HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>google map</title>
+		<style>
+			#mapDiv{
+				width: 500px;
+				height: 500px;
+				background: #EEEEEE;
+			}
+		</style>
+		<script src="googleMapsApi.js"></script>
+		<!--http://maps.google.com/maps/api/js-->
+
+		<script>
+			window.onload = function(){
+			//創造地圖
+				var mapDiv = document.querySelectorAll("#mapDiv")[0];
+				var mapSetting = {
+					zoom: 12, 					//範圍(必要)
+					center: {lat:10.2, lng:5.3},//位置(必要)
+					mapTypeId: 'roadmap',		//顯示種類('roadmap'街道預設 'hybrid'衛星與街道 'satellite'純衛星 'terrain'地形圖)
+					mapTypeControl: true,		//切換種類按鈕(true預設)
+					draggable: true,			//拖曳(true預設)
+                    scaleControl: true,			//比例尺
+                    scrollwheel: false,			//滾輪功能
+                    navigationControl: false,	//導航功能
+                    streetViewControl: false,	//街景功能
+                    zoomControl: false			//放大縮小按鈕
+				};
+				var mymap = new google.maps.Map(mapDiv,mapSetting);
+
+			//繪製標記 (為.gmnoprint類別物件)
+				new google.maps.Marker({
+					map: mymap, //地圖(必要)
+					position: {lat:10.2, lng:5.3}, //位置(必要)
+					title: "敘述文字", //滑過顯示文字
+					label: "A", //標記上方文字 (限1字元，可為中文)
+					icon: 'http://images.antifluff.com/download.php?file=onz0odl5aztbjmrunwq3.png' //自訂圖示
+				});
+
+			};
+
+			function setAddress(map,Address){ //依據地址設定位置
+				gc = new google.maps.Geocoder();
+				gc.geocode({'address':Address},function(result,status){
+				if (status == "OK"){
+						map.setCenter(result[0].geometry.location); //更改位置
+					}
+				});
+			}
+		</script>
+
+
+	</head>
+	<body>
+		<div id="mapDiv"></div>
+	</body>
+</html>

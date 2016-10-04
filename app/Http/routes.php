@@ -18,11 +18,14 @@ echo <<<EOT
 EOT;
 });*/
 
+Route::match(['get','post'],'index','index@index');
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
+Route::match(['get','post'],'weather','weather@index');
 Route::match(['get','post'],'box2d','box2d@index');
 Route::match(['get','post'],'axis3Record','axis3@record');
 Route::match(['get','post'],'axis3Video','axis3@video');
-Route::match(['get','post'],'index','index@index');
+Route::match(['get','post'],'axis3Data','axis3@data');
+
 
 
 //測式頁面

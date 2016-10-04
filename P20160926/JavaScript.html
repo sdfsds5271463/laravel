@@ -93,7 +93,7 @@
                     button1.innerHTML = "hahaha"; //元素內容改變方法
                         //innerHTML(內容)、outerHTML(整個元素) ((innerText、outerText不是W3C不在此說明))
                     text1.value = 'hohoho'; //元素屬性改變法 1
-                        //唯讀的物件寬高屬性 offsetHeight  offsetWeight
+                        //唯讀的物件寬高屬性 offsetHeight  offsetWeight offsetLeft offsetTop
                         //設定物件寬高如 .style.width = 123 + 'px'
                     text1.style.border = 'solid 5px #FF00FF'; //元素屬性改變法 1 css
                     text1.setAttribute('value','hohoho'); //元素屬性改變法 2
@@ -210,6 +210,10 @@
                     for (key in tag) {
                         document.createElement(tag[key]);
                     }
+
+                //複製物件
+                    var zNodes0 = {"AAA":0,"BBB":1,"CCC":2};
+                    var zNodes1 = $.extend(true,{}, zNodes0);
 
         </script>
     </head>

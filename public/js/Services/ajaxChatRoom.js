@@ -235,7 +235,7 @@ var copyToDraw; //拷貝繼續創作按鈕
                     success:function(data)
                     {
                         chatStateBar[0].scrollTop = chatStateBar[0].scrollHeight;
-                        data = JSON.parse(data);
+                        //data = JSON.parse(data);
                     },
                     error:function()
                     {

@@ -17,10 +17,13 @@
 					$post['OnlineChatUsers'] = $OnlineChatUsers; //聊天室使用者與數目
 				}
 				break;
+
 			case 'stateCode': //顯示原碼請求
 				$Code = $stateCode->getCodeByTitle($post['codeTitle']);
  				$post['Code'] = $Code;
+ 				unset($post['codeTitle']);
 				break;
+
 			case 'stateAjaxChatRoom': //顯示聊天室
 				//$chatTimeFlag = $Timeflag->returnChatLastTime();
 				$chatTimeFlag = $mngFile->getVar("chatTimeFlag"); //新版 使用檔案做為時間旗標
@@ -33,15 +36,21 @@
 						$chatdata[$key]['timeYmd'] = date('Ymd',$timeFlag);	//處理時間格式
 					}
 					$post['chatData'] = $chatdata; //透過post傳輸
+					unset($post['chatStateTime']);
 				}
 				break;
+
 			case 'inputAjaxChatRoom': //插入聊天室
 				$Ajaxchatroommodel->insertChat($post['chatContent'],$post['speaker'],$post['chatColor']);
 				//$Timeflag->updataChatLastTime();
 				$mngFile->putVar("chatTimeFlag",time()); //新版 使用檔案做為時間旗標
 				setcookie('cookie_speaker',$post['speaker'] ,time()+60*60*24);
 				setcookie('cookie_chatColor',$post['chatColor'] ,time()+60*60*24);
+				unset($post['speaker']);
+				unset($post['chatContent']);
+				unset($post['chatColor']);
 				break;
+				
 			case 'accToJsonDownload': //產生加速度json檔
 				//json檔案資訊
 				$jsonData = $post;

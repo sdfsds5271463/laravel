@@ -68,19 +68,19 @@
 	            <!-- 選單(縮小時(<768px)消失) -->
 	            <div id="TEMPnav" class="navbar-collapse collapse">
 	                <ul class="navbar-nav nav">
+	                	<li><a href="index"><span class="glyphicon glyphicon-edit"></span> 超新手架站教學</a></li>
 	                    <li><a href="ajaxChatRoom"><span class="glyphicon glyphicon-pencil"></span> AJAX塗鴉聊天室</a></li>
-	                    <li><a href="#"><span class="glyphicon glyphicon-certificate"></span> XML即時氣象</a></li>
+	                    <li><a href="weather"><span class="glyphicon glyphicon-certificate"></span> XML天氣概況</a></li>
 	                    <li><a href="box2d"><span class="glyphicon glyphicon-apple"></span> Box2D物理空間</a></li>
-	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度線上監控
+	                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span> 三軸加速度感測器
 	                        <span class="caret"></span></a><!--span的類別caret是下拉專屬圖示▼-->
 	                        <ul class="dropdown-menu">
-	                            <li><a href="axis3Record"><span class="glyphicon glyphicon-record"></span> 三軸加速度監控器</a></li>
-	                            <li><a href="#"><span class="glyphicon glyphicon-search"></span> 資料查詢</a></li>
+	                            <li><a href="axis3Record"><span class="glyphicon glyphicon-record"></span> 感測器線上監控</a></li>
 	                            <li class="divider"></li><!-- 分隔線 -->
 	                            <li><a href="axis3Video"><span class="glyphicon glyphicon-film"></span> 步態Html5影片播放</a></li>
+	                            <li><a href="axis3Data"><span class="glyphicon glyphicon-list-alt"></span> 三軸步態研究資料</a></li>
 	                        </ul>
 	                    </li>
-	                    <li><a href="index"><span class="glyphicon glyphicon-edit"></span> 站長murmur</a></li>
 	                </ul>
 	            </div>
 	        </div>

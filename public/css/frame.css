@@ -49,6 +49,14 @@ header>.container,.navbar,main{
 	padding: 2px;
 	background: #dddddd;
 }
+.normalImg{
+	border: solid 1px #999999;
+	border-radius: 5px;
+	margin: 0px auto;
+}
+.smallWord{
+	font-size: 75%;
+}
 
 /*header&nav樣式*/
 header{
@@ -97,9 +105,7 @@ header .col-sm-12{
 	border: solid 1px #999999;
 	margin: 0 0 6px 0;
 }
-.smallWord{
-	font-size: 75%;
-}
+
 
 
 /*選單樣式*/
@@ -130,6 +136,15 @@ main h1 {
 	border-bottom:1px dashed #DDDDDD;
 	margin-top: 0px;
 	padding-top: 25px;
+}
+main h2 {
+	font-size:170%;
+	color:#666666;
+	border-bottom:1px dashed #DDDDDD;
+	border-left:10px solid #DDDDDD;
+	margin-top: 0px;
+	padding-top: 15px;
+	text-indent: 5px;
 }
 main .col-sm-9, main .col-sm-3{
 	word-break: break-all;
@@ -282,6 +297,21 @@ main p{
     }
     .copyToDraw{
     	width: fit-content;
+    }
+    /*XML天氣樣式*/
+    .weathersDiv{
+    	color: #000000;
+    	width: 300px;
+    	position: absolute;
+    	display: none;
+    }
+    .weathersDiv th{
+    	text-align: center;
+    	background: rgba(200,200,200,0.8);
+    }
+    .weathersDiv td{
+    	text-align: center;
+    	background: rgba(255,255,255,0.8);
     }
     /*box2d世界樣式*/
     .topSelector{ /*上方選單樣式*/

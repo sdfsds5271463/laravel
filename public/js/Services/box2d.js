@@ -13,14 +13,10 @@
 
     //拖行功能參數
     var dragID = -1; //拖行者ID
-    var mxAbsDif = 0; //相對座標
-    var myAbsDif = 0;
-    var mx; //絕對座標
-    var my;
+    var mx =0; //絕對座標
+    var my =0;
     var mvX = 0; //移動速度
     var mvY = 0;
-    var canDrag = 0; //初始拖行旗標
-    var canDragFlag = 100; //幾個迴圈後啟動拖行
 
     //創造功能參數
     var polygonPiontSet = []; //圖形打點陣列
@@ -247,19 +243,15 @@
             dragID = -1;
         };
         //更新滑鼠座標
-        $("#box2dArea").mousemove(function(e){
-            if (e.target.id == "box2dArea"){
-                mxAbsDif = e.clientX - e.offsetX;
-                myAbsDif = e.clientY - e.offsetY; //取得相對座標
-            }
-        });
+        var box2dArea = document.querySelectorAll("#box2dArea")[0];
         body.onmousemove = function(e){
-            mx = e.clientX - mxAbsDif;
-            my = e.clientY - myAbsDif; //計算絕對座標
+            mx = e.clientX - realPosX(box2dArea) + body.scrollLeft;
+            my = e.clientY - realPosY(box2dArea) + body.scrollTop; //計算絕對座標
         };
+
         //更新剛體位置
         setInterval(function(){
-            if ((dragID>=0) && (rigidBodies[dragID].body.m_type==2) && (canDrag>=canDragFlag)){ //拖行啟動
+            if ((dragID>=0) && (rigidBodies[dragID].body.m_type==2)){ //拖行啟動
                 //鎖住選取功能
                 selectEnableWait = 1000;
                 //取得物體寬高
@@ -440,9 +432,6 @@
         update();
         function update(){
             requestAnimationFrame(update); //使物理運算世界的時間前進
-            if (canDrag<=canDragFlag){ //初始保護延遲暫時停止拖行功能旗標
-                canDrag++;
-            }
             world.Step(0.016,0.1,0.1); //重複間格(s)、每間格運算速度次數、每間格運算位置次數
             for (key in rigidBodies) {
                 rigidBodies[key].applyToDOM();  //所有物件更新DOM狀態
@@ -560,6 +549,9 @@
             bit.body.SetAngularVelocity((Math.random()-0.5) * 10); //初始角速度
             rigidBodies.push(bit);
         }
+
+        //刪除mobile選單按鈕 (因為選單都沒了..)
+        $(".navbar-toggle").remove();
 
 
 

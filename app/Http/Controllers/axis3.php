@@ -17,7 +17,6 @@
 	 		return view('axis3Video');
 		}
 
-
 		public function record(
 			\App\Services\onlineUsersAmount $onlineUsersAmount,
 			\App\Services\stateCode $stateCode,
@@ -27,6 +26,16 @@
 			require_once('public/ajax.inc.php');
 	 		//視圖顯示
 	 		return view('axis3Record');
+		}
+
+		public function data(
+			\App\Services\onlineUsersAmount $onlineUsersAmount,
+			\App\Services\stateCode $stateCode,
+			Request $request
+		){
+			require_once('public/ajax.inc.php');
+	 		//視圖顯示
+	 		return view('axis3Data');
 		}
 
 	}

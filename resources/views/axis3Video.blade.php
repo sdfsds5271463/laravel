@@ -4,7 +4,7 @@
 
 	<h1>三軸步態實驗 <span class="smallWord">Html5影片播放器</span></h1>
 	<p>此影片播放器與內容，是我研究生時代設計的，目地是能夠精準對應「步態三軸訊號」與影片人體動作的關係，透過一個簡單的Html5影片播放器進行呈現。
-	影片播放器設計上，僅是透過Javascript取得並修改video元素的屬性達成功能，不過成效相當好，精準的影片對應動作讓我能夠定義人體步態的三軸特徵。</p>
+	影片播放器設計上，僅是透過Javascript取得並修改video元素的屬性達成功能，不過成效相當好，精準的影片對應動作讓我能夠定義人體步態的三軸特徵<a href="axis3Data">(步態研究資料)</a>。</p>
 
     <video id="Video1" class="img-responsive" width="100%" loop autoplay>您的瀏覽器不支援Html5影片播放器。</video>
 
