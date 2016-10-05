@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
 
-	<head>
-		<!--bootstrap + jquery引入-->
-		<link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+        <!--bootstrap + jquery引入-->
+    	<link href="public/css/bootstrap.min.css" rel="stylesheet">
 		<script src="public/js/jquery-ui-1-11-4-custom/external/jquery/jquery.js"></script>
-		<script src="public/js/bootstrap.min.js"></script> 
+		<script src="public/js/bootstrap.min.js"></script>
 		<!--jquery UI引入-->
 		<link href="public/js/jquery-ui-1-11-4-custom/jquery-ui.css" rel="stylesheet">
 		<script src="public/js/jquery-ui-1-11-4-custom/jquery-ui.js"></script>
@@ -13,15 +13,22 @@
 		<link href="public/css/frame.css" rel="stylesheet">
 		<script src="public/js/frame.js"></script>
 			<script src="public/js/Services/onlineUsersAmount.js"></script>
-			
+
 		<!--RWD設定-->
 		<script src="public/js/Respond-master/dest/respond.min.js"></script><!--此項為了讓IE6 7 8懂@media-->
         <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--此項僅為了讓IE以最新版設定-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 
+        <!--網站OG資訊-->
+        <meta property="og:url" content="http://{{$_SERVER['HTTP_HOST']}}">
+        <meta property="og:title" content="粉碎領域 PHP程式學習空間">
+        <meta property="og:description" content="個人PHP網頁設計學習與討論空間">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="http://{{$_SERVER['HTTP_HOST']}}/public/images/index_img.jpg">
+        <!--註冊使用者ID-->
         <meta property="fb:admins" content="100000562184706"/>
-        <meta property="fb:app_id" content="180360789072178">     
+        <meta property="fb:app_id" content="965388553566794">
 
 		<meta charset="utf-8" keywords="粉碎領域,AJAX,PHP,工程師,部落格,個人網頁">
 		<title>粉碎領域 PHP程式學習空間</title>
@@ -36,7 +43,8 @@
         	<div class="container">
 	        	<div class="row">
 		            <div class="col-sm-12">
-		            <div class="fb-like" data-share="true" data-width="290" data-show-faces="true"></div>
+		            <!--FB LIKE-->
+		            <!--<div class="fb-like" data-share="true" data-width="290" data-show-faces="true"></div>-->
 		        		<div class="search">
 		        			<!-- Search Google -->
 			        		<form method="get" name="searchform" action="http://www.google.com/search" target="_blank">
@@ -54,14 +62,14 @@
 		        </div>
 		    </div>
         </header><!--LOGO img-->
-        
+
 
         <!--清單巡覽列-->
         <nav>
 	        <div class="navbar navbar-default">
 	            <div class="navbar-header">
 	                <span class="navbar-brand">
-	                	<a href="index.php">
+	                	<a href="/">
 		                	<span><img src="public/images/logo.png" width="20px"></span>
 		                	<b>粉碎領域</b> <span class="smallWord">PHP程式學習空間</span>
 		                </a>
@@ -99,8 +107,8 @@
 	                <div class="col-sm-9">
 	                    @yield('main')
 	                    <br><h2>FB留言板</h2>
-				        <div 	class="fb-comments" 
-				        		data-href="{{$_SERVER['HTTP_HOST']}}{{$_SERVER['PHP_SELF']}}" 
+				        <div 	class="fb-comments"
+				        		data-href="{{$_SERVER['HTTP_HOST']}}fb{{$_SERVER['REQUEST_URI']}}"
 				        		data-numposts="5"
 				        		data-width="100%"
 				        ></div>
@@ -129,24 +137,20 @@
 	                    	<h1>個人學習紀錄</h1>
 	                    	不負責任的個人學習紀錄文件<br>
 	                    	<b>HTML</b>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<b>HTML</b>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<b>HTML</b>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架模板</a>
-
+	                    	<a href="#code">Html基本語法</a>
+	                    	<a href="#code">Css基本語法</a>
+	                    	<a href="#code">Rwd頁面基礎</a>
+	                    	<b>Javascript</b>
+	                    	<a href="#code">javascript基本語法</a>
+	                    	<a href="#code">canvas基本操作</a>
+	                    	<a href="#code">jQuery基本語法</a>
+	                    	<a href="#code">jQuery UI常用語法</a>
+	                    	<b>PHP</b>
+	                    	<a href="#code">php類別基礎</a>
+	                    	<a href="#code">php基本語法</a>
+	                    	<a href="#code">php檔案處理</a>
+	                    	<a href="#code">php dataURL</a>
+	                    	<a href="#code">php 其他雜記</a>
 	                    	<h1>瀏覽人次</h1>
 	                    	<h4>總共瀏覽：<span class="onlineUserId"></span>次</h4>
 	                    	<h4>目前在線：<span class="OnlineAmount"></span>人</h4>
@@ -176,7 +180,7 @@
 
     	<!--ajax傳輸參數-->
     	<input id="_token" type="hidden" value="{{ csrf_token() }}">
-    	<input type="hidden" id="onlineUserId" value=@if(isset($_COOKIE['onlineUserId'])){{ $_COOKIE['onlineUserId']}} 
+    	<input type="hidden" id="onlineUserId" value=@if(isset($_COOKIE['onlineUserId'])){{ $_COOKIE['onlineUserId']}}
 											       @else "-1" @endif >
 
     	<!--程式碼顯示交談窗-->
@@ -201,7 +205,7 @@
 <!--
 	        <div class="container">
 
-	          
+
 	            <div class="row">
 	                <div class="col-sm-3">
 	                    <img src="tmp.jpg" class="img-responsive img-circle">

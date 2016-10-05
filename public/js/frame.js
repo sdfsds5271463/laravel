@@ -159,7 +159,7 @@ function toTop(){
 	//按讚https://developers.facebook.com/apps/180360789072178/add/
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '180360789072178',
+			appId      : '965388553566794',
 			xfbml      : true,
 			version    : 'v2.7'
 		});
