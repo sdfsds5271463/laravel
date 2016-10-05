@@ -43,6 +43,9 @@ header>.container,.navbar,main{
 .ui-dialog{ /*原碼彈跳窗*/
 	margin: 50px 5%;
 }
+#closedialog{
+	cursor:pointer;
+}
 .normalButton{
 	border: solid 1px #999999;
 	border-radius: 5px;
@@ -60,12 +63,14 @@ header>.container,.navbar,main{
 
 /*header&nav樣式*/
 header{
-	background-color: #d4c9b5;
-	background-image: linear-gradient(to top,rgba(0,0,0,.3) 0%,rgba(0,0,0,.0001) 100%);
+	background-color: #777777;
+	background-image: linear-gradient(to top,rgba(255,255,255,.3) 0%,rgba(255,255,255,.0001) 100%);
 }
 header .col-sm-12{
 	height: 250px; /*LOGO*/
 	background: url('../images/top_background_a.png') 20% no-repeat;
+	padding: 0px;
+	margin: 0px;
 }
 .thanks{
 	color: #FFFFFF;
@@ -170,15 +175,16 @@ main p{
 	text-indent:28px;
 	text-align: left;
 }
-.menu a { /*側欄連結列表*/
+.menu .code,.menu a{ /*側欄連結列表*/
 	display: block;
 	color:#3399DD;
 	background: url(../images/a.jpg) right no-repeat;
 	width: 100%;
 	padding: 0 10px;
 	line-height:18px;
+	cursor: pointer;
 }
-.menu a:hover {
+.menu .code:hover ,.menu a:hover{
 	color:#666666;
 	background-image:url(../images/a_hover.jpg);
 }
@@ -192,12 +198,25 @@ main p{
 		padding: 0px;
 	}
 	#whiteFog{
-		background:rgba(200,200,200,0.5); 
+		background:rgba(150,150,150,0.8); 
 		width:100%; 
 		height:100%; 
 		position:absolute;
 		padding: 0px;
 	}
+	/*超新手教學*/
+	.teachTitle{
+		background: none;
+		border: 0px;
+	}
+	#accordion{
+		font: 14px '微軟正黑體';
+	}
+	#accordion div{
+		color:#999999;
+		border: 0px;
+	}
+
 	/*聊天室樣式*/
 	 /*主板*/
 	#chatStateBar{

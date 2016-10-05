@@ -82,7 +82,7 @@
 	            <!-- 選單(縮小時(<768px)消失) -->
 	            <div id="TEMPnav" class="navbar-collapse collapse">
 	                <ul class="navbar-nav nav">
-	                	<li><a href="index"><span class="glyphicon glyphicon-edit"></span> 超新手架站教學</a></li>
+	                	<li><a href="teach"><span class="glyphicon glyphicon-edit"></span> 超新手架站教學</a></li>
 	                    <li><a href="ajaxChatRoom"><span class="glyphicon glyphicon-pencil"></span> AJAX塗鴉聊天室</a></li>
 	                    <li><a href="weather"><span class="glyphicon glyphicon-certificate"></span> XML天氣概況</a></li>
 	                    <li><a href="box2d"><span class="glyphicon glyphicon-apple"></span> Box2D物理空間</a></li>
@@ -118,17 +118,19 @@
 	                	<div class="menu">
 	                		<h1>本頁原碼</h1>
 	                		本站使用 Laravel 5.1.33 建置
-	                    	<a href="#code">內容模板</a>
-	                    	<a href="#code">AJAX接收請求端</a>
-	                    	<a href="#code">控制器php</a>
-	                    	<a href="#code">控制器service</a>
-	                    	<a href="#code">控制器javaScript</a>
-	                    	<a href="#code">資料庫model</a>
-	                    	<a href="#code">服務提供者</a>
-	                    	<a href="#code">路由設定</a>
-	                    	<a href="#code">框架模板</a>
-	                    	<a href="#code">框架css</a>
-	                    	<a href="#code">框架javaScript</a>
+	                    	<span class="code">內容模板</span>
+	                    	<span class="code">AJAX接收請求端</span>
+	                    	<span class="code">控制器php</span>
+	                    	<span class="code">控制器service</span>
+	                    	<span class="code">控制器javaScript</span>
+	                    	<span class="code">資料庫model</span>
+	                    	<span class="code">服務提供者</span>
+	                    	<span class="code">路由設定</span>
+	                    	<span class="code">框架模板</span>
+	                    	<span class="code">框架css</span>
+	                    	<span class="code">框架javaScript</span>
+	                    	開啟本站GitHub查看原碼
+	                    	<a href="https://github.com/sdfsds5271463/laravel" target="_blank">open GitHub</a>
 
 	                    	<h1>站長的話</h1>
 	                    	<p>小弟只是興趣使然的PHP一般使用者，此網站僅供個人學習、記錄與分享，有錯誤請不吝於提出指教謝謝。</p>
@@ -137,20 +139,21 @@
 	                    	<h1>個人學習紀錄</h1>
 	                    	不負責任的個人學習紀錄文件<br>
 	                    	<b>HTML</b>
-	                    	<a href="#code">Html基本語法</a>
-	                    	<a href="#code">Css基本語法</a>
-	                    	<a href="#code">Rwd頁面基礎</a>
+	                    	<span class="code">Html基本語法</span>
+	                    	<span class="code">Css基本語法</span>
+	                    	<span class="code">Rwd頁面基礎</span>
 	                    	<b>Javascript</b>
-	                    	<a href="#code">javascript基本語法</a>
-	                    	<a href="#code">canvas基本操作</a>
-	                    	<a href="#code">jQuery基本語法</a>
-	                    	<a href="#code">jQuery UI常用語法</a>
+	                    	<span class="code">javascript基本語法</span>
+	                    	<span class="code">canvas基本操作</span>
+	                    	<span class="code">jQuery基本語法</span>
+	                    	<span class="code">jQuery UI常用語法</span>
 	                    	<b>PHP</b>
-	                    	<a href="#code">php類別基礎</a>
-	                    	<a href="#code">php基本語法</a>
-	                    	<a href="#code">php檔案處理</a>
-	                    	<a href="#code">php dataURL</a>
-	                    	<a href="#code">php 其他雜記</a>
+	                    	<span class="code">php類別基礎</span>
+	                    	<span class="code">php基本語法</span>
+	                    	<span class="code">php檔案處理</span>
+	                    	<span class="code">php資料庫相關</span>
+	                    	<span class="code">php dataURL</span>
+	                    	<span class="code">php 其他雜記</span>
 	                    	<h1>瀏覽人次</h1>
 	                    	<h4>總共瀏覽：<span class="onlineUserId"></span>次</h4>
 	                    	<h4>目前在線：<span class="OnlineAmount"></span>人</h4>
@@ -186,7 +189,7 @@
     	<!--程式碼顯示交談窗-->
         <div id="dialog">
         	<pre><code><span id="dialogCodeMain"></span></code></pre>
-            <a id="closedialog" href="#close"><span class="glyphicon glyphicon-remove"></span>關閉這個視窗 (快捷鍵Esc)</a>
+            <span id="closedialog"><span class="glyphicon glyphicon-remove"></span>關閉這個視窗 (快捷鍵Esc)</span>
         </div>
     </body>
 

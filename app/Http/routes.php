@@ -18,7 +18,7 @@ echo <<<EOT
 EOT;
 });*/
 
-Route::match(['get','post'],'index','index@index');
+Route::match(['get','post'],'teach','teach@index');
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
 Route::match(['get','post'],'weather','weather@index');
 Route::match(['get','post'],'box2d','box2d@index');

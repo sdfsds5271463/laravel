@@ -16,6 +16,7 @@
 		<input id="puzSetX" class="normalImg" type="text" size="1" maxlength="2" value="5">x
 		<input id="puzSetY" class="normalImg" type="text" size="1" maxlength="2" value="5">拼圖矩陣
 		<button id="puzSetButton" class="normalButton">重新產生</button>
+		<button id="autoPuz" class="normalButton">自動拼圖</button>
 	</center>
 	<br>
 	<p>最後要感謝強者我朋友提供專業美術圖繪製，讓我的網頁跟我本人都生動活潑了起來，

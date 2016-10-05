@@ -3,8 +3,8 @@
 	var whiteFog;	//主要底色物件
 
 	//寬度參數
-	var puzBigW;
-	var puzBigH;
+	var puzBigW = -1;
+	var puzBigH = -1;
 	var puzSmW;
 	var puzSmH;
 
@@ -22,7 +22,7 @@
 		puzzBg.src = bgUrl;
 
 		window.onresize = function(){
-			if($(whiteFog).width() >0){
+			if(($(whiteFog).width() >0)&&($(whiteFog).width() != puzBigW)){
 				//重置設定
 				whiteFog.innerHTML = "";
 				puzBigW = $(whiteFog).width();
@@ -130,9 +130,22 @@
 			puzYSlice = puzSetY;
 			$("#puzSetX").val(puzSetX);
 			$("#puzSetY").val(puzSetY);
+
+			puzBigW = -1;
 			window.onresize();
 		}
 
+		//自動拼圖
+		$("#autoPuz")[0].onclick = function(){
+			var autoPutId = 0;
+			for(var r=0;r<puzYSlice;r++){
+				for(var k=0;k<puzXSlice;k++){
+					var putPuzz = document.getElementById("sm" + autoPutId);
+					$(putPuzz).animate({'top':r*puzSmH,'left':k*puzSmW},1000);
+					autoPutId++;
+				}
+			}
+		}
 
 
 	};

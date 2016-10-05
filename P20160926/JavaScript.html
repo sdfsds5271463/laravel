@@ -162,6 +162,7 @@
                          *      +：(尾)等同於{1,}重複1次以上
                          *      ?：(尾)將前述規則變為非強制
                          *      \：(頭)跳脫字元
+                         *      |：或者
                          *  規則尾端：
                          *      加i：不考慮英文大小寫
                          *      加g：整個規則連續判斷
@@ -214,6 +215,16 @@
                 //複製物件
                     var zNodes0 = {"AAA":0,"BBB":1,"CCC":2};
                     var zNodes1 = $.extend(true,{}, zNodes0);
+
+                //取得網址相關
+                    location.href;     // 完整的網址
+                    location.protocol; // 協定　　　　　　 http:
+                    location.hostname; // 伺服器名稱　　　 blog.xuite.net
+                    location.host;     // 伺服器:埠號　　　blog.xuite.net:80
+                    location.port;     // 埠號　　　　　　 80
+                    location.pathname; // host之後的部份  /ahdaa/blog1/test.html?id=AD&val1=02&val2=22#achorAD
+                    location.search;   // 含?之後所有字串　?id=AD&val1=02&val2=22#achorAD
+                    location.hash;     // 含#之後所有字串　#achorAD(通常用於錨點)
 
         </script>
     </head>

@@ -23,7 +23,7 @@ $(function(){
 
 
 	//原碼AJAX請求
-	$(".menu a").click(function(menuA){
+	$(".menu span").click(function(menuA){
 		$('#dialog').dialog('open');    //開啟原碼交談視窗
 		toTop(); //置頂
 		$("#dialogCodeMain").text("post請求資源中..");
