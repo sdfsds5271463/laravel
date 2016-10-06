@@ -11,7 +11,8 @@
 				$this->codeGetFile[$getDir]['AJAX接收請求端'] = 	"public/ajax.inc.php";
 				$this->codeGetFile[$getDir]['控制器php'] = 			"app/Http/Controllers/index.php";
 				$this->codeGetFile[$getDir]['控制器service'] = 		"app/Services/onlineUsersAmount.php";
-				$this->codeGetFile[$getDir]['控制器javaScript'] = 	"public/js/Services/onlineUsersAmount.js";
+				$this->codeGetFile[$getDir]['控制器javaScript'] = 	"public/js/Services/indexHatAndPuzzle.js";
+				$this->codeGetFile[$getDir]['控制器javaScript2'] = 	"public/js/Services/onlineUsersAmount.js";
 				$this->codeGetFile[$getDir]['資料庫model'] = 		"app/Models/Onlineuser.php";
 				$this->codeGetFile[$getDir]['服務提供者'] =		 	"app/Services/LaraServiceProvider.php";
 				$this->codeGetFile[$getDir]['路由設定'] = 			"app/Http/routes.php";
@@ -41,6 +42,7 @@
 				$this->codeGetFile[$getDir]['內容模板'] = 			"resources/views/ajaxChatRoom.blade.php";
 				$this->codeGetFile[$getDir]['控制器php'] = 			"app/Http/Controllers/ajaxChatRoom.php";
 				$this->codeGetFile[$getDir]['控制器javaScript'] = 	"public/js/Services/ajaxChatRoom.js";
+				$this->codeGetFile[$getDir]['控制器javaScript2'] = 	"public/js/Services/ajaxChatPaint.js";
 				$this->codeGetFile[$getDir]['資料庫model'] = 		"app/Models/Ajaxchatroommodel.php";
 
 			$getDir = "weather";

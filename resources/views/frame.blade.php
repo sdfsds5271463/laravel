@@ -19,7 +19,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--此項僅為了讓IE以最新版設定-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-
         <!--網站OG資訊-->
         <meta property="og:url" content="http://{{$_SERVER['HTTP_HOST']}}">
         <meta property="og:title" content="粉碎領域 PHP程式學習空間">
@@ -40,12 +39,13 @@
 
     	<!--LOGO img-->
         <header>
+        	@yield('hat')
         	<div class="container">
 	        	<div class="row">
-		            <div class="col-sm-12">
+		            <div class="col-sm-12 headerSm12">
 		            <!--FB LIKE-->
 		            <!--<div class="fb-like" data-share="true" data-width="290" data-show-faces="true"></div>-->
-		        		<div class="search">
+		        		<div class="search whiteFontCase">
 		        			<!-- Search Google -->
 			        		<form method="get" name="searchform" action="http://www.google.com/search" target="_blank">
 			        			<input type="hidden" name="sitesearch" value="{{$_SERVER['HTTP_HOST']}}" />
@@ -55,7 +55,7 @@
 		        			<a href="#"><span class="glyphicon glyphicon-map-marker"></span>網站地圖</a><br>
 		        			在線 <span class="OnlineAmount">0</span> 人
 		        		</div>
-		        		<div class="thanks">感謝<a href="http://www.pixiv.net/member.php?id=4041740" target="_blank">強者朋友</a>供圖
+		        		<div class="thanks blackFontCase">感謝<a href="http://www.pixiv.net/member.php?id=4041740" target="_blank">強者朋友</a>供圖
 		        		</div>
 
 		        	</div>
@@ -123,6 +123,7 @@
 	                    	<span class="code">控制器php</span>
 	                    	<span class="code">控制器service</span>
 	                    	<span class="code">控制器javaScript</span>
+	                    	<span class="code">控制器javaScript2</span>
 	                    	<span class="code">資料庫model</span>
 	                    	<span class="code">服務提供者</span>
 	                    	<span class="code">路由設定</span>

@@ -88,6 +88,7 @@
                         top: right: bottom: left: 定位，値為距離定位點的距離
                         z-index: Z軸高度，越大的會蓋過越小的
                         word-break: break-all直接換行 keep-all句子以外換行 normal不換行
+                        opacity:0; 半透明效果(無0~1顯示)
                         display: block 或 inline
                     2.6轉場效果樣式 (效果搭配:hover使用，此樣式放於實體選擇器中，選擇的樣式必須要有:hover之樣式改變)
                         transition: *duration delay property timing-function; (簡寫設定，星號為必要樣式不能換位)
@@ -115,6 +116,30 @@
                                 //帶小符號help(帶問號)、progress(帶沙漏)
                                 //事件件頭move(移動視窗)、text(文字輸入)、wait(沙漏)
 
+                3.transform旋轉
+                    transform:  scale(1) rotate(1440deg);
+                    rotate(θ)
+                    指定元素以參考點為中心軸 2D 旋轉 θ 度。
+                    skewX(θ)
+                    指定元素以參考點為中心軸沿著橫向傾斜 θ 度。
+                    skewY(θ)
+                    指定元素以參考點為中心軸沿著縱向傾斜 θ 度。
+                    skew(θx,θy)
+                    指定元素以參考點為中心軸沿著橫向傾斜 θx 度、 縱向傾斜 θy 度。參數如果只指定 1 個，省略的第 2 個參數，會視為 0 ，也就是只有沿橫向傾斜。September, 2012 W3C 草書又復原此項
+                    scaleX(m)
+                    指定元素由參考點橫向縮放 m 倍。
+                    scaleY(m)
+                    指定元素由參考點縱向縮放 m 倍。
+                    scale(mx,my)
+                    指定元素由參考點 2D 橫向縮放 mx 倍、縱向縮放 my 倍，等於是結合 scaleX(mx), scaleY(my) 。參數如果只指定 1 個，省略的第 2 個參數，會等於第 1 個，也就是橫向、縱向以相同比例縮放。
+                    translateX(o)
+                    指定元素由參考點橫向移動 o 距離。
+                    translateY(o)
+                    指定元素由參考點縱向移動 o 距離。
+                    translate(ox,oy)
+                    指定元素由參考點 2D 橫向移動 ox 距離、縱向移動 oy 距離，等於是結合 translateX(ox), translateY(oy) 。參數如果只指定 1 個，省略的第 2 個參數，會視為 0 ，也就是只有橫向移動。
+                    matrix(a,b,c,d,e,f)
+                    指定元素由參考點依據數學變形矩陣 (transformation matrix) 的 6 個參數值產生 2D 變形。矩陣的目的主要在運算出四邊形四角的座標，屬於數學問題，這裡就不作太多討論了。事實上，前述的各項變形函數都是簡化這個矩陣而拆解出來的，稍後範例會看到對照。有一些線上工具可以比較容易幫我們產生這些參數值。
             */
             
             /*以下是常用版面區塊區域元素*/

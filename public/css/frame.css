@@ -60,13 +60,22 @@ header>.container,.navbar,main{
 .smallWord{
 	font-size: 75%;
 }
+.blackFontCase{
+	text-shadow:  1px 1px 0px #000000, 0px 1px 0px #000000, 1px 0px 0px #000000, -1px -1px 0px #000000,
+			 -1px 0px 0px #000000, 0px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+}
+.whiteFontCase{
+	text-shadow:  1px 1px 0px #FFFFFF, 0px 1px 0px #FFFFFF, 1px 0px 0px #FFFFFF, -1px -1px 0px #FFFFFF,
+				 -1px 0px 0px #FFFFFF, 0px -1px 0px #FFFFFF, 1px -1px 0px #FFFFFF, -1px 1px 0px #FFFFFF;
+				 /*傳說中的團結力量大，去吧陰影外框！*/
+}
 
 /*header&nav樣式*/
 header{
 	background-color: #777777;
-	background-image: linear-gradient(to top,rgba(255,255,255,.3) 0%,rgba(255,255,255,.0001) 100%);
+	background-image: linear-gradient(to top,rgba(255,255,255,.3) 0px,rgba(255,255,255,.0001) 250px);
 }
-header .col-sm-12{
+header .headerSm12{
 	height: 250px; /*LOGO*/
 	background: url('../images/top_background_a.png') 20% no-repeat;
 	padding: 0px;
@@ -78,8 +87,7 @@ header .col-sm-12{
 	bottom:5px;
 	right:15px;
 	font-size: 85%;
-	text-shadow:  1px 1px 0px #000000, 0px 1px 0px #000000, 1px 0px 0px #000000, -1px -1px 0px #000000,
-				 -1px 0px 0px #000000, 0px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+
 }
 .thanks a{
 	color: #FFFFFF;
@@ -93,9 +101,6 @@ header .col-sm-12{
 	float: right;
 	text-align: right;
 	color: #666666;
-	text-shadow:  1px 1px 0px #FFFFFF, 0px 1px 0px #FFFFFF, 1px 0px 0px #FFFFFF, -1px -1px 0px #FFFFFF,
-				 -1px 0px 0px #FFFFFF, 0px -1px 0px #FFFFFF, 1px -1px 0px #FFFFFF, -1px 1px 0px #FFFFFF;
-				 /*傳說中的團結力量大，去吧陰影外框！*/
 }
 .search a,nav a,.search a:visited,nav a:visited,.search a:link,nav a:link{
 	color:#666666;
@@ -110,7 +115,6 @@ header .col-sm-12{
 	border: solid 1px #999999;
 	margin: 0 0 6px 0;
 }
-
 
 
 /*選單樣式*/
