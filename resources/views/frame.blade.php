@@ -107,6 +107,7 @@
 	                <div class="col-sm-9">
 	                    @yield('main')
 	                    <br><h2>FB留言板</h2>
+	                    ※由於FB部分服務並不支援免費網域(.tk)，因此我以smasharea.tkfb做為留言板地址，留言者無法直接從FB中的訊息回到此網站※
 				        <div 	class="fb-comments"
 				        		data-href="{{$_SERVER['HTTP_HOST']}}fb{{$_SERVER['REQUEST_URI']}}"
 				        		data-numposts="5"

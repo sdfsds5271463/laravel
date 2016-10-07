@@ -27,10 +27,7 @@
 
 
 
-		//滑動背景初始
-
 		window.onresize = function(){
-
 		//**此區為滑動背景效果
 			//滑動背景
 			var bg3Slide = 0.1; //最底層背景最低滑動率
@@ -44,24 +41,24 @@
 
 			//圖片之Div物件
 			var bg = document.getElementById('bg');
-			bg.style.height = innerHeight + "px";
+			bg.style.height = $(window).height() + "px";
 
 			//圖片放大倍率計算
-			var hX = innerHeight/ ($('#bg3img').height()*(1-bg3Slide));
-			var wX = innerWidth/ $('#bg3img').width();
+			var hX = $(window).height()/ ($('#bg3img').height()*(1-bg3Slide));
+			var wX = $(window).width()/ $('#bg3img').width();
 			var zoomX = Math.max(hX,wX);
 
 			//各圖片物件放置
 				//背景層
 				var bg3img = document.getElementById('bg3img');
-				fullBgSlide(bg3img,"left");
+				fullBgSlide(bg3img,"left",1);
 				var bg2img = document.getElementById('bg2img');
-				fullBgSlide(bg2img,"left");
+				fullBgSlide(bg2img,"left",1);
 				//前端建築
 				var bg1rimg = document.getElementById('bg1rimg');
-				fullBgSlide(bg1rimg,"right");
+				fullBgSlide(bg1rimg,"right",1);
 				var bg1limg = document.getElementById('bg1limg');
-				fullBgSlide(bg1limg,"left");
+				fullBgSlide(bg1limg,"left",1);
 				var bg1gimg = document.getElementById('bg1gimg');
 				fullBgSlide(bg1gimg,"bottom",1);
 				//前端樹木
@@ -76,19 +73,19 @@
 				fullBgSlide(bg02img,"right",-4);
 
 			//圖面物件放置函數
-			function fullBgSlide(Obj,align,slideX=1){
+			function fullBgSlide(Obj,align,slideX){
 				//圖片調整大小
 				var setH = $(Obj).height()*zoomX;
 				var setW = $(Obj).width()*zoomX;
 				Obj.style.height = setH + "px";
 				Obj.style.width = setW + "px";
 				//圖片置中
-				if($(Obj).width() > innerWidth){
-					var overflowX = innerWidth - $(Obj).width();
+				if($(Obj).width() > $(window).width()){
+					var overflowX = $(window).width() - $(Obj).width();
 					Obj.style.left = (overflowX/2) + "px";
 				}
 				//實際滑行高度
-				var actBgSlide = $(Obj).height() - innerHeight;
+				var actBgSlide = $(Obj).height() - $(window).height();
 				var slideOrg = actBgSlide;
 				actBgSlide = (slideX*actBgSlide);
 				//重設data參數
@@ -96,16 +93,16 @@
 					$(Obj).removeAttr('data-'+key);
 				}
 				//位置調整
-				if((align=="right")&&($(Obj).width()<innerWidth)){
-					Obj.style.left = innerWidth-$(Obj).width() + "px";
+				if((align=="right")&&($(Obj).width()<$(window).width())){
+					Obj.style.left = $(window).width()-$(Obj).width() + "px";
 				}
 				if (align == 'bottom'){
 					$(Obj).attr("data-0","bottom:"+(actBgSlide)+"px;");
-					$(Obj).attr("data-"+(slideH-innerHeight),"bottom:"+(-slideOrg+actBgSlide)+"px;");
+					$(Obj).attr("data-"+(slideH-$(window).height()),"bottom:"+(-slideOrg+actBgSlide)+"px;");
 				}
 				else{
 					$(Obj).attr("data-0","top:"+(-slideOrg+actBgSlide)+"px;");
-					$(Obj).attr("data-"+(slideH-innerHeight),"top:"+(-actBgSlide)+"px;");
+					$(Obj).attr("data-"+(slideH-$(window).height()),"top:"+(-actBgSlide)+"px;");
 				}
 			}
 
@@ -128,11 +125,12 @@
 					}
 				}
 			};
+			
 
 			//捲動事件
 			window.onscroll = function(){
 				//進入網站後自動隱藏滑動效果
-				if (parseFloat($('body')[0].scrollTop) >= slideAllH){
+				if (parseFloat($('body')[0].scrollTop) >= $('#hat').height()){
 					$('#hat').css("display","none");
 					$('body').height("");
 					$('body')[0].scrollTop = 0;
@@ -148,7 +146,7 @@
 					},500); //500毫秒防時間
 				}
 				//進入網站後將資源功能停用
-				if (parseFloat($('body')[0].scrollTop) >= slideAllH){
+				if (parseFloat($('body')[0].scrollTop) >= $('#hat').height()){
 					$('#hatContainer').css("display","none");
 				}
 				else{
@@ -251,8 +249,11 @@
 		window.onresize();
 
 		//滑動動畫讀取完成
+		$("#loadingBg").text("讀取完成");
 		$("#loadingBg").fadeOut(500);
-
+		setTimeout(function(){
+			$("#loadingBg")[0].style.display = "none";
+		},500);
 
 
 		//重新產生矩陣

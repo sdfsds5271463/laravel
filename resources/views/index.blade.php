@@ -10,9 +10,11 @@
 	>
 		<div id="hatContainer">
 			<!--讀取中-->
-			<div id="loadingBg" style=" position:fixed; width:100%; height:100%; z-index: 120; background:#FFFFFF;">
+			<!--background:#FFFFFF;-->
+			<div id="loadingBg" style=" position:fixed; width:100%; height:100%; z-index: 120; background:#FFFFFF;" >
 				<center style="position:relative;top:350px;"><img src='public/images/loading.gif'>網頁讀取中...</center>
 			</div>
+
 
 
 			<!--快速進入-->
@@ -47,79 +49,80 @@
 					</style>
 						<!--歡迎訊息-->
 						<div class="slideContentDiv blackFontCase" style="z-index:70; top:130px; font-size:50px; color:#FFFFFF; opacity:1;"
-							data-0="top:130px;"
+							data-0="top:80px;"
 							data-1000="top:-1000px;"
 						>
 							<span style="font-size:25px;">歡迎來到</span><br>粉碎領域<br><br>
-							<span style="font-size:25px;">請往下滾動</span><br>
+							<span style="font-size:25px;">【請往下滾動】</span><br>
 							<span class="glyphicon glyphicon-arrow-down" style="font-size:100px;"></span>
 						</div>
 						<!--本站是個人的網頁學習空間-->
-						<div class="slideContentDiv blackFontCase" style="z-index:69; font-size:20px; color:#FFFFFF;"
+						<div class="slideContentDiv blackFontCase" style="z-index:66; font-size:20px; color:#FFFFFF;"
 							data-100="top:2000px; opacity:1;"
 							data-600="top:200px; opacity:1;"
 							data-800="top:200px; opacity:1;"
 							data-1800="top:-200px; opacity:1;"
 							data-3000="top:-1000px; opacity:0;"
 						>
-							本站是個人的網頁學習空間，提供資源與大家交流分享<br>主要內容有：<br>
+							本站是個人的網頁學習空間，提供資源與大家交流分享<br>主要內容有：
 							<!--DHTML LOGO-->
-							<center style="z-index:68;">
+							<center>
 								<span style=" position:relative; text-align:center;"
 									data-600 = "opacity:0; top:100px; left:-50px;"
 									data-800 = "opacity:1; top:0px; left:0px;"
 									data-1200 = "opacity:1; top:120px; left:0px"
 									data-1400 = "opacity:1; top:0px; left:0px"
-								><img src="public/images/hat/htmlLogo.png" style="margin:0px 50px -200px;"></span>
+								><img src="public/images/hat/htmlLogo.png" style="margin:0px 50px -300px;"></span>
 								<span style=" position:relative; text-align:center;"
 									data-1000 = "opacity:0; top:220px;"
 									data-1200 = "opacity:1; top:120px;"
 									data-1600 = "opacity:1; top:240px;"
 									data-1800 = "opacity:1; top:120px;"
-								><img src="public/images/hat/cssLogo.png" style="margin:0px 50px -200px;"></span>
+								><img src="public/images/hat/cssLogo.png" style="margin:0px 50px -300px;"></span>
 								<span style=" position:relative; text-align:center;"
 									data-1400 = "opacity:0; top:340px; right:-50px;"
 									data-1600 = "opacity:1; top:240px; right:0px;"
 									data-2000 = "opacity:1; top:360px; right:0px;"
 									data-2200 = "opacity:1; top:240px; right:0px;"
-								><img src="public/images/hat/jsLogo.png" style="margin:0px 50px -200px;"></span>
+								><img src="public/images/hat/jsLogo.png" style="margin:0px 50px -300px;"></span>
 							</center>
 						</div>
 						<!--DHTML敘述-->
 						<div class="slideContentDiv blackFontCase" style="z-index:67; font-size:20px; color:#FFFFFF;"
-							data-800="top:580px; opacity:0;"
-							data-1000="top:580px; opacity:1;"
-							data-1400="top:580px; opacity:1;"
+							data-800="top:450px; opacity:0;"
+							data-1000="top:450px; opacity:1;"
+							data-1400="top:450px; opacity:1;"
 							data-4000="top:-500px; opacity:1;"
-						>DHTML的基本要素<br><br>
-							<span
-								data-0="opacity:0;"
-								data-1200="opacity:0;"
-								data-1400="opacity:1;"
-								data-4000="opacity:1;"
-							>包含了相關的函式庫與框架等資源的應用<br>例如您現在流覽的這個頁面就是使用javaScript函式庫skrollr所建置
+						><br>
+							<span style="position:relative;" 
+								data-1400="top:0px"
+								data-2000="top:150px"
+							>█ DHTML的基本要素 █<br><br>
+								<span
+									data-1200="opacity:0;"
+									data-1400="opacity:1;"
+								>包含了相關的函式庫與框架等資源的應用<br>例如您現在流覽的這個頁面就是使用javaScript函式庫skrollr所建置
+								</span>
 							</span>
 						</div>
 
 						<!--PHP LOGO-->
-						<div class="slideContentDiv blackFontCase" style="z-index:67; font-size:20px; color:#FFFFFF;"
-							data-2400="top:200px; opacity:0;"
-							data-2800="top:200px; opacity:1;"
-							data-3800="top:200px; opacity:1;"
-							data-6000="top:-500px; opacity:1;"
+						<div class="slideContentDiv blackFontCase" style="z-index:68; font-size:20px; color:#FFFFFF;"
+							data-2400="top:100px; opacity:0;"
+							data-2800="top:100px; opacity:1;"
+							data-3800="top:100px; opacity:1;"
+							data-6000="top:-600px; opacity:1;"
 						>
 							<img src="public/images/hat/phpLogo.png"
 								data-2400="transform:  scale(5);"
 								data-2800="transform:  scale(1);"
 							><br><br>
-							<span
-								data-0="opacity:0;"
-								data-2900="opacity:0;"
-								data-3100="opacity:1;"
-							>主角是後端網頁程式語言PHP<br>包含資料庫使用、框架應用等內容，例如本站就是使用Laravel框架所建置
+							<span style="position:relative;" 
+								data-1500="opacity:1; top:2000px;"
+								data-3100="opacity:1; top:0px;"
+							>█ 主角是後端程式語言PHP █<br>包含資料庫使用、框架應用等內容，例如本站就是使用Laravel框架所建置
 							<br>其他內容關鍵字如：MySqli、jQuery、AJAX、Bootstrap、Box2D、PDO、XAJAX</span><br><br>
 							<span
-								data-0="opacity:0;"
 								data-3700="opacity:0;"
 								data-3900="opacity:1;"
 							>進站中...<br><span class="glyphicon glyphicon-arrow-down" style="font-size:50px;"></span></span>

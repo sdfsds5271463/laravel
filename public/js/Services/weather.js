@@ -162,7 +162,7 @@
                             if(areaId >=0){ //取得背景
                                 var s="0",c="0",r="0",l="0",j="0"; //晴雲雨雷暫 文字搜查
                                 if(weatherText[areaId].match(/晴/)){s = "1";}
-                                if(weatherText[areaId].match(/雲/)){c = "1";}
+                                if(weatherText[areaId].match(/雲/)||weatherText[areaId].match(/陰/)){c = "1";}
                                 if(weatherText[areaId].match(/雨/)){r = "1";}
                                 if(weatherText[areaId].match(/雷/)){l = "1";}
                                 if(weatherText[areaId].match(/暫/)){j = "1";}

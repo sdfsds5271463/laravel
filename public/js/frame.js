@@ -113,8 +113,12 @@ for (key in tag) {
 var isIE6 = navigator.userAgent.search("MSIE 6") > -1;
 var isIE7 = navigator.userAgent.search("MSIE 7") > -1;
 var isIE8 = navigator.userAgent.search("MSIE 8") > -1;
-if (isIE6 | isIE7 | isIE8) {
-    alert('您的瀏覽器過舊，無法正常顯示部分Html5或Css3特效，\n請將瀏覽器更新至IE9以上版本。');
+var isIE9 = navigator.userAgent.search("MSIE 9") > -1;
+if (isIE6 | isIE7 | isIE8 | isIE9) {
+
+
+	oldBrowserSkip();
+    alert('您的瀏覽器過舊，無法正常顯示部分Html5或Css3特效，\n請將瀏覽器更新至IE10以上版本。');
 }
 
 //至頂的滑動效果
@@ -180,3 +184,12 @@ function toTop(){
 		js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.7&appId=180360789072178";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+
+
+//過舊瀏覽器跳過功能
+	function oldBrowserSkip(){
+		setTimeout(function(){
+			document.getElementById("loadingBg").style.display = "none";
+			document.getElementById('hat').style.display = "none";
+		},500);
+	}
