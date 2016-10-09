@@ -15,134 +15,123 @@
 				<center style="position:relative;top:350px;"><img src='public/images/loading.gif'>網頁讀取中...</center>
 			</div>
 
-
-
 			<!--快速進入-->
-			<div id="directIn" class="blackFontCase" style="position:fixed; z-index: 102; top:5px; right:8px;">
+			<div id="directIn" class="blackFontCase" style="position:fixed; z-index: 119; top:5px; right:8px;">
 				<a href="#directIn">直接進入本站</a>
 			</div>
 
 			<!--首頁美工感謝-->
-			<div class="blackFontCase" style="position:fixed; z-index: 101; bottom:5px; left:8px;">
+			<div class="blackFontCase" style="position:fixed; z-index: 118; bottom:5px; left:8px;">
 				本頁美術圖為BABARA友情繪製提供
 			</div>
 
+			<!--canvas DEMO-->
+			<div class="notMobileAjd">
+				<div class="slideContentDiv blackFontCase" style="z-index:117; font-size:15px; top:2800px; color:#3399DD;"
+				onselectstart="return false"
+					data-2300 = "transform:rotate(90deg);  opacity:0;"
+					data-2500 = "transform:rotate(0deg); opacity:1;"
+				>
+					點擊看看，Canvas的效果<br><canvas id="slideCanvas" class="normalImg" style="background:#333333;"></canvas>
+				</div>
+			</div>
+
 			<!--方格效果-->
-			<div id="bgLattice" style="height: 100%; width:100%; position:absolute; z-index: 100; border-bottom:dashed 2px;
+			<div id="bgLattice" style="height: 100%; width:100%; position:absolute; z-index: 116; border-bottom:dashed 2px;
 			background-color:none; background-image:url(public/images/hat/lattice.png);"></div>
-				<!--進度條-->
+				<!--進度條
 				<div style="height:20px;position:fixed;top:0px; z-index: 99; border-bottom:solid 1px;" 
 					data-0    ="background-color:rgb(255,255,255); width:0%;" 
 					data-5000 ="background-color:rgb(0,70,100); width:100%;" 
-				></div>
-
-
-				<!--背景區-->
-				<div id="bg" style=" position:fixed; width:100%; z-index: 97;
-				background-image:url(public/images/hat/3.jpg);">
-
+				></div>-->
 					<!--內容，zindex界於 70~30之間-->
 					<style>
 						.slideContentDiv{
-							position:fixed; width:100%; text-align: center; opacity:0; top:-3000px; padding: 0 15px;
+							position:absolute; width:100%; text-align: center; /*opacity:0; top:-3000px;*/ padding: 0 15px; color:#FFFFFF;
+						}
+						@media (min-width: 768px) { /*電腦瀏覽 螢幕寬度大於768px*/ 
+							.notMobileAjd{
+								position: relative;
+								top: 150px;
+							}
 						}
 					</style>
+					<div class="notMobileAjd">
+
 						<!--歡迎訊息-->
-						<div class="slideContentDiv blackFontCase" style="z-index:70; top:130px; font-size:50px; color:#FFFFFF; opacity:1;"
-							data-0="top:80px;"
-							data-1000="top:-1000px;"
-						>
+						<div class="slideContentDiv blackFontCase" style="z-index:110; top:100px; font-size:50px;">
 							<span style="font-size:25px;">歡迎來到</span><br>粉碎領域<br><br>
 							<span style="font-size:25px;">【請往下滾動】</span><br>
 							<span class="glyphicon glyphicon-arrow-down" style="font-size:100px;"></span>
 						</div>
 						<!--本站是個人的網頁學習空間-->
-						<div class="slideContentDiv blackFontCase" style="z-index:66; font-size:20px; color:#FFFFFF;"
-							data-100="top:2000px; opacity:1;"
-							data-600="top:200px; opacity:1;"
-							data-800="top:200px; opacity:1;"
-							data-1800="top:-200px; opacity:1;"
-							data-3000="top:-1000px; opacity:0;"
-						>
+						<div class="slideContentDiv blackFontCase" style="z-index:109; top:1200px; font-size:20px;">
 							本站是個人的網頁學習空間，提供資源與大家交流分享<br>主要內容有：
 							<!--DHTML LOGO-->
 							<center>
 								<span style=" position:relative; text-align:center;"
-									data-600 = "opacity:0; top:100px; left:-50px;"
-									data-800 = "opacity:1; top:0px; left:0px;"
-									data-1200 = "opacity:1; top:120px; left:0px"
-									data-1400 = "opacity:1; top:0px; left:0px"
-								><img src="public/images/hat/htmlLogo.png" style="margin:0px 50px -300px;"></span>
+									data-800 = "opacity:0; top:100px;"
+									data-1000 = "opacity:1; top:0px;"
+								><img src="public/images/hat/htmlLogo.png" style="margin:0px 50px -150px;"></span>
 								<span style=" position:relative; text-align:center;"
-									data-1000 = "opacity:0; top:220px;"
-									data-1200 = "opacity:1; top:120px;"
-									data-1600 = "opacity:1; top:240px;"
-									data-1800 = "opacity:1; top:120px;"
-								><img src="public/images/hat/cssLogo.png" style="margin:0px 50px -300px;"></span>
+									data-900 = "opacity:0; top:100px;"
+									data-1100 = "opacity:1; top:0px;"
+								><img src="public/images/hat/cssLogo.png" style="margin:0px 50px -150px;"></span>
 								<span style=" position:relative; text-align:center;"
-									data-1400 = "opacity:0; top:340px; right:-50px;"
-									data-1600 = "opacity:1; top:240px; right:0px;"
-									data-2000 = "opacity:1; top:360px; right:0px;"
-									data-2200 = "opacity:1; top:240px; right:0px;"
-								><img src="public/images/hat/jsLogo.png" style="margin:0px 50px -300px;"></span>
+									data-1000 = "opacity:0; top:100px;"
+									data-1200 = "opacity:1; top:0px;"
+								><img src="public/images/hat/jsLogo.png" style="margin:0px 50px -150px;"></span>
 							</center>
 						</div>
+
 						<!--DHTML敘述-->
-						<div class="slideContentDiv blackFontCase" style="z-index:67; font-size:20px; color:#FFFFFF;"
-							data-800="top:450px; opacity:0;"
-							data-1000="top:450px; opacity:1;"
-							data-1400="top:450px; opacity:1;"
-							data-4000="top:-500px; opacity:1;"
-						><br>
-							<span style="position:relative;" 
-								data-1400="top:0px"
-								data-2000="top:150px"
-							>█ DHTML的基本要素 █<br><br>
+						<div class="slideContentDiv blackFontCase" style="z-index:108; font-size:20px; top:2300px;"><br>
+							<span style="position:relative;" >█ DHTML的基本要素 █<br><br>
 								<span
-									data-1200="opacity:0;"
-									data-1400="opacity:1;"
-								>包含了相關的函式庫與框架等資源的應用<br>例如您現在流覽的這個頁面就是使用javaScript函式庫skrollr所建置
+									data-1800="opacity:0;"
+									data-2100="opacity:1;"
+								>包含了函式庫及框架等資源應用<br>例如此頁面的「立體圖層背景」，就是使用javaScript函式庫skrollr所建置<br><br>
 								</span>
 							</span>
 						</div>
 
 						<!--PHP LOGO-->
-						<div class="slideContentDiv blackFontCase" style="z-index:68; font-size:20px; color:#FFFFFF;"
-							data-2400="top:100px; opacity:0;"
-							data-2800="top:100px; opacity:1;"
-							data-3800="top:100px; opacity:1;"
-							data-6000="top:-600px; opacity:1;"
-						>
+						<div class="slideContentDiv blackFontCase" style="z-index:107; font-size:20px; top:3800px;">
 							<img src="public/images/hat/phpLogo.png"
-								data-2400="transform:  scale(5);"
-								data-2800="transform:  scale(1);"
+								data-3200="transform:  scale(5); opacity:0;"
+								data-3600="transform:  scale(1); opacity:1;"
 							><br><br>
 							<span style="position:relative;" 
-								data-1500="opacity:1; top:2000px;"
-								data-3100="opacity:1; top:0px;"
+								data-3500="top:200px;"
+								data-3700="top:0px;"
 							>█ 主角是後端程式語言PHP █<br>包含資料庫使用、框架應用等內容，例如本站就是使用Laravel框架所建置
 							<br>其他內容關鍵字如：MySqli、jQuery、AJAX、Bootstrap、Box2D、PDO、XAJAX</span><br><br>
-							<span
-								data-3700="opacity:0;"
-								data-3900="opacity:1;"
-							>進站中...<br><span class="glyphicon glyphicon-arrow-down" style="font-size:50px;"></span></span>
 						</div>
 
+						<!--進站中-->
+						<div class="slideContentDiv blackFontCase" style="z-index:106; font-size:20px; top:4500px;">
+							進站中...<br><span class="glyphicon glyphicon-arrow-down" style="font-size:50px;"></span>
+						</div>
 
+						<!--背景飄物件-->
+						<div class="slideContentDiv blackFontCase" style="z-index:111; top:0px;">
+							<img src="public/images/hat/12sr.png" 	style="position:absolute; right:0px; 	width:calc(50% + 150px); top:800px;">
+							<img src="public/images/hat/0.png" 		style="position:absolute; left:0px; 	width:calc(50% + 150px); top:1500px;">
+							<img src="public/images/hat/0.png" 		style="position:absolute; right:0px; 	width:calc(50% + 150px); top:2500px;">
+							<img src="public/images/hat/13sl.png" 	style="position:absolute; left:0px; 	width:calc(40% + 150px); top:3200px;">
+						</div>
+					</div>
 
+				<!--背景區-->
+				<div id="bg" style="position:fixed; width:100%; z-index: 97;
+				background-image:url(public/images/hat/3.jpg);">
 
 					<!--圖片 背景-->
 					<img id="bg3img" src="public/images/hat/3.jpg" style="position:absolute; z-index: 26">
 					<img id="bg2img" src="public/images/hat/2.png" style="position:absolute; z-index: 27">
 					<!--圖片 前景建築-->
-					<img id="bg1gimg" src="public/images/hat/15g.png" style="position:absolute; z-index: 28">
-					<img id="bg1rimg" src="public/images/hat/11r.png" style="position:absolute; z-index: 29">
-					<img id="bg1limg" src="public/images/hat/10l.png" style="position:absolute; z-index: 30">
+					<img id="bg1nimg" src="public/images/hat/1n.png" style="position:absolute; z-index: 28">
 					<!--圖片 塵土與樹木-->
-					<img id="bg0img" src="public/images/hat/0.png" style="position:absolute; z-index: 77">
-					<img id="bg1slimg" src="public/images/hat/13sl.png" style="position:absolute; z-index: 78">
-					<img id="bg1srimg" src="public/images/hat/12sr.png" style="position:absolute; z-index: 79">
-					<img id="bg02img" src="public/images/hat/0.png" style="position:absolute; z-index: 80">
 				</div>
 		</div>
 	</div>

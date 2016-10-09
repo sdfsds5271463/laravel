@@ -1,6 +1,7 @@
 //參數們
 	//物件定義
 	var whiteFog;	//主要底色物件
+	var canvas; //DEMO CANVAS
 
 	//寬度參數
 	var puzBigW = -1;
@@ -24,10 +25,15 @@
 		whiteFog = document.getElementById('whiteFog');
 		var puzzBg = document.getElementById('puzzBg');
 		puzzBg.src = bgUrl;
-
-
+		canvas = document.getElementById("slideCanvas");
+			// 確認canvas元素是否存在
+			if (!canvas || !canvas.getContext) {
+				alert("偵測不到canvas物件");
+				return false;
+			}
 
 		window.onresize = function(){
+
 		//**此區為滑動背景效果
 			//滑動背景
 			var bg3Slide = 0.1; //最底層背景最低滑動率
@@ -55,22 +61,8 @@
 				var bg2img = document.getElementById('bg2img');
 				fullBgSlide(bg2img,"left",1);
 				//前端建築
-				var bg1rimg = document.getElementById('bg1rimg');
-				fullBgSlide(bg1rimg,"right",1);
-				var bg1limg = document.getElementById('bg1limg');
-				fullBgSlide(bg1limg,"left",1);
-				var bg1gimg = document.getElementById('bg1gimg');
-				fullBgSlide(bg1gimg,"bottom",1);
-				//前端樹木
-				var bg1slimg = document.getElementById('bg1slimg');
-				fullBgSlide(bg1slimg,"left",-7);
-				var bg1srimg = document.getElementById('bg1srimg');
-				fullBgSlide(bg1srimg,"right",-1);
-				//塵土飛揚
-				var bg0img = document.getElementById('bg0img');
-				fullBgSlide(bg0img,"left",-0.5);
-				var bg02img = document.getElementById('bg02img');
-				fullBgSlide(bg02img,"right",-4);
+				var bg1nimg = document.getElementById('bg1nimg');
+				fullBgSlide(bg1nimg,"left",1);
 
 			//圖面物件放置函數
 			function fullBgSlide(Obj,align,slideX){
@@ -130,7 +122,7 @@
 			//捲動事件
 			window.onscroll = function(){
 				//進入網站後自動隱藏滑動效果
-				if (parseFloat($('body')[0].scrollTop) >= $('#hat').height()){
+				if (parseFloat($('body')[0].scrollTop) >= slideAllH){
 					$('#hat').css("display","none");
 					$('body').height("");
 					$('body')[0].scrollTop = 0;
@@ -138,20 +130,19 @@
 					var inWebTimer = setInterval(function(){
 						if (parseFloat($('body')[0].scrollTop) >= 800){
 							$('body')[0].scrollTop = 0;
-							clearInterval(inWebTimer);
 						}
 					},10);
 					setTimeout(function(){
 						clearInterval(inWebTimer);
-					},500); //500毫秒防時間
+					},200); //200毫秒防時間
 				}
 				//進入網站後將資源功能停用
-				if (parseFloat($('body')[0].scrollTop) >= $('#hat').height()){
+				/*if (parseFloat($('body')[0].scrollTop) >= $('#hat').height()){
 					$('#hatContainer').css("display","none");
 				}
 				else{
 					$('#hatContainer').css("display","");
-				}
+				}*/
 				//console.log($('body')[0].scrollTop);
 			}
 
@@ -245,8 +236,101 @@
 					setTimeout(window.onresize,500); //重新載入
 				}
 			}//if $(whiteFog).width() != puzBigW 
+
+
+			//**canvas 適應大小
+			canvas.width = Math.min((innerWidth-60),600);
+			canvas.height = innerHeight/2;
+
 		}
 		window.onresize();
+
+
+		//**此區為canvas DEMO效果
+			//動畫設定區 (變數、定義、on事件、迴圈)
+				// 變數
+				var ctx;				// 2D context
+				var particleList = [];	// 放入建立好的顆粒的陣列
+				var mx = null;			// 滑鼠的X座標
+				var my = null;			// 滑鼠的Y座標
+				var canvas;				// 畫布
+
+			//原型鏈物件
+				//創造定義 (初始參數)
+				var Particle = function () {
+					this.x = mx;
+					this.y = my; //位置
+					this.r = 25; 
+					this.vx = Math.random() * 12 - 6;
+					this.vy = Math.random() * (-12) - 6; //位移
+				};
+				//屬性方法 (位移刪除、繪製)
+				Particle.prototype = {
+					update: function () {
+						this.vy += 0.4;
+						this.x += this.vx;
+						this.y += this.vy; //位置位移
+						this.x = Math.round(this.x);
+						this.y = Math.round(this.y);
+						this.r -= 0.1; 
+						if(
+						(this.y<this.r && this.vy<0)||
+						(this.y>canvas.height-this.r && this.vy>0)
+						){
+							this.vy *= -1;
+						}
+						if(
+						(this.x<this.r && this.vx<0)|| 
+						(this.x>canvas.width-this.r && this.vx>0) 
+						){
+							this.vx *= -1;
+						}
+						if(this.r<2){
+							this.isRemove = true;
+						}
+					},
+					draw: function () {
+						ctx.beginPath();
+						ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+						ctx.fillStyle = "#FFFFFF";
+						ctx.fill(); //畫出圖形
+					}
+				};
+
+			//迴圈陣列繪製物件
+				var stateParticle = function () {
+					ctx.fillStyle = "#000000";
+					ctx.fillRect(0, 0, innerWidth, innerHeight); //先畫背景蓋過全部
+
+					for (key in particleList) {
+						particleList[key].update();
+						particleList[key].draw();
+						if (particleList[key].isRemove) {
+							delete particleList[key];
+						} //更新 繪製 刪除
+					}
+				};
+
+			//事件迴圈區
+				//事件創造物件存入陣列
+				function addPoint(event){
+					mx = event.offsetX;
+					my = event.offsetY;
+					var p = new Particle();
+					particleList.push(p);
+				}
+				//呼叫繪製迴圈
+				var loop = function () {
+					stateParticle();
+					requestAnimationFrame(loop);
+				};
+
+			//物件事件
+				var ctx = canvas.getContext("2d"); //重要：定義canvas的2d繪製物件
+			    canvas.onclick = addPoint;
+				loop();
+
+
 
 		//滑動動畫讀取完成
 		$("#loadingBg").text("讀取完成");

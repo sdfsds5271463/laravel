@@ -120,6 +120,13 @@ var copyToDraw; //拷貝繼續創作按鈕
                                         lastStateTime = value.time; //最後顯示時間
                                     };
                                     if (lastStateTime){ //更新最新顯示時間
+                                        if($("#chatStateTime").val() < 1){ //初始化，移除LOADING
+                                            $("#ajaxBoardMaster").fadeIn(1000);
+                                            setTimeout(function(){
+                                                $("#ajaxBoardMaster").css("display","");
+                                            },1000);
+                                            $("#ajaxBoardLoading").css("display","none");
+                                        }
                                         $("#chatStateTime").val(lastStateTime);
                                     };
                                     chatStateBar[0].innerHTML += stateValue; //進行顯示

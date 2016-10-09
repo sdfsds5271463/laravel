@@ -5,7 +5,8 @@
 
 <h1>AJAX塗鴉聊天室</h1>
 	<p>此聊天室大致上可以分為三個部分，AJAX請求顯示資源、AJAX發送文字或dataURL編碼資源至模組、Canvas繪圖板。顯示請求由於需要定時發送，因此內容僅有時間旗標(最小化請求封包)，用以比對並取得伺服器最新資訊版本；文字與dataURL送出請求至模組時，可能會因為連線問題而丟失封包，需要設計失敗時重新請求功能；Canvas繪圖功能則是Javascript的基本應用。</p>
-	<div style="position:relative;">
+	<center id="ajaxBoardLoading"><img src='public/images/loading.gif'>Loading...</center>
+	<div id="ajaxBoardMaster" style="position:relative;display:none;">
 		<div id="onlineSpeakerBoard">
 			<div id="SpeakerAmountBoard">
 				<a href="#hideShow"><span id="AmountBoardHideWord">隱藏</span>在線人員</a>
