@@ -70,16 +70,16 @@
 							<!--DHTML LOGO-->
 							<center>
 								<span style=" position:relative; text-align:center;"
-									data-800 = "opacity:0; top:100px;"
-									data-1000 = "opacity:1; top:0px;"
+									data-800 = "opacity:0; top:100px; right:50px;"
+									data-1000 = "opacity:1; top:0px; right:0px;"
 								><img src="public/images/hat/htmlLogo.png" style="margin:0px 50px -150px;"></span>
 								<span style=" position:relative; text-align:center;"
 									data-900 = "opacity:0; top:100px;"
 									data-1100 = "opacity:1; top:0px;"
 								><img src="public/images/hat/cssLogo.png" style="margin:0px 50px -150px;"></span>
 								<span style=" position:relative; text-align:center;"
-									data-1000 = "opacity:0; top:100px;"
-									data-1200 = "opacity:1; top:0px;"
+									data-1000 = "opacity:0; top:100px; left:50px;"
+									data-1200 = "opacity:1; top:0px; left:0px;"
 								><img src="public/images/hat/jsLogo.png" style="margin:0px 50px -150px;"></span>
 							</center>
 						</div>
@@ -113,13 +113,13 @@
 							進站中...<br><span class="glyphicon glyphicon-arrow-down" style="font-size:50px;"></span>
 						</div>
 
-						<!--背景飄物件-->
+						<!--背景飄物件
 						<div class="slideContentDiv blackFontCase" style="z-index:111; top:0px;">
 							<img src="public/images/hat/12sr.png" 	style="position:absolute; right:0px; 	width:calc(50% + 150px); top:800px;">
 							<img src="public/images/hat/0.png" 		style="position:absolute; left:0px; 	width:calc(50% + 150px); top:1500px;">
 							<img src="public/images/hat/0.png" 		style="position:absolute; right:0px; 	width:calc(50% + 150px); top:2500px;">
 							<img src="public/images/hat/13sl.png" 	style="position:absolute; left:0px; 	width:calc(40% + 150px); top:3200px;">
-						</div>
+						</div>-->
 					</div>
 
 				<!--背景區-->
@@ -130,8 +130,14 @@
 					<img id="bg3img" src="public/images/hat/3.jpg" style="position:absolute; z-index: 26">
 					<img id="bg2img" src="public/images/hat/2.png" style="position:absolute; z-index: 27">
 					<!--圖片 前景建築-->
-					<img id="bg1nimg" src="public/images/hat/1n.png" style="position:absolute; z-index: 28">
+					<img id="bg1gimg" src="public/images/hat/15g.png" style="position:absolute; z-index: 28">
+					<img id="bg1rimg" src="public/images/hat/11r.png" style="position:absolute; z-index: 29">
+					<img id="bg1limg" src="public/images/hat/10l.png" style="position:absolute; z-index: 30">
 					<!--圖片 塵土與樹木-->
+					<img id="bg0img" src="public/images/hat/0.png" style="position:absolute; z-index: 77">
+					<img id="bg1slimg" src="public/images/hat/13sl.png" style="position:absolute; z-index: 78">
+					<img id="bg1srimg" src="public/images/hat/12sr.png" style="position:absolute; z-index: 79">
+					<img id="bg02img" src="public/images/hat/0.png" style="position:absolute; z-index: 80">
 				</div>
 		</div>
 	</div>

@@ -61,8 +61,22 @@
 				var bg2img = document.getElementById('bg2img');
 				fullBgSlide(bg2img,"left",1);
 				//前端建築
-				var bg1nimg = document.getElementById('bg1nimg');
-				fullBgSlide(bg1nimg,"left",1);
+				var bg1rimg = document.getElementById('bg1rimg');
+				fullBgSlide(bg1rimg,"right",1);
+				var bg1limg = document.getElementById('bg1limg');
+				fullBgSlide(bg1limg,"left",1);
+				var bg1gimg = document.getElementById('bg1gimg');
+				fullBgSlide(bg1gimg,"bottom",1);
+				//前端樹木
+				var bg1slimg = document.getElementById('bg1slimg');
+				fullBgSlide(bg1slimg,"left",-7);
+				var bg1srimg = document.getElementById('bg1srimg');
+				fullBgSlide(bg1srimg,"right",-1);
+				//塵土飛揚
+				var bg0img = document.getElementById('bg0img');
+				fullBgSlide(bg0img,"left",-0.5);
+				var bg02img = document.getElementById('bg02img');
+				fullBgSlide(bg02img,"right",-4);
 
 			//圖面物件放置函數
 			function fullBgSlide(Obj,align,slideX){
