@@ -268,6 +268,7 @@
 				var mx = null;			// 滑鼠的X座標
 				var my = null;			// 滑鼠的Y座標
 				var canvas;				// 畫布
+				var ctx = canvas.getContext("2d"); //重要：定義canvas的2d繪製物件
 
 			//原型鏈物件
 				//創造定義 (初始參數)
@@ -275,6 +276,7 @@
 					this.x = mx;
 					this.y = my; //位置
 					this.r = 25; 
+					this.a = 1;
 					this.vx = Math.random() * 12 - 6;
 					this.vy = Math.random() * (-12) - 6; //位移
 				};
@@ -287,6 +289,7 @@
 						this.x = Math.round(this.x);
 						this.y = Math.round(this.y);
 						this.r -= 0.1; 
+						this.a -= 0.004;
 						if(
 						(this.y<this.r && this.vy<0)||
 						(this.y>canvas.height-this.r && this.vy>0)
@@ -304,9 +307,12 @@
 						}
 					},
 					draw: function () {
+						ctx.shadowBlur=40; //隱影羽化
+						ctx.shadowColor="#AAAAFF";
+						
 						ctx.beginPath();
 						ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
-						ctx.fillStyle = "#FFFFFF";
+						ctx.fillStyle = "rgba(255,255,255,"+this.a+")";
 						ctx.fill(); //畫出圖形
 					}
 				};
@@ -340,7 +346,6 @@
 				};
 
 			//物件事件
-				var ctx = canvas.getContext("2d"); //重要：定義canvas的2d繪製物件
 			    canvas.onclick = addPoint;
 				loop();
 
