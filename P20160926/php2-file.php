@@ -8,6 +8,7 @@
         //file_exists(存在？); //可判斷目錄
         //filesize(檔名); //取得大小
         //dirname(檔案路徑); //取得檔案目錄
+        //basename(檔案路徑); //取得最外層路徑 (考慮到get)
         //'.'當前目錄   '..'上層目錄
         //mkdir(目錄路徑); //創造目錄
     
@@ -78,5 +79,12 @@
         //move_uploaded_file($_FILES["UpFile"]["tmp_name"],"D:/test.txt");
         */
 
-
+/*---L3.其他檔案相關---*/
+    /*3.1 圖片相關*/
+        //$img = getimagesize("圖片網址");   
+            // 取回一個圖片資訊陣列
+            // $img[0] 圖像的寬度   
+            // $img[1] 圖像的高度   
+            // $img[2] 圖像的格式，包括jpg、gif和png等   
+            // $img[3] 圖像的寬度和高度，內容
 ?>

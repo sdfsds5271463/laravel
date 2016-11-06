@@ -67,7 +67,7 @@
                     //$.post('URL',formData,function(data){/*回傳表頭PHP與全部html內容*/}
                     $.post('',formData,function(data){
                         data = JSON.parse(data); //取回JSON格式資料
-                        console.log(data);
+                        //console.log(data);
                     });
                     
                  /*L6.jQuery ajax的post方法*/
