@@ -1,5 +1,5 @@
 //參數們
-	//物件定義
+    //物件定義
 	var whiteFog;	//主要底色物件
 	var canvas; //DEMO CANVAS
 

@@ -69,7 +69,7 @@
 	        <div class="navbar navbar-default">
 	            <div class="navbar-header">
 	                <span class="navbar-brand">
-	                	<a href="/">
+	                	<a href="{{ url('/') }}">
 		                	<span><img src="public/images/logo.png" width="20px"></span>
 		                	<b>粉碎領域</b> <span class="smallWord">PHP程式學習空間</span>
 		                </a>

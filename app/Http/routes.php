@@ -12,8 +12,13 @@
 */
 
 Route::match(['get','post'],'/','index@index'); //首頁
+/*Route::match(['get','post'],'/', function () {	//把聊天室當首頁好了...
+echo <<<EOT
+<meta http-equiv="refresh" content="0; url=ajaxChatRoom">
+EOT;
+});*/
 
-//Route::match(['get','post'],'teach','teach@index');
+Route::match(['get','post'],'teach','teach@index');
 Route::match(['get','post'],'ajaxChatRoom','ajaxChatRoom@index');
 Route::match(['get','post'],'weather','weather@index');
 Route::match(['get','post'],'box2d','box2d@index');
@@ -24,7 +29,7 @@ Route::match(['get','post'],'axis3Data','axis3@data');
 
 
 //測式頁面
-//Route::match(['get','post'],'test','test@index');
+Route::match(['get','post'],'test','test@index');
 Route::get('frame', function () {
     return view('frame');
 });
