@@ -7,6 +7,7 @@
         //ob_flush(); //輸出緩衝
         //ob_end_clean(); //清除緩衝+中止
         //ob_end_flush(); //輸出緩衝+中止
+        //ob_get_contents(); //回傳內容物
         
     /*1.2 header設定：頁面編碼或轉址 (為html meta功能)*/
         header('content-type: text/html; charset:utf-8'); //編碼
